@@ -1,0 +1,286 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures=["referentialIntegrity"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+  
+}
+
+
+
+model CoddinkUser{
+  id Int @id @default(autoincrement())
+  email String? @unique
+  name String
+  password String
+  avatar String?
+  job String?
+  company String?
+  country String?
+  city String?
+  URL String?
+  Facebook String?
+  Youtube String?
+  Github String?
+  Twitter String?
+  Instagram String?
+  LinkedIn String?
+  Twitch String?
+  Dribble String?
+  introduce String? @db.MediumText
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  bannerSrc String?
+  bannerPosition String?
+  view CoddinkProjectView[]
+  portfolio CoddinkProject[]
+  like CoddinkLike[]
+  comments CoddinkComment[]
+  followers CoddinkFollow[] @relation(name:"followerUser") 
+  followings CoddinkFollow[] @relation(name:"followingUser")
+  // moodboards CoddinkMoodboard[]
+  streams CoddinkStream[]
+  messages CoddinkMessage[]
+  jointOwner CoddinkProjectOwner[]
+}
+
+model CoddinkProject{
+  id Int @id @default(autoincrement())
+  user CoddinkUser @relation(fields: [userId],references: [id],onDelete: Cascade)
+  userId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title String
+  tags CoddinkProjectTag[]
+  tools CoddinkProjectTool[]
+  category CoddinkProjectCategory[]
+  visible Boolean
+  description String @db.MediumText
+  thumbnail String
+  linkURL String @default("")
+  owner CoddinkProjectOwner[]
+  like CoddinkLike[]
+  view CoddinkProjectView[]
+  comments CoddinkComment[]
+  // moodboard CoddinkMoodboard? @relation(fields: [moodboardId],references: [id],onDelete: Cascade)
+  // moodboardId Int? @default(1)
+  contents CoddinkProjectContent[]
+  isDraft Boolean @default(false)
+  @@index([userId])
+}
+
+model CoddinkLike{
+  id Int @id @default(autoincrement())
+  user CoddinkUser @relation(fields: [userId],references: [id],onDelete: Cascade)
+  userId Int
+  project CoddinkProject @relation(fields: [projectId],references: [id],onDelete: Cascade)
+  projectId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([userId])
+  @@index([projectId])
+}
+
+model CoddinkComment{
+  id Int @id @default(autoincrement())
+  user CoddinkUser @relation(fields: [userId],references: [id],onDelete: Cascade)
+  userId Int
+  project CoddinkProject @relation(fields: [projectId],references: [id],onDelete: Cascade)
+  projectId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  comment String @db.MediumText
+  @@index([userId])
+  @@index([projectId])
+}
+
+model CoddinkFollow{
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  follower CoddinkUser @relation(name:"followerUser",fields: [followerId],references: [id],onDelete: Cascade)
+  followerId Int
+  following CoddinkUser @relation(name:"followingUser",fields: [followingId],references: [id],onDelete: Cascade)
+  followingId Int
+  @@index([followerId])
+  @@index([followingId])
+}
+
+model CoddinkStream{
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title String
+  description String
+  user CoddinkUser @relation(fields: [userId],references: [id],onDelete: Cascade)
+  userId Int
+  tools String?
+  messages CoddinkMessage[]
+  cloudflareId String
+  cloudflareUrl String
+  cloudflareKey String
+  @@index([userId])
+}
+
+model CoddinkMessage{
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user CoddinkUser @relation(fields: [userId],references: [id],onDelete: Cascade)
+  userId Int
+  message String @db.MediumText
+  stream CoddinkStream @relation(fields: [streamId],references: [id],onDelete: Cascade)
+  streamId Int
+  @@index([userId])
+  @@index([streamId])
+  
+}
+
+
+
+
+// model CoddinkMoodboard{
+//   id Int @id @default(autoincrement())
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   title String
+//   user CoddinkUser @relation(fields: [userId],references: [id],onDelete: Cascade)
+//   userId Int
+//   projects CoddinkProject[]
+//   @@index([userId])
+// }
+
+
+model CoddinkProjectContent{
+  id Int @id @default(autoincrement())
+  project CoddinkProject @relation(fields: [projectId],references: [id],onDelete: Cascade)
+  projectId Int
+  kind contentKind
+  contentIdx Int
+  description String @db.MediumText() @default("")
+  content String? @db.LongText
+  imageSrc String?
+  fontSize String?
+  alignText String?
+  language String?
+  @@index([projectId])
+}
+
+model CoddinkProjectTag{
+  id Int @id @default(autoincrement())
+  project CoddinkProject @relation(fields: [projectId],references: [id],onDelete: Cascade)
+  projectId Int
+  name String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([projectId])
+}
+
+model CoddinkProjectTool{
+  id Int @id @default(autoincrement())
+  project CoddinkProject @relation(fields: [projectId],references: [id],onDelete: Cascade)
+  projectId Int
+  name String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([projectId])
+}
+
+model CoddinkProjectCategory{
+  id Int @id @default(autoincrement())
+  project CoddinkProject @relation(fields: [projectId],references: [id],onDelete: Cascade)
+  projectId Int
+  name String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([projectId])
+}
+
+model CoddinkProjectOwner{
+  id Int @id @default(autoincrement())
+  project CoddinkProject @relation(fields: [projectId],references: [id],onDelete: Cascade)
+  projectId Int
+  name String
+  user CoddinkUser @relation(fields: [userId],references: [id],onDelete: Cascade)
+  userId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ownerIdx Int
+  @@index([projectId])
+}
+
+model CoddinkProjectView{
+  id Int @id @default(autoincrement())
+  project CoddinkProject @relation(fields: [projectId],references: [id],onDelete: Cascade)
+  projectId Int
+  user CoddinkUser @relation(fields: [userId],references: [id],onDelete: Cascade)
+  userId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([projectId])
+  @@index([userId])
+}
+
+
+
+enum contentKind{
+  text
+  image
+  code
+}
+
+enum Kind{
+  Work
+  Moodboard
+  Like
+}
+
+model TutorUser {
+  id        Int      @id @default(autoincrement())
+  nickname  String   @unique
+  email     String   @unique
+  password  String
+  phone     String      @unique
+  avatar    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  classes TutorClass[]
+}
+
+model TutorToken {
+  id        Int      @id @default(autoincrement())
+  payload   String    
+  phone String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TutorClass{
+  id        Int      @id @default(autoincrement())
+  user TutorUser @relation(fields: [userId],references: [id],onDelete: Cascade)
+  userId Int
+  image String
+  name String
+  price Int
+  tag1 String
+  tag2 String
+  tag3 String
+  summary String @db.MediumText
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model HobbyEmail{
+  id        Int      @id @default(autoincrement())
+  email String
+  phone String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
