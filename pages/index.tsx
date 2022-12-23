@@ -7,7 +7,8 @@ import Retirement from '@libs/Retirement';
 import { CONSTANT } from '@libs/constant';
 interface FormProps {
   target: string;
-  age: number;
+  curAge: number;
+  retireAge: number;
 }
 
 export default function Index() {
@@ -16,15 +17,14 @@ export default function Index() {
     handleSubmit,
     setError,
     setValue,
+    watch,
     clearErrors,
     formState: { errors },
   } = useForm<FormProps>();
   const [target, setTarget] = useState<string>('');
   const [isCalculate, setIsCalculate] = useState(false);
 
-  const onCalculateClick = () => {
-    setIsCalculate((prev) => !prev);
-  };
+  const curAgeValue = watch('curAge');
 
   const onTargetClick = (content: string) => {
     setTarget(content);
@@ -38,8 +38,9 @@ export default function Index() {
       });
       return;
     }
+    setIsCalculate((prev) => !prev);
 
-    const retirement = new Retirement(value.target, value.age);
+    const retirement = new Retirement(value.target, value.curAge);
     retirement;
     console.log(retirement.play());
   };
@@ -64,62 +65,89 @@ export default function Index() {
           내 은퇴 자금을 알아보자
         </div>
 
-        {!isCalculate && (
-          <>
-            <div className="mb-12 text-xl font-semibold">
-              당신은 개인인가요 부부인가요?
+        <div className={cls(isCalculate ? 'hidden' : '')}>
+          <div className="mb-12 text-xl font-semibold">
+            당신은 개인인가요 부부인가요?
+          </div>
+          <div className="flex justify-between">
+            <div
+              onClick={() => onTargetClick(CONSTANT.alone)}
+              className={cls(
+                target === CONSTANT.alone ? 'ring-2' : '',
+                'rounded-md border bg-orange-200 p-6 text-lg '
+              )}
+            >
+              개인
             </div>
-            <div className="flex justify-between">
-              <div
-                onClick={() => onTargetClick(CONSTANT.alone)}
-                className={cls(
-                  target === CONSTANT.alone ? 'ring-2' : '',
-                  'rounded-md border bg-orange-200 p-6 text-lg '
-                )}
-              >
-                개인
-              </div>
-              <div
-                onClick={() => onTargetClick(CONSTANT.couple)}
-                className={cls(
-                  target === CONSTANT.couple ? 'ring-2' : '',
-                  'rounded-md border bg-orange-200 p-6 text-lg '
-                )}
-              >
-                부부
-              </div>
+            <div
+              onClick={() => onTargetClick(CONSTANT.couple)}
+              className={cls(
+                target === CONSTANT.couple ? 'ring-2' : '',
+                'rounded-md border bg-orange-200 p-6 text-lg '
+              )}
+            >
+              부부
             </div>
+          </div>
+          <div className="my-5 text-lg  text-red-500">
+            {errors.target && `[ERROR] ${errors.target.message}`}
+          </div>
+
+          <form
+            onSubmit={handleSubmit(onValid)}
+            className="w-full items-center justify-center"
+          >
+            <div className="mt-12 mb-12 text-xl font-semibold">
+              현재의 나이를 적어주세요
+            </div>
+            <input
+              type="number"
+              min={1}
+              max={99}
+              required
+              {...register('curAge', {
+                required: {
+                  value: true,
+                  message: '현재의 나이를 입력해주세요.',
+                },
+              })}
+              placeholder="나이를 적어주세요"
+              className="w-full border p-3 focus:outline-none focus:ring-2"
+            />
             <div className="my-5 text-lg  text-red-500">
-              {errors.target && `[ERROR] ${errors.target.message}`}
+              {errors.curAge && `[ERROR] ${errors.curAge.message}`}
             </div>
             <div className="mt-12 mb-12 text-xl font-semibold">
               은퇴할 나이를 적어주세요
             </div>
-            <form
-              onSubmit={handleSubmit(onValid)}
-              className="w-full items-center justify-center"
-            >
-              <input
-                type="number"
-                min={1}
-                max={99}
-                required
-                {...register('age', { required: true })}
-                placeholder="나이를 적어주세요"
-                className="w-full border p-3 focus:outline-none focus:ring-2"
-              />
-              <div className="my-5 text-lg  text-red-500">
-                {errors.age && `[ERROR] ${errors.age.message}`}
-              </div>
-              <button
-                onClick={() => onCalculateClick()}
-                className="mt-12 flex w-full items-center justify-center rounded-md border-2 p-2 "
-              >
-                계산하러 가기
-              </button>
-            </form>
-          </>
-        )}
+            <input
+              type="number"
+              min={curAgeValue}
+              max={99}
+              required
+              {...register('retireAge', {
+                required: {
+                  value: true,
+                  message: '은퇴할 나이를 입력해주세요.',
+                },
+                min: {
+                  value: curAgeValue,
+                  message: '현재 나이 이상으로 입력해야 합니다.',
+                },
+              })}
+              placeholder="나이를 적어주세요"
+              className="w-full border p-3 focus:outline-none focus:ring-2"
+            />
+            <div className="my-5 text-lg  text-red-500">
+              {errors.retireAge && `[ERROR] ${errors.retireAge.message}`}
+            </div>
+
+            <button className="mt-12 flex w-full items-center justify-center rounded-md border-2 p-2 ">
+              계산하러 가기
+            </button>
+          </form>
+        </div>
+
         <div className="mt-36 flex items-center justify-center text-lg">
           <LoadingSpinner></LoadingSpinner>
           계산중입니다.
