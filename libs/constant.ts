@@ -1,6 +1,7 @@
 const CONSTANT = Object.freeze({
   alone: 'ALONE',
   couple: 'COUPLE',
+  lifeAge: 100,
 });
 
 const ALONE_COST = Object.freeze({
@@ -29,4 +30,4 @@ const COUPLE_COST = Object.freeze({
   },
 });
 
-export default CONSTANT;
+export { CONSTANT, ALONE_COST, COUPLE_COST };

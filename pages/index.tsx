@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-import CONSTANT from '@libs/constant';
 import { cls } from '@libs/utils';
 import { useForm } from 'react-hook-form';
 import LoadingSpinner from '@components/LodingSpinner';
 import Retirement from '@libs/Retirement';
+import { CONSTANT } from '@libs/constant';
 interface FormProps {
   target: string;
   age: number;
@@ -23,7 +23,7 @@ export default function Index() {
   const [isCalculate, setIsCalculate] = useState(false);
 
   const onCalculateClick = () => {
-    setIsCalculate(prev => !prev);
+    setIsCalculate((prev) => !prev);
   };
 
   const onTargetClick = (content: string) => {
@@ -41,7 +41,7 @@ export default function Index() {
 
     const retirement = new Retirement(value.target, value.age);
     retirement;
-    console.log(value);
+    console.log(retirement.play());
   };
 
   useEffect(() => {
@@ -75,7 +75,8 @@ export default function Index() {
                 className={cls(
                   target === CONSTANT.alone ? 'ring-2' : '',
                   'rounded-md border bg-orange-200 p-6 text-lg '
-                )}>
+                )}
+              >
                 개인
               </div>
               <div
@@ -83,7 +84,8 @@ export default function Index() {
                 className={cls(
                   target === CONSTANT.couple ? 'ring-2' : '',
                   'rounded-md border bg-orange-200 p-6 text-lg '
-                )}>
+                )}
+              >
                 부부
               </div>
             </div>
@@ -95,7 +97,8 @@ export default function Index() {
             </div>
             <form
               onSubmit={handleSubmit(onValid)}
-              className="w-full items-center justify-center">
+              className="w-full items-center justify-center"
+            >
               <input
                 type="number"
                 min={1}
@@ -110,7 +113,8 @@ export default function Index() {
               </div>
               <button
                 onClick={() => onCalculateClick()}
-                className="mt-12 flex w-full items-center justify-center rounded-md border-2 p-2 ">
+                className="mt-12 flex w-full items-center justify-center rounded-md border-2 p-2 "
+              >
                 계산하러 가기
               </button>
             </form>
