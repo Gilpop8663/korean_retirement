@@ -2,6 +2,7 @@ const CONSTANT = Object.freeze({
   alone: 'ALONE',
   couple: 'COUPLE',
   lifeAge: 100,
+  monthsYear: 12,
 });
 
 const ALONE_COST = Object.freeze({

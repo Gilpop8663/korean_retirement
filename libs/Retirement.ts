@@ -1,27 +1,51 @@
-import { ALONE_COST, CONSTANT } from './constant';
+import { ALONE_COST, CONSTANT, COUPLE_COST } from './constant';
 
 class Retirement {
   #target;
 
   #remainingAge;
 
-  #curYear;
+  #multiplyNumber;
 
-  constructor(target: string, curAge: number, retireAge: number) {
+  constructor(target: string, age: number) {
     this.#target = target;
-    this.#remainingAge = CONSTANT.lifeAge - retireAge;
-    this.#curYear = new Date().getFullYear();
+    this.#remainingAge = CONSTANT.lifeAge - age;
+    this.#multiplyNumber = this.#remainingAge * CONSTANT.monthsYear;
   }
 
-  play() {
-    console.log(this.#curYear);
-  }
+  play() {}
 
   getMinimumCost() {
     if (this.#target === CONSTANT.alone) {
-      ALONE_COST.minimum.seoulMonth * 12 * this.#remainingAge;
+      const minimum = {
+        seoulCost: ALONE_COST.minimum.seoulMonth * this.#multiplyNumber,
+        metropolitanCost:
+          ALONE_COST.minimum.metropolitanMonth * this.#multiplyNumber,
+        doCost: ALONE_COST.minimum.doMonth * this.#multiplyNumber,
+      };
+      const proper = {
+        seoulCost: ALONE_COST.proper.seoulMonth * this.#multiplyNumber,
+        metropolitanCost:
+          ALONE_COST.proper.metropolitanMonth * this.#multiplyNumber,
+        doCost: ALONE_COST.proper.doMonth * this.#multiplyNumber,
+      };
+
+      return { minimum, proper };
     }
-    return { seoul: 12, metropolitan: 1, do: 1 };
+    const minimum = {
+      seoulCost: COUPLE_COST.minimum.seoulMonth * this.#multiplyNumber,
+      metropolitanCost:
+        COUPLE_COST.minimum.metropolitanMonth * this.#multiplyNumber,
+      doCost: COUPLE_COST.minimum.doMonth * this.#multiplyNumber,
+    };
+    const proper = {
+      seoulCost: COUPLE_COST.proper.seoulMonth * this.#multiplyNumber,
+      metropolitanCost:
+        COUPLE_COST.proper.metropolitanMonth * this.#multiplyNumber,
+      doCost: COUPLE_COST.proper.doMonth * this.#multiplyNumber,
+    };
+
+    return { minimum, proper };
   }
 
   getProperCost() {}

@@ -7,8 +7,7 @@ import Retirement from '@libs/Retirement';
 import { CONSTANT } from '@libs/constant';
 interface FormProps {
   target: string;
-  curAge: number;
-  retireAge: number;
+  age: number;
 }
 
 export default function Index() {
@@ -24,8 +23,6 @@ export default function Index() {
   const [target, setTarget] = useState<string>('');
   const [isCalculate, setIsCalculate] = useState(false);
 
-  const curAgeValue = watch('curAge');
-
   const onTargetClick = (content: string) => {
     setTarget(content);
   };
@@ -40,9 +37,8 @@ export default function Index() {
     }
     setIsCalculate((prev) => !prev);
 
-    const retirement = new Retirement(value.target, value.curAge);
-    retirement;
-    console.log(retirement.play());
+    const retirement = new Retirement(value.target, value.age);
+    console.log(retirement.getMinimumCost());
   };
 
   useEffect(() => {
@@ -98,48 +94,32 @@ export default function Index() {
             className="w-full items-center justify-center"
           >
             <div className="mt-12 mb-12 text-xl font-semibold">
-              현재의 나이를 적어주세요
+              은퇴할 나이를 적어주세요
             </div>
             <input
               type="number"
               min={1}
               max={99}
               required
-              {...register('curAge', {
-                required: {
-                  value: true,
-                  message: '현재의 나이를 입력해주세요.',
-                },
-              })}
-              placeholder="나이를 적어주세요"
-              className="w-full border p-3 focus:outline-none focus:ring-2"
-            />
-            <div className="my-5 text-lg  text-red-500">
-              {errors.curAge && `[ERROR] ${errors.curAge.message}`}
-            </div>
-            <div className="mt-12 mb-12 text-xl font-semibold">
-              은퇴할 나이를 적어주세요
-            </div>
-            <input
-              type="number"
-              min={curAgeValue}
-              max={99}
-              required
-              {...register('retireAge', {
+              {...register('age', {
                 required: {
                   value: true,
                   message: '은퇴할 나이를 입력해주세요.',
                 },
                 min: {
-                  value: curAgeValue,
-                  message: '현재 나이 이상으로 입력해야 합니다.',
+                  value: 1,
+                  message: '1살 이상으로 입력해야 합니다.',
+                },
+                max: {
+                  value: 99,
+                  message: '99살 이하로 입력해야 합니다.',
                 },
               })}
               placeholder="나이를 적어주세요"
               className="w-full border p-3 focus:outline-none focus:ring-2"
             />
             <div className="my-5 text-lg  text-red-500">
-              {errors.retireAge && `[ERROR] ${errors.retireAge.message}`}
+              {errors.age && `[ERROR] ${errors.age.message}`}
             </div>
 
             <button className="mt-12 flex w-full items-center justify-center rounded-md border-2 p-2 ">
