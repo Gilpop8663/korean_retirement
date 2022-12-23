@@ -7,6 +7,26 @@ class Retirement {
 
   #curYear;
 
+  /*
+  최소 부부 기준
+  1차 : 8.29
+  2차 : 9.71
+  3차 : 7.63
+  4차 : 20.21
+  5차 : 8.03
+  6차 : 2.21
+  7차 : 13.07
+
+  최소 개인 기준
+    1차 : 8.29
+  2차 : 9.71
+  3차 : 7.63
+  4차 : 20.21
+  5차 : 8.03
+  6차 : 2.21
+  7차 : 13.07
+  */
+
   constructor(target: string, age: number) {
     this.#target = target;
     this.#remainingAge = CONSTANT.lifeAge - age;
