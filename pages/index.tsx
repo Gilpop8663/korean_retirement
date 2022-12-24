@@ -39,6 +39,7 @@ export default function Index() {
 
     const retirement = new Retirement(value.target, value.age);
     console.log(retirement.getMinimumCost());
+    console.log(retirement.getProperCost());
   };
 
   useEffect(() => {

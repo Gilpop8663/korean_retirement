@@ -7,10 +7,18 @@ class Retirement {
 
   #multiplyNumber;
 
+  #fommatter;
+
   constructor(target: string, age: number) {
     this.#target = target;
     this.#remainingAge = CONSTANT.lifeAge - age;
     this.#multiplyNumber = this.#remainingAge * CONSTANT.monthsYear;
+    this.#fommatter = new Intl.NumberFormat('ko', {
+      style: 'currency',
+      currency: 'krw',
+      compactDisplay: 'short',
+      notation: 'compact',
+    });
   }
 
   play() {}
@@ -18,37 +26,62 @@ class Retirement {
   getMinimumCost() {
     if (this.#target === CONSTANT.alone) {
       const minimum = {
-        seoulCost: ALONE_COST.minimum.seoulMonth * this.#multiplyNumber,
-        metropolitanCost:
-          ALONE_COST.minimum.metropolitanMonth * this.#multiplyNumber,
-        doCost: ALONE_COST.minimum.doMonth * this.#multiplyNumber,
-      };
-      const proper = {
-        seoulCost: ALONE_COST.proper.seoulMonth * this.#multiplyNumber,
-        metropolitanCost:
-          ALONE_COST.proper.metropolitanMonth * this.#multiplyNumber,
-        doCost: ALONE_COST.proper.doMonth * this.#multiplyNumber,
+        seoulCost: this.#fommatter.format(
+          ALONE_COST.minimum.seoulMonth * this.#multiplyNumber
+        ),
+        metropolitanCost: this.#fommatter.format(
+          ALONE_COST.minimum.metropolitanMonth * this.#multiplyNumber
+        ),
+        doCost: this.#fommatter.format(
+          ALONE_COST.minimum.doMonth * this.#multiplyNumber
+        ),
       };
 
-      return { minimum, proper };
+      return minimum;
     }
     const minimum = {
-      seoulCost: COUPLE_COST.minimum.seoulMonth * this.#multiplyNumber,
-      metropolitanCost:
-        COUPLE_COST.minimum.metropolitanMonth * this.#multiplyNumber,
-      doCost: COUPLE_COST.minimum.doMonth * this.#multiplyNumber,
-    };
-    const proper = {
-      seoulCost: COUPLE_COST.proper.seoulMonth * this.#multiplyNumber,
-      metropolitanCost:
-        COUPLE_COST.proper.metropolitanMonth * this.#multiplyNumber,
-      doCost: COUPLE_COST.proper.doMonth * this.#multiplyNumber,
+      seoulCost: this.#fommatter.format(
+        COUPLE_COST.minimum.seoulMonth * this.#multiplyNumber
+      ),
+      metropolitanCost: this.#fommatter.format(
+        COUPLE_COST.minimum.metropolitanMonth * this.#multiplyNumber
+      ),
+      doCost: this.#fommatter.format(
+        COUPLE_COST.minimum.doMonth * this.#multiplyNumber
+      ),
     };
 
-    return { minimum, proper };
+    return minimum;
   }
 
-  getProperCost() {}
+  getProperCost() {
+    if (this.#target === CONSTANT.alone) {
+      const proper = {
+        seoulCost: this.#fommatter.format(
+          ALONE_COST.proper.seoulMonth * this.#multiplyNumber
+        ),
+        metropolitanCost: this.#fommatter.format(
+          ALONE_COST.proper.metropolitanMonth * this.#multiplyNumber
+        ),
+        doCost: this.#fommatter.format(
+          ALONE_COST.proper.doMonth * this.#multiplyNumber
+        ),
+      };
+      return proper;
+    }
+    const proper = {
+      seoulCost: this.#fommatter.format(
+        COUPLE_COST.proper.seoulMonth * this.#multiplyNumber
+      ),
+      metropolitanCost: this.#fommatter.format(
+        COUPLE_COST.proper.metropolitanMonth * this.#multiplyNumber
+      ),
+      doCost: this.#fommatter.format(
+        COUPLE_COST.proper.doMonth * this.#multiplyNumber
+      ),
+    };
+    return proper;
+  }
 }
 
 const retirement = new Retirement(CONSTANT.alone, 27);
