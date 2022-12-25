@@ -154,8 +154,22 @@ export default function Index() {
         )}
         {isResult && (
           <div>
-            <div>최소 생활 노후자금</div>
-            <div>{result?.minimum.doCost}</div>
+            <div className="py-8">
+              <div>최소 노후 생활비</div>
+              <div className="flex flex-col">
+                <span>{`서울 : ${result?.minimum.seoulCost}`}</span>
+                <span>{`광역시 : ${result?.minimum.metropolitanCost}`}</span>
+                <span>{`도 : ${result?.minimum.doCost}`}</span>
+              </div>
+            </div>
+            <div className="py-8">
+              <div>적정 노후 생활비</div>
+              <div className="flex flex-col">
+                <span>{`서울 : ${result?.proper.seoulCost}`}</span>
+                <span>{`광역시 : ${result?.proper.metropolitanCost}`}</span>
+                <span>{`도 : ${result?.proper.doCost}`}</span>
+              </div>
+            </div>
           </div>
         )}
       </div>
