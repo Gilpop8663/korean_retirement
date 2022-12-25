@@ -171,8 +171,11 @@ export default function Index() {
               </div>
             </div>
 
-            <div className="cursor-pointer rounded-full bg-orange-50 p-8 hover:bg-orange-200">
+            <div className=" my-6 cursor-pointer rounded-full bg-orange-50 p-8 hover:bg-orange-200">
               공유하기
+            </div>
+            <div className=" my-6 cursor-pointer rounded-full bg-green-50 p-8 hover:bg-green-200">
+              다시 해보기
             </div>
           </div>
         )}
