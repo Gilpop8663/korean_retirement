@@ -170,6 +170,10 @@ export default function Index() {
                 <span>{`도 : ${result?.proper.doCost}`}</span>
               </div>
             </div>
+
+            <div className="cursor-pointer rounded-full bg-orange-50 p-8 hover:bg-orange-200">
+              공유하기
+            </div>
           </div>
         )}
       </div>
