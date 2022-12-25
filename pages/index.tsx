@@ -34,6 +34,7 @@ export default function Index() {
   } = useForm<FormProps>();
   const [target, setTarget] = useState<string>('');
   const [isCalculate, setIsCalculate] = useState(false);
+  const [isSurvey, setIsSurvey] = useState(false);
   const [result, setResult] = useState<ResultProps | null>(null);
   const [isResult, setIsResult] = useState(false);
   const router = useRouter();
@@ -50,15 +51,16 @@ export default function Index() {
       });
       return;
     }
-    setIsCalculate((prev) => !prev);
+    setIsSurvey((prev) => !prev);
+    // setIsCalculate((prev) => !prev);
 
-    const retirement = new Retirement(value.target, value.age);
-    setResult({
-      minimum: retirement.getMinimumCost(),
-      proper: retirement.getProperCost(),
-    });
-    router.replace('/', `/?target=${target}&age=${ageValue}`);
-    setIsResult((prev) => !prev);
+    // const retirement = new Retirement(value.target, value.age);
+    // setResult({
+    //   minimum: retirement.getMinimumCost(),
+    //   proper: retirement.getProperCost(),
+    // });
+    // router.replace('/', `/?target=${target}&age=${ageValue}`);
+    // setIsResult((prev) => !prev);
   };
 
   const onResetClick = () => {
@@ -123,7 +125,7 @@ export default function Index() {
           내 은퇴 자금을 알아보자
         </div>
 
-        <div className={cls(isCalculate ? 'hidden' : '')}>
+        <div className={cls(isSurvey ? 'hidden' : '')}>
           <div className="mb-12 text-xl font-semibold">
             당신은 개인인가요 부부인가요?
           </div>
@@ -189,6 +191,14 @@ export default function Index() {
             </button>
           </form>
         </div>
+
+        {isSurvey && (
+          <div>
+            <h1>나는 은퇴하고 해외여행을 가고 싶다.</h1>
+            <h2>나는 은퇴하고 해외여행을 가고 싶다.</h2>
+            <div></div>
+          </div>
+        )}
 
         {isCalculate && !isResult && (
           <div className="mt-36 flex items-center justify-center text-lg">

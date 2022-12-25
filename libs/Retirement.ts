@@ -30,50 +30,30 @@ class Retirement {
     return retirementCost / CONSTANT.interestRate;
   }
 
+  calculateCost(cost: number) {
+    return this.#fommatter.format(
+      Math.min(this.getInterestRateCost(cost), cost * this.#multiplyNumber)
+    );
+  }
+
   getMinimumCost() {
     if (this.#target === CONSTANT.alone) {
       const minimum = {
-        seoulCost: this.#fommatter.format(
-          Math.min(
-            this.getInterestRateCost(ALONE_COST.minimum.seoulMonth),
-            ALONE_COST.minimum.seoulMonth * this.#multiplyNumber
-          )
+        seoulCost: this.calculateCost(ALONE_COST.minimum.seoulMonth),
+        metropolitanCost: this.calculateCost(
+          ALONE_COST.minimum.metropolitanMonth
         ),
-        metropolitanCost: this.#fommatter.format(
-          Math.min(
-            this.getInterestRateCost(ALONE_COST.minimum.metropolitanMonth),
-            ALONE_COST.minimum.metropolitanMonth * this.#multiplyNumber
-          )
-        ),
-        doCost: this.#fommatter.format(
-          Math.min(
-            this.getInterestRateCost(ALONE_COST.minimum.doMonth),
-            ALONE_COST.minimum.doMonth * this.#multiplyNumber
-          )
-        ),
+        doCost: this.calculateCost(ALONE_COST.minimum.doMonth),
       };
 
       return minimum;
     }
     const minimum = {
-      seoulCost: this.#fommatter.format(
-        Math.min(
-          this.getInterestRateCost(COUPLE_COST.minimum.seoulMonth),
-          COUPLE_COST.minimum.seoulMonth * this.#multiplyNumber
-        )
+      seoulCost: this.calculateCost(COUPLE_COST.minimum.seoulMonth),
+      metropolitanCost: this.calculateCost(
+        COUPLE_COST.minimum.metropolitanMonth
       ),
-      metropolitanCost: this.#fommatter.format(
-        Math.min(
-          this.getInterestRateCost(COUPLE_COST.minimum.metropolitanMonth),
-          COUPLE_COST.minimum.metropolitanMonth * this.#multiplyNumber
-        )
-      ),
-      doCost: this.#fommatter.format(
-        Math.min(
-          this.getInterestRateCost(COUPLE_COST.minimum.doMonth),
-          COUPLE_COST.minimum.doMonth * this.#multiplyNumber
-        )
-      ),
+      doCost: this.calculateCost(COUPLE_COST.minimum.doMonth),
     };
 
     return minimum;
@@ -82,46 +62,20 @@ class Retirement {
   getProperCost() {
     if (this.#target === CONSTANT.alone) {
       const proper = {
-        seoulCost: this.#fommatter.format(
-          Math.min(
-            this.getInterestRateCost(ALONE_COST.proper.seoulMonth),
-            ALONE_COST.proper.seoulMonth * this.#multiplyNumber
-          )
+        seoulCost: this.calculateCost(ALONE_COST.proper.seoulMonth),
+        metropolitanCost: this.calculateCost(
+          ALONE_COST.proper.metropolitanMonth
         ),
-        metropolitanCost: this.#fommatter.format(
-          Math.min(
-            this.getInterestRateCost(ALONE_COST.proper.metropolitanMonth),
-            ALONE_COST.proper.metropolitanMonth * this.#multiplyNumber
-          )
-        ),
-        doCost: this.#fommatter.format(
-          Math.min(
-            this.getInterestRateCost(ALONE_COST.proper.doMonth),
-            ALONE_COST.proper.doMonth * this.#multiplyNumber
-          )
-        ),
+        doCost: this.calculateCost(ALONE_COST.proper.doMonth),
       };
       return proper;
     }
     const proper = {
-      seoulCost: this.#fommatter.format(
-        Math.min(
-          this.getInterestRateCost(COUPLE_COST.proper.seoulMonth),
-          COUPLE_COST.proper.seoulMonth * this.#multiplyNumber
-        )
+      seoulCost: this.calculateCost(COUPLE_COST.proper.seoulMonth),
+      metropolitanCost: this.calculateCost(
+        COUPLE_COST.proper.metropolitanMonth
       ),
-      metropolitanCost: this.#fommatter.format(
-        Math.min(
-          this.getInterestRateCost(COUPLE_COST.proper.metropolitanMonth),
-          COUPLE_COST.proper.metropolitanMonth * this.#multiplyNumber
-        )
-      ),
-      doCost: this.#fommatter.format(
-        Math.min(
-          this.getInterestRateCost(COUPLE_COST.proper.doMonth),
-          COUPLE_COST.proper.doMonth * this.#multiplyNumber
-        )
-      ),
+      doCost: this.calculateCost(COUPLE_COST.proper.doMonth),
     };
     return proper;
   }
