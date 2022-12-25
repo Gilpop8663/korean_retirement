@@ -3,6 +3,7 @@ const CONSTANT = Object.freeze({
   couple: 'COUPLE',
   lifeAge: 100,
   monthsYear: 12,
+  interestRate: 0.025,
 });
 
 const ALONE_COST = Object.freeze({
