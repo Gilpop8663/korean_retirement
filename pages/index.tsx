@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import LoadingSpinner from '@components/LodingSpinner';
 import Retirement from '@libs/Retirement';
 import { CONSTANT } from '@libs/constant';
+import { useRouter } from 'next/router';
 interface FormProps {
   target: string;
   age: number;
@@ -35,6 +36,7 @@ export default function Index() {
   const [isCalculate, setIsCalculate] = useState(false);
   const [result, setResult] = useState<ResultProps | null>(null);
   const [isResult, setIsResult] = useState(false);
+  const router = useRouter();
 
   const onTargetClick = (content: string) => {
     setTarget(content);
@@ -55,6 +57,7 @@ export default function Index() {
       minimum: retirement.getMinimumCost(),
       proper: retirement.getProperCost(),
     });
+    router.replace('/', `/?target=${target}&age=${ageValue}`);
     setIsResult((prev) => !prev);
   };
 
@@ -63,8 +66,43 @@ export default function Index() {
     setIsResult(false);
     setIsCalculate(false);
     setTarget('');
+    router.replace('/');
     reset();
   };
+
+  const ageValue = watch('age');
+
+  const onCopyAndShareClick = () => {
+    if (navigator.clipboard) {
+      navigator.clipboard
+        .writeText(window.location.href)
+        .then(() => {
+          alert('클립보드에 복사되었습니다.');
+        })
+        .catch(() => {
+          alert('복사를 다시 시도해주세요.');
+        });
+      return;
+    }
+    alert('복사를 지원하지 않는 브라우저입니다.');
+  };
+
+  useEffect(() => {
+    if (router.query.target && router.query.age) {
+      const query = router.query;
+      const queryTarget = query.target ? query.target.toString() : '';
+      const queryAge = Number(query.age);
+      setTarget(queryTarget);
+      setValue('age', queryAge);
+      setIsCalculate(true);
+      const retirement = new Retirement(queryTarget, queryAge);
+      setResult({
+        minimum: retirement.getMinimumCost(),
+        proper: retirement.getProperCost(),
+      });
+      setIsResult(true);
+    }
+  }, [router.query]);
 
   useEffect(() => {
     clearErrors('target');
@@ -160,6 +198,9 @@ export default function Index() {
         )}
         {isResult && (
           <div>
+            <h2>{`${
+              target === CONSTANT.alone ? '개인' : '부부'
+            } 의 경우 나이 ${ageValue} 살에 은퇴한다면`}</h2>
             <div className="py-8">
               <div>최소 노후 생활비</div>
               <div className="flex flex-col">
@@ -177,7 +218,10 @@ export default function Index() {
               </div>
             </div>
 
-            <div className=" my-6 cursor-pointer rounded-full bg-orange-50 p-8 hover:bg-orange-200">
+            <div
+              onClick={() => onCopyAndShareClick()}
+              className=" my-6 cursor-pointer rounded-full bg-orange-50 p-8 hover:bg-orange-200"
+            >
               공유하기
             </div>
             <div

@@ -10,6 +10,7 @@ class Retirement {
   #fommatter;
 
   constructor(target: string, age: number) {
+    console.log(target, age);
     this.#target = target;
     this.#remainingAge = CONSTANT.lifeAge - age;
     this.#multiplyNumber = this.#remainingAge * CONSTANT.monthsYear;
