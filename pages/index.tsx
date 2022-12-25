@@ -10,6 +10,16 @@ interface FormProps {
   age: number;
 }
 
+interface LocationProps {
+  seoulCost: string;
+  metropolitanCost: string;
+  doCost: string;
+}
+interface ResultProps {
+  minimum: LocationProps;
+  proper: LocationProps;
+}
+
 export default function Index() {
   const {
     register,
@@ -22,6 +32,8 @@ export default function Index() {
   } = useForm<FormProps>();
   const [target, setTarget] = useState<string>('');
   const [isCalculate, setIsCalculate] = useState(false);
+  const [result, setResult] = useState<ResultProps | null>(null);
+  const [isResult, setIsResult] = useState(false);
 
   const onTargetClick = (content: string) => {
     setTarget(content);
@@ -40,6 +52,11 @@ export default function Index() {
     const retirement = new Retirement(value.target, value.age);
     console.log(retirement.getMinimumCost());
     console.log(retirement.getProperCost());
+    setResult({
+      minimum: retirement.getMinimumCost(),
+      proper: retirement.getProperCost(),
+    });
+    setIsResult((prev) => !prev);
   };
 
   useEffect(() => {
@@ -129,10 +146,18 @@ export default function Index() {
           </form>
         </div>
 
-        <div className="mt-36 flex items-center justify-center text-lg">
-          <LoadingSpinner></LoadingSpinner>
-          계산중입니다.
-        </div>
+        {isCalculate && !isResult && (
+          <div className="mt-36 flex items-center justify-center text-lg">
+            <LoadingSpinner></LoadingSpinner>
+            계산중입니다.
+          </div>
+        )}
+        {isResult && (
+          <div>
+            <div>최소 생활 노후자금</div>
+            <div>{result?.minimum.doCost}</div>
+          </div>
+        )}
       </div>
     </div>
   );
