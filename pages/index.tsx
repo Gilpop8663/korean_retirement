@@ -27,6 +27,7 @@ export default function Index() {
     setError,
     setValue,
     watch,
+    reset,
     clearErrors,
     formState: { errors },
   } = useForm<FormProps>();
@@ -50,8 +51,6 @@ export default function Index() {
     setIsCalculate((prev) => !prev);
 
     const retirement = new Retirement(value.target, value.age);
-    console.log(retirement.getMinimumCost());
-    console.log(retirement.getProperCost());
     setResult({
       minimum: retirement.getMinimumCost(),
       proper: retirement.getProperCost(),
@@ -59,8 +58,15 @@ export default function Index() {
     setIsResult((prev) => !prev);
   };
 
+  const onResetClick = () => {
+    setResult(null);
+    setIsResult(false);
+    setIsCalculate(false);
+    setTarget('');
+    reset();
+  };
+
   useEffect(() => {
-    console.log(target);
     clearErrors('target');
     setValue('target', target);
   }, [target]);
@@ -174,7 +180,10 @@ export default function Index() {
             <div className=" my-6 cursor-pointer rounded-full bg-orange-50 p-8 hover:bg-orange-200">
               공유하기
             </div>
-            <div className=" my-6 cursor-pointer rounded-full bg-green-50 p-8 hover:bg-green-200">
+            <div
+              onClick={() => onResetClick()}
+              className=" my-6 cursor-pointer rounded-full bg-green-50 p-8 hover:bg-green-200"
+            >
               다시 해보기
             </div>
           </div>
