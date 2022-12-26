@@ -51,16 +51,16 @@ export default function Index() {
       });
       return;
     }
-    setIsSurvey((prev) => !prev);
-    // setIsCalculate((prev) => !prev);
+    // setIsSurvey((prev) => !prev);
+    setIsCalculate((prev) => !prev);
 
-    // const retirement = new Retirement(value.target, value.age);
-    // setResult({
-    //   minimum: retirement.getMinimumCost(),
-    //   proper: retirement.getProperCost(),
-    // });
-    // router.replace('/', `/?target=${target}&age=${ageValue}`);
-    // setIsResult((prev) => !prev);
+    const retirement = new Retirement(value.target, value.age);
+    setResult({
+      minimum: retirement.getMinimumCost(),
+      proper: retirement.getProperCost(),
+    });
+    router.replace('/', `/?target=${target}&age=${ageValue}`);
+    setIsResult((prev) => !prev);
   };
 
   const onResetClick = () => {
@@ -125,7 +125,7 @@ export default function Index() {
           내 은퇴 자금을 알아보자
         </div>
 
-        <div className={cls(isSurvey ? 'hidden' : '')}>
+        <div className={cls(isCalculate ? 'hidden' : '')}>
           <div className="mb-12 text-xl font-semibold">
             당신은 개인인가요 부부인가요?
           </div>
@@ -194,8 +194,13 @@ export default function Index() {
 
         {isSurvey && (
           <div>
-            <h1>나는 은퇴하고 해외여행을 가고 싶다.</h1>
-            <h2>나는 은퇴하고 해외여행을 가고 싶다.</h2>
+            <h1 className="mb-8 text-2xl">
+              오늘은 월급날 ! 오늘 어떤 하루를 보낼래요?
+            </h1>
+            <h2>이 월급으론 안되겠어 오늘은 공부다!</h2>
+            <h2>친구랑 약속잡고 가볍게 한잔</h2>
+            <h2>한달을 고생한 나에 대한 보상! 갖고 싶었던 물건 구입하기</h2>
+            <h2>월급날이 뭐 특별한가 얼른 집으로 돌아가야지</h2>
             <div></div>
           </div>
         )}
