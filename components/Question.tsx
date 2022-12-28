@@ -3,6 +3,7 @@ import React from 'react';
 
 interface QuestionProps {
   question: string;
+  imageSrc: string;
   answers: AnswerProps[];
   page: number;
   onCalculateScore: (score: number, isRich: boolean) => void;
@@ -15,6 +16,7 @@ interface AnswerProps {
 }
 
 export default function Question({
+  imageSrc,
   question,
   answers,
   page,
@@ -25,7 +27,7 @@ export default function Question({
       <div className="relative">
         <Image
           className="aspect-auto object-cover"
-          src="https://user-images.githubusercontent.com/80146176/209801852-816199db-6d59-463d-b1c9-4d74825f2384.png"
+          src={imageSrc}
           alt="questionImage"
           layout="fill"
         ></Image>

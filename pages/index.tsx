@@ -1,13 +1,11 @@
-import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { cls } from '@libs/utils';
 import { useForm } from 'react-hook-form';
-import LoadingSpinner from '@components/LodingSpinner';
 import Retirement from '@libs/Retirement';
 import { CONSTANT } from '@libs/constant';
 import { useRouter } from 'next/router';
 import Question from '@components/Question';
-import QUESTION_DATA from 'constant';
+import { ERROR_MESSAGE, QUESTION_DATA, SERVICE_MESSAGE } from 'constant';
 interface FormProps {
   target: string;
   age: number;
@@ -57,20 +55,11 @@ export default function Index() {
     if (value.target === '') {
       setError('target', {
         type: 'custom',
-        message: '개인 혹은 부부를 선택해주세요.',
+        message: ERROR_MESSAGE.requiredTarget,
       });
       return;
     }
     setIsSurvey((prev) => !prev);
-
-    setIsCalculate((prev) => !prev);
-    // const retirement = new Retirement(value.target, value.age);
-    // setResult({
-    //   minimum: retirement.getMinimumCost(),
-    //   proper: retirement.getProperCost(),
-    // });
-    // router.replace('/', `/?target=${target}&age=${ageValue}`);
-    // setIsResult((prev) => !prev);
   };
 
   const onResetClick = () => {
@@ -78,6 +67,10 @@ export default function Index() {
     setIsResult(false);
     setIsCalculate(false);
     setTarget('');
+    setIsSurvey(false);
+    setRichCount(0);
+    setScore(0);
+    setCurIndex(0);
     router.replace('/');
     reset();
   };
@@ -89,14 +82,14 @@ export default function Index() {
       navigator.clipboard
         .writeText(window.location.href)
         .then(() => {
-          alert('클립보드에 복사되었습니다.');
+          alert(SERVICE_MESSAGE.successCopy);
         })
         .catch(() => {
-          alert('복사를 다시 시도해주세요.');
+          alert(SERVICE_MESSAGE.retryCopy);
         });
       return;
     }
-    alert('복사를 지원하지 않는 브라우저입니다.');
+    alert(SERVICE_MESSAGE.notAbleCopy);
   };
 
   const onCalculateScore = (score: number, isRich: boolean) => {
@@ -105,6 +98,16 @@ export default function Index() {
     }
     setScore((prev) => prev + score);
     setCurIndex((prev) => prev + 1);
+    if (curIndex === 3) {
+      setIsCalculate((prev) => !prev);
+      const retirement = new Retirement(target, ageValue);
+      setResult({
+        minimum: retirement.getMinimumCost(),
+        proper: retirement.getProperCost(),
+      });
+      router.replace('/', `/?target=${target}&age=${ageValue}`);
+      setIsResult((prev) => !prev);
+    }
   };
 
   useEffect(() => {
@@ -172,7 +175,7 @@ export default function Index() {
               </div>
             </div>
             <div className="my-5 text-lg  text-red-500">
-              {errors.target && `[ERROR] ${errors.target.message}`}
+              {errors.target && `${errors.target.message}`}
             </div>
 
             <form
@@ -190,22 +193,22 @@ export default function Index() {
                 {...register('age', {
                   required: {
                     value: true,
-                    message: '은퇴할 나이를 입력해주세요.',
+                    message: ERROR_MESSAGE.requiredAge,
                   },
                   min: {
                     value: 1,
-                    message: '1살 이상으로 입력해야 합니다.',
+                    message: ERROR_MESSAGE.minAge,
                   },
                   max: {
                     value: 99,
-                    message: '99살 이하로 입력해야 합니다.',
+                    message: ERROR_MESSAGE.maxAge,
                   },
                 })}
                 placeholder="나이를 적어주세요"
                 className="w-full border p-3 focus:outline-none focus:ring-2"
               />
               <div className="my-5 text-lg  text-red-500">
-                {errors.age && `[ERROR] ${errors.age.message}`}
+                {errors.age && `${errors.age.message}`}
               </div>
 
               <button className="mt-12 flex w-full items-center justify-center rounded-md border-2 p-2 ">
@@ -264,6 +267,7 @@ export default function Index() {
               <Question
                 key={index}
                 question={element.question}
+                imageSrc={element.imageSrc}
                 answers={element.answers}
                 page={index + 1}
                 onCalculateScore={onCalculateScore}
