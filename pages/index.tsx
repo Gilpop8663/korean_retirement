@@ -7,6 +7,7 @@ import Retirement from '@libs/Retirement';
 import { CONSTANT } from '@libs/constant';
 import { useRouter } from 'next/router';
 import Question from '@components/Question';
+import QUESTION_DATA from 'constant';
 interface FormProps {
   target: string;
   age: number;
@@ -45,6 +46,7 @@ export default function Index() {
   const [isResult, setIsResult] = useState(false);
   const [score, setScore] = useState(0);
   const [richCount, setRichCount] = useState(0);
+  const [curIndex, setCurIndex] = useState(0);
   const router = useRouter();
 
   const onTargetClick = (content: string) => {
@@ -60,15 +62,15 @@ export default function Index() {
       return;
     }
     setIsSurvey((prev) => !prev);
-    setIsCalculate((prev) => !prev);
 
-    const retirement = new Retirement(value.target, value.age);
-    setResult({
-      minimum: retirement.getMinimumCost(),
-      proper: retirement.getProperCost(),
-    });
-    router.replace('/', `/?target=${target}&age=${ageValue}`);
-    setIsResult((prev) => !prev);
+    setIsCalculate((prev) => !prev);
+    // const retirement = new Retirement(value.target, value.age);
+    // setResult({
+    //   minimum: retirement.getMinimumCost(),
+    //   proper: retirement.getProperCost(),
+    // });
+    // router.replace('/', `/?target=${target}&age=${ageValue}`);
+    // setIsResult((prev) => !prev);
   };
 
   const onResetClick = () => {
@@ -98,10 +100,11 @@ export default function Index() {
   };
 
   const onCalculateScore = (score: number, isRich: boolean) => {
-    setScore((prev) => prev + score);
     if (isRich) {
       setRichCount((prev) => prev + 1);
     }
+    setScore((prev) => prev + score);
+    setCurIndex((prev) => prev + 1);
   };
 
   useEffect(() => {
@@ -141,90 +144,75 @@ export default function Index() {
           layout="fill"></Image>
       </div> */}
         <div>
-          {/* <div className="mb-12 text-center text-2xl font-bold">
-          내 은퇴 자금을 알아보자
-        </div>
-
-        <div className={cls(isCalculate ? 'hidden' : '')}>
-          <div className="mb-12 text-xl font-semibold">
-            당신은 개인인가요 부부인가요?
-          </div>
-          <div className="flex justify-between">
-            <div
-              onClick={() => onTargetClick(CONSTANT.alone)}
-              className={cls(
-                target === CONSTANT.alone ? 'ring-2' : '',
-                'rounded-md border bg-orange-200 p-6 text-lg '
-              )}
-            >
-              개인
+          <div className={cls(isSurvey || isResult ? 'hidden' : '')}>
+            <div className="mb-12 text-center text-2xl font-bold">
+              내 은퇴 자금을 알아보자
             </div>
-            <div
-              onClick={() => onTargetClick(CONSTANT.couple)}
-              className={cls(
-                target === CONSTANT.couple ? 'ring-2' : '',
-                'rounded-md border bg-orange-200 p-6 text-lg '
-              )}
-            >
-              부부
+            <div className="mb-12 text-xl font-semibold">
+              당신은 개인인가요 부부인가요?
             </div>
-          </div>
-          <div className="my-5 text-lg  text-red-500">
-            {errors.target && `[ERROR] ${errors.target.message}`}
-          </div>
-
-          <form
-            onSubmit={handleSubmit(onValid)}
-            className="w-full items-center justify-center"
-          >
-            <div className="mt-12 mb-12 text-xl font-semibold">
-              은퇴할 나이를 적어주세요
+            <div className="flex justify-between">
+              <div
+                onClick={() => onTargetClick(CONSTANT.alone)}
+                className={cls(
+                  target === CONSTANT.alone ? 'ring-2' : '',
+                  'rounded-md border bg-orange-200 p-6 text-lg '
+                )}
+              >
+                개인
+              </div>
+              <div
+                onClick={() => onTargetClick(CONSTANT.couple)}
+                className={cls(
+                  target === CONSTANT.couple ? 'ring-2' : '',
+                  'rounded-md border bg-orange-200 p-6 text-lg '
+                )}
+              >
+                부부
+              </div>
             </div>
-            <input
-              type="number"
-              min={1}
-              max={99}
-              required
-              {...register('age', {
-                required: {
-                  value: true,
-                  message: '은퇴할 나이를 입력해주세요.',
-                },
-                min: {
-                  value: 1,
-                  message: '1살 이상으로 입력해야 합니다.',
-                },
-                max: {
-                  value: 99,
-                  message: '99살 이하로 입력해야 합니다.',
-                },
-              })}
-              placeholder="나이를 적어주세요"
-              className="w-full border p-3 focus:outline-none focus:ring-2"
-            />
             <div className="my-5 text-lg  text-red-500">
-              {errors.age && `[ERROR] ${errors.age.message}`}
+              {errors.target && `[ERROR] ${errors.target.message}`}
             </div>
 
-            <button className="mt-12 flex w-full items-center justify-center rounded-md border-2 p-2 ">
-              계산하러 가기
-            </button>
-          </form>
-        </div> */}
+            <form
+              onSubmit={handleSubmit(onValid)}
+              className="w-full items-center justify-center"
+            >
+              <div className="mt-12 mb-12 text-xl font-semibold">
+                은퇴할 나이를 적어주세요
+              </div>
+              <input
+                type="number"
+                min={1}
+                max={99}
+                required
+                {...register('age', {
+                  required: {
+                    value: true,
+                    message: '은퇴할 나이를 입력해주세요.',
+                  },
+                  min: {
+                    value: 1,
+                    message: '1살 이상으로 입력해야 합니다.',
+                  },
+                  max: {
+                    value: 99,
+                    message: '99살 이하로 입력해야 합니다.',
+                  },
+                })}
+                placeholder="나이를 적어주세요"
+                className="w-full border p-3 focus:outline-none focus:ring-2"
+              />
+              <div className="my-5 text-lg  text-red-500">
+                {errors.age && `[ERROR] ${errors.age.message}`}
+              </div>
 
-          {/* {isSurvey && (
-          <div>
-            <h1 className="mb-8 text-2xl">
-              오늘은 월급날 ! 오늘 어떤 하루를 보낼래요?
-            </h1>
-            <h2>이 월급으론 안되겠어 오늘은 공부다!</h2>
-            <h2>친구랑 약속잡고 가볍게 한잔</h2>
-            <h2>한달을 고생한 나에 대한 보상! 갖고 싶었던 물건 구입하기</h2>
-            <h2>월급날이 뭐 특별한가 얼른 집으로 돌아가야지</h2>
-            <div></div>
+              <button className="mt-12 flex w-full items-center justify-center rounded-md border-2 p-2 ">
+                계산하러 가기
+              </button>
+            </form>
           </div>
-        )} */}
-
           {/* {isCalculate && !isResult && (
           <div className="mt-36 flex items-center justify-center text-lg">
             <LoadingSpinner></LoadingSpinner>
@@ -269,29 +257,19 @@ export default function Index() {
           )}
         </div>
       </div>
-      <Question
-        question="생일 축하 합니다~  어떤 추억을 쌓을 건가요?"
-        answers={[
-          {
-            message: '트렌드를 놓칠수 없지! 무조건 인스타 핫플!',
-            score: 1,
-            rich: false,
-          },
-          {
-            message: '트렌드를 놓칠수 없지! 무조건 인스타 핫플!',
-            score: 2,
-            rich: false,
-          },
-          {
-            message: '트렌드를 놓칠수 없지! 무조건 인스타 핫플!',
-            score: 3,
-            rich: false,
-          },
-          { message: '재테크 공부다!', score: 1, rich: true },
-        ]}
-        page="1"
-        onCalculateScore={onCalculateScore}
-      ></Question>
+      {isSurvey &&
+        QUESTION_DATA.map(
+          (element, index) =>
+            curIndex === index && (
+              <Question
+                key={index}
+                question={element.question}
+                answers={element.answers}
+                page={index + 1}
+                onCalculateScore={onCalculateScore}
+              ></Question>
+            )
+        )}
     </>
   );
 }

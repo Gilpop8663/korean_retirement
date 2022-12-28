@@ -4,7 +4,7 @@ import React from 'react';
 interface QuestionProps {
   question: string;
   answers: AnswerProps[];
-  page: string;
+  page: number;
   onCalculateScore: (score: number, isRich: boolean) => void;
 }
 
