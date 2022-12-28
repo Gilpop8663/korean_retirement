@@ -6,6 +6,7 @@ import LoadingSpinner from '@components/LodingSpinner';
 import Retirement from '@libs/Retirement';
 import { CONSTANT } from '@libs/constant';
 import { useRouter } from 'next/router';
+import Question from '@components/Question';
 interface FormProps {
   target: string;
   age: number;
@@ -19,6 +20,11 @@ interface LocationProps {
 interface ResultProps {
   minimum: LocationProps;
   proper: LocationProps;
+}
+
+export interface CalculateScoreProps {
+  score: number;
+  isRich: boolean;
 }
 
 export default function Index() {
@@ -37,6 +43,8 @@ export default function Index() {
   const [isSurvey, setIsSurvey] = useState(false);
   const [result, setResult] = useState<ResultProps | null>(null);
   const [isResult, setIsResult] = useState(false);
+  const [score, setScore] = useState(0);
+  const [richCount, setRichCount] = useState(0);
   const router = useRouter();
 
   const onTargetClick = (content: string) => {
@@ -51,7 +59,7 @@ export default function Index() {
       });
       return;
     }
-    // setIsSurvey((prev) => !prev);
+    setIsSurvey((prev) => !prev);
     setIsCalculate((prev) => !prev);
 
     const retirement = new Retirement(value.target, value.age);
@@ -89,6 +97,13 @@ export default function Index() {
     alert('복사를 지원하지 않는 브라우저입니다.');
   };
 
+  const onCalculateScore = (score: number, isRich: boolean) => {
+    setScore((prev) => prev + score);
+    if (isRich) {
+      setRichCount((prev) => prev + 1);
+    }
+  };
+
   useEffect(() => {
     if (router.query.target && router.query.age) {
       const query = router.query;
@@ -111,17 +126,22 @@ export default function Index() {
     setValue('target', target);
   }, [target]);
 
+  useEffect(() => {
+    console.log(score, richCount);
+  }, [score, richCount]);
+
   return (
-    <div className="m-6">
-      {/* <div className="h-full w-full">
+    <>
+      <div className="">
+        {/* <div className="h-full w-full">
         <Image
           className="relative object-cover"
           src="https://user-images.githubusercontent.com/80146176/209066243-d11d639f-2a9e-46f1-9399-0abfc9a4d8b2.jpg"
           alt="bg"
           layout="fill"></Image>
       </div> */}
-      <div>
-        <div className="mb-12 text-center text-2xl font-bold">
+        <div>
+          {/* <div className="mb-12 text-center text-2xl font-bold">
           내 은퇴 자금을 알아보자
         </div>
 
@@ -190,9 +210,9 @@ export default function Index() {
               계산하러 가기
             </button>
           </form>
-        </div>
+        </div> */}
 
-        {isSurvey && (
+          {/* {isSurvey && (
           <div>
             <h1 className="mb-8 text-2xl">
               오늘은 월급날 ! 오늘 어떤 하루를 보낼래요?
@@ -203,51 +223,75 @@ export default function Index() {
             <h2>월급날이 뭐 특별한가 얼른 집으로 돌아가야지</h2>
             <div></div>
           </div>
-        )}
+        )} */}
 
-        {isCalculate && !isResult && (
+          {/* {isCalculate && !isResult && (
           <div className="mt-36 flex items-center justify-center text-lg">
             <LoadingSpinner></LoadingSpinner>
             계산중입니다.
           </div>
-        )}
-        {isResult && (
-          <div>
-            <h2>{`${
-              target === CONSTANT.alone ? '개인' : '부부'
-            } 의 경우 나이 ${ageValue} 살에 은퇴한다면`}</h2>
-            <div className="py-8">
-              <div>최소 노후 생활비</div>
-              <div className="flex flex-col">
-                <span>{`서울 : ${result?.minimum.seoulCost}`}</span>
-                <span>{`광역시 : ${result?.minimum.metropolitanCost}`}</span>
-                <span>{`도 : ${result?.minimum.doCost}`}</span>
+        )} */}
+          {isResult && (
+            <div>
+              <h2>{`${
+                target === CONSTANT.alone ? '개인' : '부부'
+              } 의 경우 나이 ${ageValue} 살에 은퇴한다면`}</h2>
+              <div className="py-8">
+                <div>최소 노후 생활비</div>
+                <div className="flex flex-col">
+                  <span>{`서울 : ${result?.minimum.seoulCost}`}</span>
+                  <span>{`광역시 : ${result?.minimum.metropolitanCost}`}</span>
+                  <span>{`도 : ${result?.minimum.doCost}`}</span>
+                </div>
               </div>
-            </div>
-            <div className="py-8">
-              <div>적정 노후 생활비</div>
-              <div className="flex flex-col">
-                <span>{`서울 : ${result?.proper.seoulCost}`}</span>
-                <span>{`광역시 : ${result?.proper.metropolitanCost}`}</span>
-                <span>{`도 : ${result?.proper.doCost}`}</span>
+              <div className="py-8">
+                <div>적정 노후 생활비</div>
+                <div className="flex flex-col">
+                  <span>{`서울 : ${result?.proper.seoulCost}`}</span>
+                  <span>{`광역시 : ${result?.proper.metropolitanCost}`}</span>
+                  <span>{`도 : ${result?.proper.doCost}`}</span>
+                </div>
               </div>
-            </div>
 
-            <div
-              onClick={() => onCopyAndShareClick()}
-              className=" my-6 cursor-pointer rounded-full bg-orange-50 p-8 hover:bg-orange-200"
-            >
-              공유하기
+              <div
+                onClick={() => onCopyAndShareClick()}
+                className=" my-6 cursor-pointer rounded-full bg-orange-50 p-8 hover:bg-orange-200"
+              >
+                공유하기
+              </div>
+              <div
+                onClick={() => onResetClick()}
+                className=" my-6 cursor-pointer rounded-full bg-green-50 p-8 hover:bg-green-200"
+              >
+                다시 해보기
+              </div>
             </div>
-            <div
-              onClick={() => onResetClick()}
-              className=" my-6 cursor-pointer rounded-full bg-green-50 p-8 hover:bg-green-200"
-            >
-              다시 해보기
-            </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
-    </div>
+      <Question
+        question="생일 축하 합니다~  어떤 추억을 쌓을 건가요?"
+        answers={[
+          {
+            message: '트렌드를 놓칠수 없지! 무조건 인스타 핫플!',
+            score: 1,
+            rich: false,
+          },
+          {
+            message: '트렌드를 놓칠수 없지! 무조건 인스타 핫플!',
+            score: 2,
+            rich: false,
+          },
+          {
+            message: '트렌드를 놓칠수 없지! 무조건 인스타 핫플!',
+            score: 3,
+            rich: false,
+          },
+          { message: '재테크 공부다!', score: 1, rich: true },
+        ]}
+        page="1"
+        onCalculateScore={onCalculateScore}
+      ></Question>
+    </>
   );
 }
