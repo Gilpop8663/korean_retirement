@@ -2,10 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { cls } from '@libs/utils';
 import { useForm } from 'react-hook-form';
 import Retirement from '@libs/Retirement';
-import { CONSTANT } from '@libs/constant';
 import { useRouter } from 'next/router';
 import Question from '@components/Question';
-import { ERROR_MESSAGE, QUESTION_DATA, SERVICE_MESSAGE } from 'constant';
+import {
+  ERROR_MESSAGE,
+  QUESTION_DATA,
+  SERVICE_MESSAGE,
+  SERVICE_NUMBER,
+  SERVICE_STRING,
+} from 'constant';
 interface FormProps {
   target: string;
   age: number;
@@ -15,10 +20,6 @@ interface LocationProps {
   seoulCost: string;
   metropolitanCost: string;
   doCost: string;
-}
-interface ResultProps {
-  minimum: LocationProps;
-  proper: LocationProps;
 }
 
 export interface CalculateScoreProps {
@@ -40,7 +41,7 @@ export default function Index() {
   const [target, setTarget] = useState<string>('');
   const [isCalculate, setIsCalculate] = useState(false);
   const [isSurvey, setIsSurvey] = useState(false);
-  const [result, setResult] = useState<ResultProps | null>(null);
+  const [result, setResult] = useState<LocationProps | null>(null);
   const [isResult, setIsResult] = useState(false);
   const [score, setScore] = useState(0);
   const [richCount, setRichCount] = useState(0);
@@ -98,13 +99,12 @@ export default function Index() {
     }
     setScore((prev) => prev + score);
     setCurIndex((prev) => prev + 1);
-    if (curIndex === 3) {
+
+    if (curIndex === SERVICE_NUMBER.maxIndex) {
       setIsCalculate((prev) => !prev);
-      const retirement = new Retirement(target, ageValue);
-      setResult({
-        minimum: retirement.getMinimumCost(),
-        proper: retirement.getProperCost(),
-      });
+      const retirement = new Retirement(target, ageValue, score, richCount);
+      
+      setResult(retirement.getLuxuryCost());
       router.replace('/', `/?target=${target}&age=${ageValue}`);
       setIsResult((prev) => !prev);
     }
@@ -118,11 +118,8 @@ export default function Index() {
       setTarget(queryTarget);
       setValue('age', queryAge);
       setIsCalculate(true);
-      const retirement = new Retirement(queryTarget, queryAge);
-      setResult({
-        minimum: retirement.getMinimumCost(),
-        proper: retirement.getProperCost(),
-      });
+      const retirement = new Retirement(queryTarget, queryAge, 4, 4);
+      setResult(retirement.getLuxuryCost());
       setIsResult(true);
     }
   }, [router.query]);
@@ -156,18 +153,18 @@ export default function Index() {
             </div>
             <div className="flex justify-between">
               <div
-                onClick={() => onTargetClick(CONSTANT.alone)}
+                onClick={() => onTargetClick(SERVICE_STRING.alone)}
                 className={cls(
-                  target === CONSTANT.alone ? 'ring-2' : '',
+                  target === SERVICE_STRING.alone ? 'ring-2' : '',
                   'rounded-md border bg-orange-200 p-6 text-lg '
                 )}
               >
                 개인
               </div>
               <div
-                onClick={() => onTargetClick(CONSTANT.couple)}
+                onClick={() => onTargetClick(SERVICE_STRING.couple)}
                 className={cls(
-                  target === CONSTANT.couple ? 'ring-2' : '',
+                  target === SERVICE_STRING.couple ? 'ring-2' : '',
                   'rounded-md border bg-orange-200 p-6 text-lg '
                 )}
               >
@@ -196,11 +193,11 @@ export default function Index() {
                     message: ERROR_MESSAGE.requiredAge,
                   },
                   min: {
-                    value: 1,
+                    value: SERVICE_NUMBER.minAge,
                     message: ERROR_MESSAGE.minAge,
                   },
                   max: {
-                    value: 99,
+                    value: SERVICE_NUMBER.maxAge,
                     message: ERROR_MESSAGE.maxAge,
                   },
                 })}
@@ -225,25 +222,16 @@ export default function Index() {
           {isResult && (
             <div>
               <h2>{`${
-                target === CONSTANT.alone ? '개인' : '부부'
+                target === SERVICE_STRING.alone ? '개인' : '부부'
               } 의 경우 나이 ${ageValue} 살에 은퇴한다면`}</h2>
               <div className="py-8">
                 <div>최소 노후 생활비</div>
                 <div className="flex flex-col">
-                  <span>{`서울 : ${result?.minimum.seoulCost}`}</span>
-                  <span>{`광역시 : ${result?.minimum.metropolitanCost}`}</span>
-                  <span>{`도 : ${result?.minimum.doCost}`}</span>
+                  <span>{`서울 : ${result?.seoulCost}`}</span>
+                  <span>{`광역시 : ${result?.metropolitanCost}`}</span>
+                  <span>{`도 : ${result?.doCost}`}</span>
                 </div>
               </div>
-              <div className="py-8">
-                <div>적정 노후 생활비</div>
-                <div className="flex flex-col">
-                  <span>{`서울 : ${result?.proper.seoulCost}`}</span>
-                  <span>{`광역시 : ${result?.proper.metropolitanCost}`}</span>
-                  <span>{`도 : ${result?.proper.doCost}`}</span>
-                </div>
-              </div>
-
               <div
                 onClick={() => onCopyAndShareClick()}
                 className=" my-6 cursor-pointer rounded-full bg-orange-50 p-8 hover:bg-orange-200"
