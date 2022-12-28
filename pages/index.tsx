@@ -11,6 +11,7 @@ import {
   SERVICE_NUMBER,
   SERVICE_STRING,
 } from 'constant';
+import LoadingSpinner from '@components/LodingSpinner';
 interface FormProps {
   target: string;
   age: number;
@@ -46,6 +47,7 @@ export default function Index() {
   const [score, setScore] = useState(0);
   const [richCount, setRichCount] = useState(0);
   const [curIndex, setCurIndex] = useState(0);
+  const [koreanCategory, setKoreanCategory] = useState('');
   const router = useRouter();
 
   const onTargetClick = (content: string) => {
@@ -93,20 +95,27 @@ export default function Index() {
     alert(SERVICE_MESSAGE.notAbleCopy);
   };
 
-  const onCalculateScore = (score: number, isRich: boolean) => {
+  const onCalculateScore = (answerScore: number, isRich: boolean) => {
     if (isRich) {
-      setRichCount((prev) => prev + 1);
+      setRichCount((prev) => (prev += 1));
     }
-    setScore((prev) => prev + score);
+    setScore((prev) => prev + answerScore);
     setCurIndex((prev) => prev + 1);
+  };
 
-    if (curIndex === SERVICE_NUMBER.maxIndex) {
-      setIsCalculate((prev) => !prev);
-      const retirement = new Retirement(target, ageValue, score, richCount);
-      
-      setResult(retirement.getLuxuryCost());
-      router.replace('/', `/?target=${target}&age=${ageValue}`);
-      setIsResult((prev) => !prev);
+  const onCalculateResult = (retirement: Retirement, category: string) => {
+    switch (category) {
+      case SERVICE_STRING.minimum:
+        setResult(retirement.getMinimumCost());
+        break;
+      case SERVICE_STRING.proper:
+        setResult(retirement.getProperCost());
+        break;
+      case SERVICE_STRING.luxury:
+        setResult(retirement.getLuxuryCost());
+        break;
+      default:
+      // 이벤트
     }
   };
 
@@ -130,8 +139,23 @@ export default function Index() {
   }, [target]);
 
   useEffect(() => {
-    console.log(score, richCount);
-  }, [score, richCount]);
+    if (curIndex === SERVICE_NUMBER.maxIndex) {
+      setIsCalculate((prev) => !prev);
+
+      setTimeout(() => {
+        const retirement = new Retirement(target, ageValue, score, richCount);
+        const category = retirement.getCategory();
+        console.log(category);
+        onCalculateResult(retirement, category);
+        setKoreanCategory(retirement.getKoreanCategory());
+        router.replace(
+          '/',
+          `/?target=${target}&age=${ageValue}&category=${category}`
+        );
+        setIsResult((prev) => !prev);
+      }, 1000);
+    }
+  }, [curIndex]);
 
   return (
     <>
@@ -184,8 +208,8 @@ export default function Index() {
               </div>
               <input
                 type="number"
-                min={1}
-                max={99}
+                min={SERVICE_NUMBER.minAge}
+                max={SERVICE_NUMBER.maxAge}
                 required
                 {...register('age', {
                   required: {
@@ -213,19 +237,19 @@ export default function Index() {
               </button>
             </form>
           </div>
-          {/* {isCalculate && !isResult && (
-          <div className="mt-36 flex items-center justify-center text-lg">
-            <LoadingSpinner></LoadingSpinner>
-            계산중입니다.
-          </div>
-        )} */}
+          {isCalculate && !isResult && (
+            <div className="mt-36 flex items-center justify-center text-lg">
+              <LoadingSpinner></LoadingSpinner>
+              계산중입니다.
+            </div>
+          )}
           {isResult && (
             <div>
               <h2>{`${
                 target === SERVICE_STRING.alone ? '개인' : '부부'
               } 의 경우 나이 ${ageValue} 살에 은퇴한다면`}</h2>
               <div className="py-8">
-                <div>최소 노후 생활비</div>
+                <div>{koreanCategory} 노후 생활비</div>
                 <div className="flex flex-col">
                   <span>{`서울 : ${result?.seoulCost}`}</span>
                   <span>{`광역시 : ${result?.metropolitanCost}`}</span>

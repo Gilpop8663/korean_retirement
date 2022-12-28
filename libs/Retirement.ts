@@ -30,15 +30,17 @@ class Retirement {
     });
     this.#category = this.calculateCategory(score);
     this.#isRich = richCount === SERVICE_NUMBER.richCount ? true : false;
+    console.log(richCount);
   }
 
   calculateCategory(score: number) {
     // 1 * 4  최소는 4부터 6까지 4,5,6
     // 2 * 4 적정은 8부터 10까지 7,8,9,
     // 3 * 4 호화는 10부터 12까지 10,11,12
+    console.log('점수 : ', score);
 
-    if (score < SERVICE_NUMBER.scoreLeast) {
-      return SERVICE_STRING.least;
+    if (score < SERVICE_NUMBER.scoreMinimum) {
+      return SERVICE_STRING.minimum;
     }
     if (score < SERVICE_NUMBER.scoreProper) {
       return SERVICE_STRING.proper;
@@ -60,15 +62,37 @@ class Retirement {
   }
 
   getCategory() {
-    if (this.#category === SERVICE_STRING.least) {
-      return SERVICE_STRING.koreanLeast;
+    if (this.#isRich) {
+      return this.getRichCategory();
+    }
+    return this.#category;
+  }
+
+  getKoreanCategory() {
+    if (this.#isRich) {
+      return this.getRichCategory();
+    }
+    if (this.#category === SERVICE_STRING.minimum) {
+      return SERVICE_STRING.koreanMinimum;
     }
     if (this.#category === SERVICE_STRING.proper) {
       return SERVICE_STRING.koreanProper;
     }
-    if (this.#category === SERVICE_STRING.luxury) {
-      return SERVICE_STRING.koreanluxury;
+    return SERVICE_STRING.koreanluxury;
+  }
+
+  getRichCategory() {
+    const randomNumber = Math.random() * 4;
+    if (randomNumber < 1) {
+      return SERVICE_STRING.stock;
     }
+    if (randomNumber < 2) {
+      return SERVICE_STRING.realEstate;
+    }
+    if (randomNumber < 3) {
+      return SERVICE_STRING.virtualCurrency;
+    }
+    return SERVICE_STRING.business;
   }
 
   getLuxuryCost() {
