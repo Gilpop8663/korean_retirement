@@ -4,7 +4,7 @@ import Head from 'next/head';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div className="mx-auto max-w-xl">
+    <div className=" bg-bgColor ">
       <Component {...pageProps} />
     </div>
   );

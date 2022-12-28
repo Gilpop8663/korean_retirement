@@ -81,26 +81,30 @@ const QUESTION_DATA = [
     ],
   },
   {
-    question: '4',
+    question: '계절이 바뀌었네요?\n계절 옷을 사러 가볼까요?',
     imageSrc:
       'https://user-images.githubusercontent.com/80146176/209801852-816199db-6d59-463d-b1c9-4d74825f2384.png',
     answers: [
       {
-        message: '트렌드를 놓칠수 없지! 무조건 인스타 핫플!',
+        message: '유행은 돌고 돈다... 옷장 템 꺼내보기 !',
         score: 1,
         rich: false,
       },
       {
-        message: '트렌드를 놓칠수 없지! 무조건 인스타 핫플!',
+        message: '기분은 내야지 인터넷으로 유행 템 골라 보기!',
         score: 2,
         rich: false,
       },
       {
-        message: '트렌드를 놓칠수 없지! 무조건 인스타 핫플!',
+        message: '백화점으로 돌진! 한 벌을 사도 고급지게~',
         score: 3,
         rich: false,
       },
-      { message: '재테크 공부다!', score: 1, rich: true },
+      {
+        message: '계절이 바뀌어도 내 통장은 그대로! 투잡 뛰기!',
+        score: 1,
+        rich: true,
+      },
     ],
   },
 ];
@@ -151,6 +155,7 @@ const SERVICE_NUMBER = Object.freeze({
   maxIndex: 4,
   minAge: 1,
   maxAge: 99,
+  maxScreenSize: 576,
 });
 
 const ALONE_COST = Object.freeze({
