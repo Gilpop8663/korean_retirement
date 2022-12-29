@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import OutlineRectangle from '@public/images/outlineRectangle.png';
 import Squirrel from '@public/images/squirrel.png';
 import Image from 'next/image';
 
-export default function SplashScreen() {
+interface SplashScreenProps {
+  onStartClick: () => void;
+}
+
+export default function SplashScreen({ onStartClick }: SplashScreenProps) {
   return (
     <div className="justify-cente  flex h-screen max-w-lg flex-col items-center bg-bgColor">
       <div className="absolute top-72  z-20 flex w-full max-w-lg flex-col items-center justify-center">
@@ -33,6 +37,12 @@ export default function SplashScreen() {
         </div>
         <div className="mt-4 rounded-md bg-white p-1 text-center font-bareunHipi text-base">
           #은퇴자금 #미래준비 #파이어족
+        </div>
+        <div
+          onClick={() => onStartClick()}
+          className="mt-24 cursor-pointer rounded-3xl p-3 font-jua text-3xl text-textColor transition-colors hover:bg-ageColor hover:text-white"
+        >
+          시작하기
         </div>
       </div>
     </div>
