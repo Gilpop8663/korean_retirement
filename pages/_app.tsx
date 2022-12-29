@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <div className="">
-      <div className="absolute left-0 right-0 z-10 mx-auto h-screen max-w-md">
+      <div className="absolute left-0 right-0 -z-10 mx-auto h-screen max-w-xl">
         <Image
           src={BgScreen}
           alt="BgScreen"
@@ -33,7 +33,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           layout="fill"
         ></Image>
       </div>
-      <div className="absolute left-0 top-0 -z-10 h-screen w-screen overflow-hidden bg-bgColor">
+      <div className="absolute left-0 top-0 -z-20 h-screen w-screen overflow-hidden bg-bgColor">
         {randomArray.map((element, index) => (
           <Arcorn
             key={index}
