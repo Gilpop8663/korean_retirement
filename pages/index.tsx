@@ -272,7 +272,7 @@ export default function Index() {
           )}
         </div>
       </div>
-      {isSurvey &&
+      {/* {isSurvey &&
         QUESTION_DATA.map(
           (element, index) =>
             curIndex === index && (
@@ -285,7 +285,7 @@ export default function Index() {
                 onCalculateScore={onCalculateScore}
               ></Question>
             )
-        )}
+        )} */}
     </>
   );
 }
