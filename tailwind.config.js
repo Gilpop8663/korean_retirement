@@ -14,12 +14,17 @@ module.exports = {
         bgColor: '#FDE9D1',
         textColor: '#453115',
         ageColor: '#DAB786',
+        waterBear: '#344C7A',
+        softWaterBear:'#9FAECB',
+        retry:'#3F4274',
+        waterBearBackground:'#6279A7'
       },
       fontFamily: {
         blackHan: ["'Black Han Sans'", 'sans-serif'],
         blackOps: ["'Black Ops One'", "'cursive'"],
         nanumPen: ["'Nanum Pen Script'", "'cursive'"],
         bareunHipi: ["'NanumBaReunHiPi'", "'cursive'"],
+        jua:[ "'Jua'", "'sans-serif'"]
       },
       screens: {
         small: { min: '360px', max: '400px' },

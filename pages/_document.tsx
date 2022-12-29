@@ -4,16 +4,16 @@ export default function Document() {
   return (
     <Html lang="ko">
       <Head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Black+Ops+One&family=Nanum+Gothic&family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Jua&display=swap"
           rel="stylesheet"
         />
         <link
           href="https://hangeul.pstatic.net/hangeul_static/css/NanumBaReunHiPi.css"
           rel="stylesheet"
-        >
-          
-        </link>
+        ></link>
       </Head>
       <body>
         <Main />
