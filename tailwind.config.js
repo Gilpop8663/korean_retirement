@@ -13,6 +13,7 @@ module.exports = {
         answerHover: '#425F57',
         bgColor: '#FDE9D1',
         textColor: '#453115',
+        ageColor: '#DAB786',
       },
       fontFamily: {
         blackHan: ["'Black Han Sans'", 'sans-serif'],
