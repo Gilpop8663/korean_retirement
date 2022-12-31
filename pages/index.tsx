@@ -1,3 +1,4 @@
+import ArcornBackground, { KindProps } from '@components/ArcornBackground';
 import AskAge from '@components/AskAge';
 import AskCouple from '@components/AskCouple';
 import Question from '@components/Question';
@@ -34,6 +35,7 @@ export default function test() {
     reset,
     formState: { errors },
   } = useForm<FormProps>();
+  const [curHeight, setCurHeight] = useState(0);
   const [isStart, setIsStart] = useState(true);
   const [isAskCouple, setIsAskCouple] = useState(false);
   const [isAskAge, setIsAskAge] = useState(false);
@@ -45,6 +47,7 @@ export default function test() {
   const [richCount, setRichCount] = useState(0);
   const [isResult, setIsResult] = useState(false);
   const [result, setResult] = useState<RetirementResultProps | null>(null);
+  const [arcornKind, setArcornKind] = useState<KindProps>('NORMAL');
 
   const onStartClick = () => {
     setIsStart((prev) => !prev);
@@ -93,6 +96,8 @@ export default function test() {
     setIsQuetstion(false);
     setIsResult(false);
 
+    setArcornKind('NORMAL');
+
     setResult(null);
     setTarget('');
     setAge(0);
@@ -110,6 +115,7 @@ export default function test() {
 
       const retirement = new Retirement(target, age, score, richCount);
       setResult(retirement.getRetirementResult());
+      setArcornKind(retirement.getCategory());
       const category = retirement.getCategory();
       router.replace('/', `/?target=${target}&age=${age}&category=${category}`);
 
@@ -118,15 +124,25 @@ export default function test() {
   }, [curIndex]);
 
   useEffect(() => {
-    console.log('점수는요', score);
-  }, [score]);
+    const height = document.documentElement.scrollHeight;
+    setCurHeight(height);
+  }, [arcornKind]);
+
+  const KAKAO_KEY = '7fdda327ceac4a3a6a961e4192d57fab';
 
   useEffect(() => {
-    console.log('결과', result);
-  }, [result]);
+    if (!window.Kakao.isInitialized()) {
+      window.Kakao.init(KAKAO_KEY);
+    }
+  }, []);
 
   return (
     <div className="mx-auto h-full max-w-xl ">
+      <ArcornBackground
+        curHeight={curHeight}
+        kind={arcornKind}
+        bgColor={arcornKind}
+      ></ArcornBackground>
       {isStart && <SplashScreen onStartClick={onStartClick} />}
       {isAskCouple && <AskCouple onAskCoupleClick={onAskCoupleClick} />}
       {isAskAge && (
@@ -152,6 +168,7 @@ export default function test() {
         )}
       {isResult && result && (
         <Result
+          curHeight={curHeight}
           result={result}
           onResetClick={onResetClick}
           onCopyAndShareClick={onCopyAndShareClick}

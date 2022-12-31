@@ -3,25 +3,23 @@ import Image from 'next/image';
 import RegionalResult from './RegionalResult';
 import kakao from '@public/images/kakao.png';
 import { RetirementResultProps } from 'pages';
+import KaKaoShareButton from './KaKaoShareButton';
 
 interface ResultProps {
+  curHeight: number;
   result: RetirementResultProps;
   onCopyAndShareClick: () => void;
   onResetClick: () => void;
 }
 
 export default function Result({
+  curHeight,
   result,
   onCopyAndShareClick,
   onResetClick,
 }: ResultProps) {
-  const [curHeight, setCurHeight] = useState(0);
-  useEffect(() => {
-    const height = document.documentElement.scrollHeight;
-    setCurHeight(height);
-  }, []);
   return (
-    <>
+    <div className="relative flex max-w-lg justify-center">
       <div
         className={`absolute top-0 left-0 -z-10 w-full overflow-hidden`}
         style={{
@@ -32,11 +30,11 @@ export default function Result({
           src={result.imageSrc.background}
           alt="background"
           layout="fill"
-          className="object-cover"
+          className="object-contain"
         ></Image>
       </div>
-      <div className="flex h-full max-w-lg flex-col  items-center font-bareunHipi ">
-        <div className="relative h-96 w-96">
+      <div className="flex h-full  flex-col items-center  pt-7 font-bareunHipi ">
+        <div className="relative h-96 w-96 ">
           <Image
             className="object-contain"
             src={result.imageSrc.character}
@@ -44,7 +42,7 @@ export default function Result({
             layout="fill"
           ></Image>
         </div>
-        <div className="relative -top-8">
+        <div className="relative">
           <div className="relative  flex w-full items-center justify-center">
             <div className="relative h-24 w-80">
               <Image
@@ -54,7 +52,10 @@ export default function Result({
                 className="object-contain"
               ></Image>
             </div>
-            <span className="absolute top-3 text-[40px] font-bold text-waterBear ">
+            <span
+              className="absolute top-3 stroke-waterBear text-[40px] font-extralight text-waterBear"
+              style={{ WebkitTextStroke: `2px` }}
+            >
               {result.koreanCategory}
             </span>
           </div>
@@ -71,21 +72,14 @@ export default function Result({
           </div>
           <div
             onClick={() => onResetClick()}
-            className="my-10 w-96 cursor-pointer rounded-3xl bg-retry p-3  text-center  font-jua text-2xl text-white"
+            className="my-7 w-96 cursor-pointer rounded-3xl bg-retry p-3  text-center  font-jua text-2xl text-white"
           >
             다시하기
           </div>
-          <div className="mb-32 flex flex-col items-center">
-            <span className="mb-8 text-lg">결과 공유하기</span>
+          <div className="mb-24 flex flex-col items-center">
+            <span className="mb-7 text-lg">결과 공유하기</span>
             <div className="flex w-48 justify-between">
-              <div className="relative h-14 w-14 cursor-pointer">
-                <Image
-                  src={kakao}
-                  alt="kakao"
-                  layout="fill"
-                  className="object-contain"
-                ></Image>
-              </div>
+              <KaKaoShareButton />
               <div
                 onClick={() => onCopyAndShareClick()}
                 className="flex h-14 w-14 cursor-pointer items-center justify-center rounded-full bg-waterBear text-white"
@@ -109,6 +103,6 @@ export default function Result({
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

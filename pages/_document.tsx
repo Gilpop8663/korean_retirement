@@ -14,10 +14,14 @@ export default function Document() {
           href="https://hangeul.pstatic.net/hangeul_static/css/NanumBaReunHiPi.css"
           rel="stylesheet"
         ></link>
+        <script
+          defer
+          src="https://developers.kakao.com/sdk/js/kakao.min.js"
+        ></script>
       </Head>
       <body>
         <Main />
-        <NextScript />
+        <NextScript></NextScript>
       </body>
     </Html>
   );

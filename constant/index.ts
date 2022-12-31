@@ -108,6 +108,7 @@ const QUESTION_DATA = [
     ],
   },
 ];
+
 const ERROR_SUBJECT = '[ERROR]';
 
 const ERROR_MESSAGE = Object.freeze({
@@ -128,20 +129,47 @@ const CATEGORY_MESSAGE = Object.freeze({
   koreanluxury: '백공작형',
 });
 
+const ARCORNS_IMAGE_SOURCE = Object.freeze({
+  NORMAL:
+    'https://user-images.githubusercontent.com/80146176/210154410-94c18235-223e-4039-aff9-28005296837d.png',
+  LUXURY:
+    'https://user-images.githubusercontent.com/80146176/210154414-59d06eb5-895e-429f-a329-c1a93c0e8943.png',
+  PROPER:
+    'https://user-images.githubusercontent.com/80146176/210154420-97a9dec7-5db3-4ece-9152-6ac81d094c73.png',
+  MINIMUM:
+    'https://user-images.githubusercontent.com/80146176/210154445-1089abce-76ce-4ba7-816e-842826bf3155.png',
+  STOCK:
+    'https://user-images.githubusercontent.com/80146176/210154441-e21ba262-14cd-40ca-ae7a-7bac1d794377.png',
+  ESTATE: '',
+  BUSINESS: '',
+  VIRTUAL: '',
+});
+
+const SHARE_DATA = Object.freeze({
+  kakaoSrc:
+    'https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png',
+  title: '은퇴 이후, 얼마가 필요할까? 은퇴 자금 테스트 !',
+  imageUrl:
+    'https://user-images.githubusercontent.com/80146176/210153300-4123582a-84bc-4833-8e27-581fe697df89.png',
+  productName: '은퇴 자금 테스트!',
+});
+
 const CATEGORY_IMAGE = Object.freeze({
   minimum: {
     background:
       'https://user-images.githubusercontent.com/80146176/210151337-836a5ff4-830b-480a-8df8-fc5b07087cf7.png',
     character:
-      'https://user-images.githubusercontent.com/80146176/210151322-726dc10f-e93f-4c2f-a540-8d6316d2e29e.png',
+      'https://user-images.githubusercontent.com/80146176/210153443-40d66ab7-f9f2-48af-b6c6-56bd3a4c1e30.png',
     rectangle:
       'https://user-images.githubusercontent.com/80146176/210151339-b46d7277-86c8-4b57-88b8-17ddfb051f41.png',
   },
   proper: {
-    background: '',
+    background:
+      'https://user-images.githubusercontent.com/80146176/210153906-36fa5a7a-85ba-4881-9265-5fb89238e1ef.png',
     character:
-      'https://user-images.githubusercontent.com/80146176/210151347-f899d321-c7d9-4145-9b12-ce4fe5df9347.png',
-    rectangle: '',
+      'https://user-images.githubusercontent.com/80146176/210153833-9105535c-1a54-4e69-a302-c911ed4f0648.png',
+    rectangle:
+      'https://user-images.githubusercontent.com/80146176/210153914-271d675e-1bd8-45ca-b698-21dbb9075515.png',
   },
   luxury: {
     background: '',
@@ -185,13 +213,14 @@ const SERVICE_MESSAGE = Object.freeze({
 const SERVICE_STRING = Object.freeze({
   alone: 'ALONE',
   couple: 'COUPLE',
+  normal: 'NORMAL',
   minimum: 'MINIMUM',
   proper: 'PROPER',
   luxury: 'LUXURY',
   stock: 'STOCK',
-  realEstate: 'REAL ESTATE',
+  realEstate: 'ESTATE',
   business: 'BUSINESS',
-  virtualCurrency: 'VIRTUAL CURRENCY',
+  virtualCurrency: 'VIRTUAL',
   koreanStock: '주식왕',
   koreanRealEstate: '부동산왕',
   koreanBusiness: '사업왕',
@@ -252,13 +281,15 @@ const COUPLE_COST = Object.freeze({
 });
 
 export {
+  ARCORNS_IMAGE_SOURCE,
+  ALONE_COST,
   CATEGORY_MESSAGE,
+  CATEGORY_IMAGE,
+  COUPLE_COST,
   ERROR_MESSAGE,
   SERVICE_MESSAGE,
   SERVICE_STRING,
   SERVICE_NUMBER,
-  ALONE_COST,
-  COUPLE_COST,
-  CATEGORY_IMAGE,
+  SHARE_DATA,
   QUESTION_DATA,
 };
