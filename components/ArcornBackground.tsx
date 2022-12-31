@@ -26,19 +26,25 @@ export default function ArcornBackground({
 }: ArcornBackgroundProps) {
   const [randomArray, setRandomArray] = useState<ArcornProps[]>([]);
   const makeArcornImage = () => {
-    const randomLeft = Math.random() * document.documentElement.scrollWidth;
-    const randomTop = Math.random() * document.documentElement.scrollHeight;
-    const randomDeg = Math.random() * 360;
+    const result = [];
 
-    return { randomTop, randomLeft, randomDeg };
+    for (let j = 0; j < 5; j++) {
+      for (let i = 0; i < 5; i++) {
+        const randomLeft =
+          (document.documentElement.scrollWidth / 5) * i +
+          (j % 2 === 0 ? document.documentElement.scrollWidth / 10 : 0);
+        const randomTop = (document.documentElement.scrollHeight / 5) * j;
+        const randomDeg = Math.random() * 360;
+        result.push({ randomLeft, randomTop, randomDeg });
+      }
+    }
+
+    return result;
   };
 
   useEffect(() => {
-    setRandomArray(
-      Array.from({ length: 100 }, () => {
-        return makeArcornImage();
-      })
-    );
+    // console.log(makeArcornImage());
+    setRandomArray(makeArcornImage());
   }, []);
 
   useEffect(() => {}, []);
@@ -54,7 +60,7 @@ export default function ArcornBackground({
         height: `${curHeight}px`,
       }}
     >
-      {randomArray.map((element, index) => (
+      {randomArray?.map((element, index) => (
         <Arcorn
           key={index}
           kind={kind}

@@ -9,7 +9,7 @@ interface SplashScreenProps {
 
 export default function SplashScreen({ onStartClick }: SplashScreenProps) {
   return (
-    <div className="justify-cente  flex h-screen max-w-lg flex-col items-center bg-bgColor">
+    <div className="justify-cente  flex h-screen max-w-lg flex-col items-center">
       <div className="absolute top-72  z-20 flex w-full max-w-lg flex-col items-center justify-center">
         <div className="relative flex w-full items-center justify-center">
           <span className="absolute -top-9 left-32 font-bareunHipi text-base text-textColor">

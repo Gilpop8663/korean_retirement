@@ -20,19 +20,6 @@ export default function Result({
 }: ResultProps) {
   return (
     <div className="relative flex max-w-lg justify-center">
-      <div
-        className={`absolute top-0 left-0 -z-10 w-full overflow-hidden`}
-        style={{
-          height: `${curHeight}px`,
-        }}
-      >
-        <Image
-          src={result.imageSrc.background}
-          alt="background"
-          layout="fill"
-          className="object-contain"
-        ></Image>
-      </div>
       <div className="flex h-full  flex-col items-center  pt-7 font-bareunHipi ">
         <div className="relative h-96 w-96 ">
           <Image
