@@ -1,84 +1,75 @@
-import React, { useEffect, useState } from 'react';
-import { cls } from '@libs/utils';
-import { useForm } from 'react-hook-form';
-import Retirement from '@libs/Retirement';
-import { useRouter } from 'next/router';
+import AskAge from '@components/AskAge';
+import AskCouple from '@components/AskCouple';
 import Question from '@components/Question';
-import {
-  ERROR_MESSAGE,
-  QUESTION_DATA,
-  SERVICE_MESSAGE,
-  SERVICE_NUMBER,
-  SERVICE_STRING,
-} from 'constant';
-import LoadingSpinner from '@components/LodingSpinner';
-interface FormProps {
-  target: string;
+import Result from '@components/Result';
+import SplashScreen from '@components/SplashScreen';
+import Retirement from '@libs/Retirement';
+import { QUESTION_DATA, SERVICE_MESSAGE, SERVICE_NUMBER } from 'constant';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+
+export interface FormProps {
   age: number;
 }
 
-interface LocationProps {
+export interface RetirementResultProps {
   seoulCost: string;
   metropolitanCost: string;
   doCost: string;
+  koreanCategory: string;
+  koreanDescription: string;
+  imageSrc: {
+    background: string;
+    character: string;
+    rectangle: string;
+  };
 }
 
-export interface CalculateScoreProps {
-  score: number;
-  isRich: boolean;
-}
-
-export default function Index() {
+export default function test() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
-    setError,
-    setValue,
-    watch,
     reset,
-    clearErrors,
     formState: { errors },
   } = useForm<FormProps>();
+  const [isStart, setIsStart] = useState(true);
+  const [isAskCouple, setIsAskCouple] = useState(false);
+  const [isAskAge, setIsAskAge] = useState(false);
   const [target, setTarget] = useState<string>('');
-  const [isCalculate, setIsCalculate] = useState(false);
-  const [isSurvey, setIsSurvey] = useState(false);
-  const [result, setResult] = useState<LocationProps | null>(null);
-  const [isResult, setIsResult] = useState(false);
+  const [age, setAge] = useState<number>(1);
+  const [isQuestion, setIsQuetstion] = useState(false);
+  const [curIndex, setCurIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [richCount, setRichCount] = useState(0);
-  const [curIndex, setCurIndex] = useState(0);
-  const [koreanCategory, setKoreanCategory] = useState('');
-  const router = useRouter();
+  const [isResult, setIsResult] = useState(false);
+  const [result, setResult] = useState<RetirementResultProps | null>(null);
 
-  const onTargetClick = (content: string) => {
-    setTarget(content);
+  const onStartClick = () => {
+    setIsStart((prev) => !prev);
+    setIsAskCouple((prev) => !prev);
   };
 
-  const onValid = (value: FormProps) => {
-    if (value.target === '') {
-      setError('target', {
-        type: 'custom',
-        message: ERROR_MESSAGE.requiredTarget,
-      });
-      return;
+  const onAskCoupleClick = (answer: string) => {
+    setTarget(answer);
+    setIsAskAge((prev) => !prev);
+    setIsAskCouple((prev) => !prev);
+  };
+
+  const onAgeValid = (value: FormProps) => {
+    setAge(value.age);
+    setIsAskAge((prev) => !prev);
+    setIsQuetstion((prev) => !prev);
+  };
+
+  const onCalculateScore = (answerScore: number, isRich: boolean) => {
+    if (isRich) {
+      setRichCount((prev) => (prev += 1));
     }
-    setIsSurvey((prev) => !prev);
+    setScore((prev) => prev + answerScore);
+    setCurIndex((prev) => prev + 1);
   };
-
-  const onResetClick = () => {
-    setResult(null);
-    setIsResult(false);
-    setIsCalculate(false);
-    setTarget('');
-    setIsSurvey(false);
-    setRichCount(0);
-    setScore(0);
-    setCurIndex(0);
-    router.replace('/');
-    reset();
-  };
-
-  const ageValue = watch('age');
 
   const onCopyAndShareClick = () => {
     if (navigator.clipboard) {
@@ -95,197 +86,77 @@ export default function Index() {
     alert(SERVICE_MESSAGE.notAbleCopy);
   };
 
-  const onCalculateScore = (answerScore: number, isRich: boolean) => {
-    if (isRich) {
-      setRichCount((prev) => (prev += 1));
-    }
-    setScore((prev) => prev + answerScore);
-    setCurIndex((prev) => prev + 1);
+  const onResetClick = () => {
+    setIsStart(true);
+    setIsAskCouple(false);
+    setIsAskAge(false);
+    setIsQuetstion(false);
+    setIsResult(false);
+
+    setResult(null);
+    setTarget('');
+    setAge(0);
+    setRichCount(0);
+    setScore(0);
+    setCurIndex(0);
+
+    router.replace('/');
+    reset();
   };
-
-  const onCalculateResult = (retirement: Retirement, category: string) => {
-    switch (category) {
-      case SERVICE_STRING.minimum:
-        setResult(retirement.getMinimumCost());
-        break;
-      case SERVICE_STRING.proper:
-        setResult(retirement.getProperCost());
-        break;
-      case SERVICE_STRING.luxury:
-        setResult(retirement.getLuxuryCost());
-        break;
-      default:
-      // 이벤트
-    }
-  };
-
-  useEffect(() => {
-    if (router.query.target && router.query.age) {
-      const query = router.query;
-      const queryTarget = query.target ? query.target.toString() : '';
-      const queryAge = Number(query.age);
-      setTarget(queryTarget);
-      setValue('age', queryAge);
-      setIsCalculate(true);
-      const retirement = new Retirement(queryTarget, queryAge, 4, 4);
-      setResult(retirement.getLuxuryCost());
-      setIsResult(true);
-    }
-  }, [router.query]);
-
-  useEffect(() => {
-    clearErrors('target');
-    setValue('target', target);
-  }, [target]);
 
   useEffect(() => {
     if (curIndex === SERVICE_NUMBER.maxIndex) {
-      setIsCalculate((prev) => !prev);
+      setIsQuetstion((prev) => !prev);
 
-      setTimeout(() => {
-        const retirement = new Retirement(target, ageValue, score, richCount);
-        const category = retirement.getCategory();
-        console.log(category);
-        onCalculateResult(retirement, category);
-        setKoreanCategory(retirement.getKoreanCategory());
-        router.replace(
-          '/',
-          `/?target=${target}&age=${ageValue}&category=${category}`
-        );
-        setIsResult((prev) => !prev);
-      }, 1000);
+      const retirement = new Retirement(target, age, score, richCount);
+      setResult(retirement.getRetirementResult());
+      const category = retirement.getCategory();
+      router.replace('/', `/?target=${target}&age=${age}&category=${category}`);
+
+      setIsResult((prev) => !prev);
     }
   }, [curIndex]);
 
+  useEffect(() => {
+    console.log('점수는요', score);
+  }, [score]);
+
+  useEffect(() => {
+    console.log('결과', result);
+  }, [result]);
+
   return (
-    <>
-      <div className="">
-        {/* <div className="h-full w-full">
-        <Image
-          className="relative object-cover"
-          src="https://user-images.githubusercontent.com/80146176/209066243-d11d639f-2a9e-46f1-9399-0abfc9a4d8b2.jpg"
-          alt="bg"
-          layout="fill"></Image>
-      </div> */}
-        <div>
-          <div className={cls(isSurvey || isResult ? 'hidden' : '')}>
-            <div className="mb-12 text-center text-2xl font-bold">
-              내 은퇴 자금을 알아보자
-            </div>
-            <div className="mb-12 text-xl font-semibold">
-              당신은 개인인가요 부부인가요?
-            </div>
-            <div className="flex justify-between">
-              <div
-                onClick={() => onTargetClick(SERVICE_STRING.alone)}
-                className={cls(
-                  target === SERVICE_STRING.alone ? 'ring-2' : '',
-                  'rounded-md border bg-orange-200 p-6 text-lg '
-                )}
-              >
-                개인
-              </div>
-              <div
-                onClick={() => onTargetClick(SERVICE_STRING.couple)}
-                className={cls(
-                  target === SERVICE_STRING.couple ? 'ring-2' : '',
-                  'rounded-md border bg-orange-200 p-6 text-lg '
-                )}
-              >
-                부부
-              </div>
-            </div>
-            <div className="my-5 text-lg  text-red-500">
-              {errors.target && `${errors.target.message}`}
-            </div>
-
-            <form
-              onSubmit={handleSubmit(onValid)}
-              className="w-full items-center justify-center"
-            >
-              <div className="mt-12 mb-12 text-xl font-semibold">
-                은퇴할 나이를 적어주세요
-              </div>
-              <input
-                type="number"
-                min={SERVICE_NUMBER.minAge}
-                max={SERVICE_NUMBER.maxAge}
-                required
-                {...register('age', {
-                  required: {
-                    value: true,
-                    message: ERROR_MESSAGE.requiredAge,
-                  },
-                  min: {
-                    value: SERVICE_NUMBER.minAge,
-                    message: ERROR_MESSAGE.minAge,
-                  },
-                  max: {
-                    value: SERVICE_NUMBER.maxAge,
-                    message: ERROR_MESSAGE.maxAge,
-                  },
-                })}
-                placeholder="나이를 적어주세요"
-                className="w-full border p-3 focus:outline-none focus:ring-2"
-              />
-              <div className="my-5 text-lg  text-red-500">
-                {errors.age && `${errors.age.message}`}
-              </div>
-
-              <button className="mt-12 flex w-full items-center justify-center rounded-md border-2 p-2 ">
-                계산하러 가기
-              </button>
-            </form>
-          </div>
-          {isCalculate && !isResult && (
-            <div className="mt-36 flex items-center justify-center text-lg">
-              <LoadingSpinner></LoadingSpinner>
-              계산중입니다.
-            </div>
-          )}
-          {isResult && (
-            <div>
-              <h2>{`${
-                target === SERVICE_STRING.alone ? '개인' : '부부'
-              } 의 경우 나이 ${ageValue} 살에 은퇴한다면`}</h2>
-              <div className="py-8">
-                <div>{koreanCategory} 노후 생활비</div>
-                <div className="flex flex-col">
-                  <span>{`서울 : ${result?.seoulCost}`}</span>
-                  <span>{`광역시 : ${result?.metropolitanCost}`}</span>
-                  <span>{`도 : ${result?.doCost}`}</span>
-                </div>
-              </div>
-              <div
-                onClick={() => onCopyAndShareClick()}
-                className=" my-6 cursor-pointer rounded-full bg-orange-50 p-8 hover:bg-orange-200"
-              >
-                공유하기
-              </div>
-              <div
-                onClick={() => onResetClick()}
-                className=" my-6 cursor-pointer rounded-full bg-green-50 p-8 hover:bg-green-200"
-              >
-                다시 해보기
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-      {/* {isSurvey &&
+    <div className="mx-auto h-full max-w-xl ">
+      {isStart && <SplashScreen onStartClick={onStartClick} />}
+      {isAskCouple && <AskCouple onAskCoupleClick={onAskCoupleClick} />}
+      {isAskAge && (
+        <AskAge
+          errors={errors}
+          handleSubmit={handleSubmit}
+          register={register}
+          onAgeValid={onAgeValid}
+        />
+      )}
+      {isQuestion &&
         QUESTION_DATA.map(
           (element, index) =>
-            curIndex === index && (
+            index === curIndex && (
               <Question
                 key={index}
-                question={element.question}
-                imageSrc={element.imageSrc}
                 answers={element.answers}
-                page={index + 1}
+                question={element.question}
+                page={index}
                 onCalculateScore={onCalculateScore}
               ></Question>
             )
-        )} */}
-    </>
+        )}
+      {isResult && result && (
+        <Result
+          result={result}
+          onResetClick={onResetClick}
+          onCopyAndShareClick={onCopyAndShareClick}
+        ></Result>
+      )}
+    </div>
   );
 }

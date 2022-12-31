@@ -1,5 +1,7 @@
 import {
   ALONE_COST,
+  CATEGORY_IMAGE,
+  CATEGORY_MESSAGE,
   COUPLE_COST,
   SERVICE_NUMBER,
   SERVICE_STRING,
@@ -28,16 +30,22 @@ class Retirement {
       compactDisplay: 'short',
       notation: 'compact',
     });
-    this.#category = this.calculateCategory(score);
     this.#isRich = richCount === SERVICE_NUMBER.richCount ? true : false;
-    console.log(richCount);
+    this.#category = this.calculateCategory(score);
+  }
+
+  getCategory() {
+    return this.#category;
   }
 
   calculateCategory(score: number) {
     // 1 * 4  최소는 4부터 6까지 4,5,6
     // 2 * 4 적정은 8부터 10까지 7,8,9,
     // 3 * 4 호화는 10부터 12까지 10,11,12
-    console.log('점수 : ', score);
+
+    if (this.#isRich) {
+      return this.getRichCategory();
+    }
 
     if (score < SERVICE_NUMBER.scoreMinimum) {
       return SERVICE_STRING.minimum;
@@ -61,16 +69,70 @@ class Retirement {
     );
   }
 
-  getCategory() {
-    if (this.#isRich) {
-      return this.getRichCategory();
+  getCategoryImageSource() {
+    if (this.#category === SERVICE_STRING.minimum) {
+      return CATEGORY_IMAGE.minimum;
     }
-    return this.#category;
+    if (this.#category === SERVICE_STRING.proper) {
+      return CATEGORY_IMAGE.proper;
+    }
+    if (this.#category === SERVICE_STRING.luxury) {
+      return CATEGORY_IMAGE.luxury;
+    }
+    if (this.#category === SERVICE_STRING.stock) {
+      return CATEGORY_IMAGE.stock;
+    }
+    if (this.#category === SERVICE_STRING.business) {
+      return CATEGORY_IMAGE.business;
+    }
+    if (this.#category === SERVICE_STRING.realEstate) {
+      return CATEGORY_IMAGE.realEstate;
+    }
+    return CATEGORY_IMAGE.virtualCurrency;
+  }
+
+  getKoreanRichDescription() {
+    if (this.#category === SERVICE_STRING.stock) {
+      return CATEGORY_MESSAGE.koreanStock;
+    }
+    if (this.#category === SERVICE_STRING.business) {
+      return CATEGORY_MESSAGE.koreanBusiness;
+    }
+    if (this.#category === SERVICE_STRING.realEstate) {
+      return CATEGORY_MESSAGE.koreanRealEstate;
+    }
+    return CATEGORY_MESSAGE.koreanVirtualCurrency;
+  }
+
+  getKoreanDescription() {
+    if (this.#isRich) {
+      return this.getKoreanRichDescription();
+    }
+    if (this.#category === SERVICE_STRING.minimum) {
+      return CATEGORY_MESSAGE.koreanMinimum;
+    }
+    if (this.#category === SERVICE_STRING.proper) {
+      return CATEGORY_MESSAGE.koreanProper;
+    }
+    return CATEGORY_MESSAGE.koreanluxury;
+  }
+
+  getKoreanRichCategory() {
+    if (this.#category === SERVICE_STRING.stock) {
+      return SERVICE_STRING.koreanStock;
+    }
+    if (this.#category === SERVICE_STRING.business) {
+      return SERVICE_STRING.koreanBusiness;
+    }
+    if (this.#category === SERVICE_STRING.realEstate) {
+      return SERVICE_STRING.koreanRealEstate;
+    }
+    return SERVICE_STRING.koreanVirtualCurrency;
   }
 
   getKoreanCategory() {
     if (this.#isRich) {
-      return this.getRichCategory();
+      return this.getKoreanRichCategory();
     }
     if (this.#category === SERVICE_STRING.minimum) {
       return SERVICE_STRING.koreanMinimum;
@@ -93,6 +155,27 @@ class Retirement {
       return SERVICE_STRING.virtualCurrency;
     }
     return SERVICE_STRING.business;
+  }
+
+  getRetirementResult() {
+    const result = {
+      ...this.getResultCost(),
+      koreanCategory: this.getKoreanCategory(),
+      koreanDescription: this.getKoreanDescription(),
+      imageSrc: this.getCategoryImageSource(),
+    };
+
+    return result;
+  }
+
+  getResultCost() {
+    if (this.#category === SERVICE_STRING.minimum) {
+      return this.getMinimumCost();
+    }
+    if (this.#category === SERVICE_STRING.proper) {
+      return this.getProperCost();
+    }
+    return this.getLuxuryCost();
   }
 
   getLuxuryCost() {
@@ -162,9 +245,5 @@ class Retirement {
     return proper;
   }
 }
-
-const retirement = new Retirement(SERVICE_STRING.alone, 27, 3, 4);
-
-retirement.play();
 
 export default Retirement;

@@ -117,6 +117,59 @@ const ERROR_MESSAGE = Object.freeze({
   maxAge: `${ERROR_SUBJECT} 99살 이하로 입력해야 합니다.`,
 });
 
+const CATEGORY_MESSAGE = Object.freeze({
+  koreanStock: '주식왕',
+  koreanRealEstate: '부동산왕',
+  koreanBusiness: '사업왕',
+  koreanVirtualCurrency: '가상화폐왕',
+  koreanMinimum:
+    '극강의 효율을 자랑하는 물곰은\n생명체가 살수없는 우주에서도,\n생존할 수 있다고 합니다!\n\n최소한의 지출로 최고의 효율을 자랑하는\n물곰형의 최소 은퇴 자금은!',
+  koreanProper: '물고기형',
+  koreanluxury: '백공작형',
+});
+
+const CATEGORY_IMAGE = Object.freeze({
+  minimum: {
+    background:
+      'https://user-images.githubusercontent.com/80146176/210151337-836a5ff4-830b-480a-8df8-fc5b07087cf7.png',
+    character:
+      'https://user-images.githubusercontent.com/80146176/210151322-726dc10f-e93f-4c2f-a540-8d6316d2e29e.png',
+    rectangle:
+      'https://user-images.githubusercontent.com/80146176/210151339-b46d7277-86c8-4b57-88b8-17ddfb051f41.png',
+  },
+  proper: {
+    background: '',
+    character:
+      'https://user-images.githubusercontent.com/80146176/210151347-f899d321-c7d9-4145-9b12-ce4fe5df9347.png',
+    rectangle: '',
+  },
+  luxury: {
+    background: '',
+    character: '',
+    rectangle: '',
+  },
+  stock: {
+    background: '',
+    character: '',
+    rectangle: '',
+  },
+  realEstate: {
+    background: '',
+    character: '',
+    rectangle: '',
+  },
+  business: {
+    background: '',
+    character: '',
+    rectangle: '',
+  },
+  virtualCurrency: {
+    background: '',
+    character: '',
+    rectangle: '',
+  },
+});
+
 const SERVICE_MESSAGE = Object.freeze({
   successCopy: '클립보드에 복사되었습니다.',
   retryCopy: '복사를 다시 시도해주세요.',
@@ -139,9 +192,13 @@ const SERVICE_STRING = Object.freeze({
   realEstate: 'REAL ESTATE',
   business: 'BUSINESS',
   virtualCurrency: 'VIRTUAL CURRENCY',
-  koreanMinimum: '최소',
-  koreanProper: '적정',
-  koreanluxury: '호화',
+  koreanStock: '주식왕',
+  koreanRealEstate: '부동산왕',
+  koreanBusiness: '사업왕',
+  koreanVirtualCurrency: '가상화폐왕',
+  koreanMinimum: '극강의 효율 물곰형',
+  koreanProper: '물고기형',
+  koreanluxury: '백공작형',
 });
 
 const SERVICE_NUMBER = Object.freeze({
@@ -152,7 +209,7 @@ const SERVICE_NUMBER = Object.freeze({
   scoreProper: 9,
   scoreLuxury: 12,
   richCount: 4,
-  maxIndex: 3,
+  maxIndex: 4,
   minAge: 1,
   maxAge: 99,
   maxScreenSize: 576,
@@ -195,11 +252,13 @@ const COUPLE_COST = Object.freeze({
 });
 
 export {
+  CATEGORY_MESSAGE,
   ERROR_MESSAGE,
   SERVICE_MESSAGE,
   SERVICE_STRING,
   SERVICE_NUMBER,
   ALONE_COST,
   COUPLE_COST,
+  CATEGORY_IMAGE,
   QUESTION_DATA,
 };

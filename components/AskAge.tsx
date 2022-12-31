@@ -1,13 +1,13 @@
 import React from 'react';
 import inputAge from '@public/images/input_age.png';
 import Image from 'next/image';
-import { FormProps } from 'pages/test';
 import {
   FieldErrorsImpl,
   UseFormHandleSubmit,
   UseFormRegister,
 } from 'react-hook-form';
 import { ERROR_MESSAGE, SERVICE_NUMBER } from 'constant';
+import { FormProps } from 'pages';
 
 interface AskAgeProps {
   errors: Partial<
