@@ -16,21 +16,21 @@ export default function AskCouple({ onAskCoupleClick }: AskCoupleProps) {
       <div className="mt-32 flex justify-between px-16">
         <div
           onClick={() => onAskCoupleClick(SERVICE_STRING.couple)}
-          className="relative flex h-28 w-28 cursor-pointer items-center justify-center"
+          className="relative flex h-28 w-28 cursor-pointer items-center justify-center transition-colors hover:text-ageColor"
         >
           <div className="relative h-28 w-28">
             <Image src={OX} className="z-10" alt="ox" layout="fill"></Image>
           </div>
           <span className="absolute z-20 text-[50px] font-bold ">O</span>
         </div>
-        <div className="relative flex h-28 w-28 cursor-pointer items-center justify-center">
+        <div className="relative flex h-28 w-28 cursor-pointer items-center justify-center transition-colors hover:text-ageColor">
           <div
             onClick={() => onAskCoupleClick(SERVICE_STRING.alone)}
-            className="relative h-28 w-28"
+            className="relative h-28 w-28 "
           >
             <Image src={OX} className="z-10" alt="ox" layout="fill"></Image>
           </div>
-          <span className="absolute z-20 text-[50px] font-bold ">X</span>
+          <span className="absolute z-20 text-[50px] font-bold  ">X</span>
         </div>
       </div>
     </div>

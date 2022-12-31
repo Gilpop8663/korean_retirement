@@ -5,8 +5,8 @@ interface QuestionProps {
   question: string;
   answers: AnswerProps[];
   page: number;
-  onCalculateScore?: any;
-  // onCalculateScore: (score: number, isRich: boolean) => void;
+  // onCalculateScore?: any;
+  onCalculateScore: (score: number, isRich: boolean) => void;
 }
 
 interface AnswerProps {
@@ -29,6 +29,7 @@ export default function Question({
       <div className="mt-20 flex flex-col items-center space-y-6">
         {answers.map((answer, index) => (
           <span
+            onClick={() => onCalculateScore(answer.score, answer.rich)}
             className="w-full cursor-pointer rounded-2xl bg-white p-2 px-2 text-center text-2xl text-textColor outline-dashed outline-4 outline-ageColor"
             key={index}
           >

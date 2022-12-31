@@ -152,7 +152,7 @@ const SERVICE_NUMBER = Object.freeze({
   scoreProper: 9,
   scoreLuxury: 12,
   richCount: 4,
-  maxIndex: 4,
+  maxIndex: 3,
   minAge: 1,
   maxAge: 99,
   maxScreenSize: 576,
