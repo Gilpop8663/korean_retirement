@@ -1,14 +1,14 @@
-import ArcornBackground, { KindProps } from '@components/ArcornBackground';
-import AskAge from '@components/AskAge';
-import AskCouple from '@components/AskCouple';
-import Question from '@components/Question';
-import Result from '@components/Result';
-import SplashScreen from '@components/SplashScreen';
-import Retirement from '@libs/Retirement';
-import { QUESTION_DATA, SERVICE_MESSAGE, SERVICE_NUMBER } from 'constant';
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import ArcornBackground, { KindProps } from "@components/ArcornBackground";
+import AskAge from "@components/AskAge";
+import AskCouple from "@components/AskCouple";
+import Question from "@components/Question";
+import ResultScreen from "@components/ResultScreen";
+import SplashScreen from "@components/SplashScreen";
+import Retirement from "@libs/Retirement";
+import { QUESTION_DATA, SERVICE_MESSAGE, SERVICE_NUMBER } from "constant";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 
 export interface FormProps {
   age: number;
@@ -27,7 +27,7 @@ export interface RetirementResultProps {
   };
 }
 
-export default function test() {
+export default function Index() {
   const router = useRouter();
   const {
     register,
@@ -39,7 +39,7 @@ export default function test() {
   const [isStart, setIsStart] = useState(true);
   const [isAskCouple, setIsAskCouple] = useState(false);
   const [isAskAge, setIsAskAge] = useState(false);
-  const [target, setTarget] = useState<string>('');
+  const [target, setTarget] = useState<string>("");
   const [age, setAge] = useState<number>(1);
   const [isQuestion, setIsQuetstion] = useState(false);
   const [curIndex, setCurIndex] = useState(0);
@@ -47,7 +47,7 @@ export default function test() {
   const [richCount, setRichCount] = useState(0);
   const [isResult, setIsResult] = useState(false);
   const [result, setResult] = useState<RetirementResultProps | null>(null);
-  const [categoryKind, setCategoryKind] = useState<KindProps>('NORMAL');
+  const [categoryKind, setCategoryKind] = useState<KindProps>("NORMAL");
 
   const onStartClick = () => {
     setIsStart((prev) => !prev);
@@ -68,7 +68,10 @@ export default function test() {
 
   const onCalculateScore = (answerScore: number, isRich: boolean) => {
     if (isRich) {
-      setRichCount((prev) => (prev += 1));
+      setRichCount((prev) => {
+        const number = prev + 1;
+        return number;
+      });
     }
     setScore((prev) => prev + answerScore);
     setCurIndex((prev) => prev + 1);
@@ -96,17 +99,17 @@ export default function test() {
     setIsQuetstion(false);
     setIsResult(false);
 
-    setCategoryKind('NORMAL');
+    setCategoryKind("NORMAL");
     setCurHeight(0);
 
     setResult(null);
-    setTarget('');
+    setTarget("");
     setAge(0);
     setRichCount(0);
     setScore(0);
     setCurIndex(0);
 
-    router.replace('/');
+    router.replace("/");
     reset();
   };
 
@@ -118,7 +121,7 @@ export default function test() {
       setResult(retirement.getRetirementResult());
       const category = retirement.getCategory();
       setCategoryKind(category);
-      router.replace('/', `/?target=${target}&age=${age}&category=${category}`);
+      router.replace("/", `/?target=${target}&age=${age}&category=${category}`);
 
       setIsResult((prev) => !prev);
     }
@@ -129,7 +132,7 @@ export default function test() {
     setCurHeight(height);
   }, [categoryKind]);
 
-  const KAKAO_KEY = '7fdda327ceac4a3a6a961e4192d57fab';
+  const KAKAO_KEY = "7fdda327ceac4a3a6a961e4192d57fab";
 
   useEffect(() => {
     if (!window.Kakao.isInitialized()) {
@@ -139,10 +142,7 @@ export default function test() {
 
   return (
     <div className="mx-auto h-full max-w-xl ">
-      <ArcornBackground
-        curHeight={curHeight}
-        kind={categoryKind}
-      ></ArcornBackground>
+      <ArcornBackground curHeight={curHeight} kind={categoryKind} />
       {isStart && <SplashScreen onStartClick={onStartClick} />}
       {isAskCouple && <AskCouple onAskCoupleClick={onAskCoupleClick} />}
       {isAskAge && (
@@ -158,21 +158,21 @@ export default function test() {
           (element, index) =>
             index === curIndex && (
               <Question
-                key={index}
+                key={element.question}
                 answers={element.answers}
                 question={element.question}
                 page={index}
                 onCalculateScore={onCalculateScore}
-              ></Question>
+              />
             )
         )}
       {isResult && result && (
-        <Result
+        <ResultScreen
           kind={categoryKind}
           result={result}
           onResetClick={onResetClick}
           onCopyAndShareClick={onCopyAndShareClick}
-        ></Result>
+        />
       )}
     </div>
   );

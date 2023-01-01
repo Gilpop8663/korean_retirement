@@ -1,11 +1,11 @@
 import React from 'react';
 import Image from 'next/image';
-import RegionalResult from './RegionalResult';
 import { RetirementResultProps } from 'pages';
 import KaKaoShareButton from './KaKaoShareButton';
 import { KindProps } from './ArcornBackground';
 import { cls } from '@libs/utils';
 import { SERVICE_STRING } from 'constant';
+import RegionalResult from './RegionalResult';
 
 interface ResultProps {
   result: RetirementResultProps;
@@ -14,7 +14,7 @@ interface ResultProps {
   onResetClick: () => void;
 }
 
-export default function Result({
+export default function ResultScreen({
   result,
   kind,
   onCopyAndShareClick,
