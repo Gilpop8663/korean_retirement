@@ -4,17 +4,20 @@ import RegionalResult from './RegionalResult';
 import kakao from '@public/images/kakao.png';
 import { RetirementResultProps } from 'pages';
 import KaKaoShareButton from './KaKaoShareButton';
+import { KindProps } from './ArcornBackground';
+import { cls } from '@libs/utils';
+import { SERVICE_STRING } from 'constant';
 
 interface ResultProps {
-  curHeight: number;
   result: RetirementResultProps;
+  kind: KindProps;
   onCopyAndShareClick: () => void;
   onResetClick: () => void;
 }
 
 export default function Result({
-  curHeight,
   result,
+  kind,
   onCopyAndShareClick,
   onResetClick,
 }: ResultProps) {
@@ -40,26 +43,55 @@ export default function Result({
               ></Image>
             </div>
             <span
-              className="absolute top-3 stroke-waterBear text-[40px] font-extralight text-waterBear"
+              className={cls(
+                kind === SERVICE_STRING.minimum
+                  ? 'stroke-minimumText text-minimumText'
+                  : '',
+                kind === SERVICE_STRING.proper
+                  ? 'stroke-properText text-properText'
+                  : '',
+                kind === SERVICE_STRING.luxury
+                  ? 'stroke-luxuryText text-luxuryText'
+                  : '',
+                kind === SERVICE_STRING.stock
+                  ? 'stroke-stockText text-stockText'
+                  : '',
+                'absolute top-3 text-[40px] font-extralight'
+              )}
               style={{ WebkitTextStroke: `2px` }}
             >
               {result.koreanCategory}
             </span>
           </div>
           <div className="mt-6 flex w-96  flex-col rounded-3xl bg-white p-4">
-            <span className="whitespace-pre-wrap text-center text-2xl">
+            <span className="whitespace-pre-wrap text-center text-2xl text-describtionText">
               {result.koreanDescription}
             </span>
-            <RegionalResult location="서울" retirement={result.seoulCost} />
             <RegionalResult
+              kind={kind}
+              location="서울"
+              retirement={result.seoulCost}
+            />
+            <RegionalResult
+              kind={kind}
               location="광역시"
               retirement={result.metropolitanCost}
             />
-            <RegionalResult location="도" retirement={result.doCost} />
+            <RegionalResult
+              kind={kind}
+              location="도"
+              retirement={result.doCost}
+            />
           </div>
           <div
             onClick={() => onResetClick()}
-            className="my-7 w-96 cursor-pointer rounded-3xl bg-retry p-3  text-center  font-jua text-2xl text-white"
+            className={cls(
+              kind === SERVICE_STRING.minimum ? 'bg-minimumRetry' : '',
+              kind === SERVICE_STRING.proper ? 'bg-properSoft' : '',
+              kind === SERVICE_STRING.luxury ? 'bg-luxuryRetry' : '',
+              kind === SERVICE_STRING.stock ? 'bg-stockRetry' : '',
+              'bg-retry my-7 w-96 cursor-pointer rounded-3xl p-3  text-center  font-jua text-2xl text-white'
+            )}
           >
             다시하기
           </div>
@@ -69,7 +101,13 @@ export default function Result({
               <KaKaoShareButton />
               <div
                 onClick={() => onCopyAndShareClick()}
-                className="flex h-14 w-14 cursor-pointer items-center justify-center rounded-full bg-waterBear text-white"
+                className={cls(
+                  kind === SERVICE_STRING.minimum ? 'bg-minimumText' : '',
+                  kind === SERVICE_STRING.proper ? 'bg-properText' : '',
+                  kind === SERVICE_STRING.luxury ? 'bg-luxuryText' : '',
+                  kind === SERVICE_STRING.stock ? 'bg-stockText' : '',
+                  'flex h-14 w-14 cursor-pointer items-center justify-center rounded-full text-white'
+                )}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

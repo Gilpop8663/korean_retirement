@@ -119,14 +119,19 @@ const ERROR_MESSAGE = Object.freeze({
 });
 
 const CATEGORY_MESSAGE = Object.freeze({
-  koreanStock: '주식왕',
-  koreanRealEstate: '부동산왕',
-  koreanBusiness: '사업왕',
+  koreanStock:
+    '주식은 가치 투자라 했던가?\n\n당신이 사는 종목이 곧 가치가 된다!\n종목을 보는 신의 눈!\n\n은퇴 비용은 걱정없다.\n\n잉차~잉차~ 솟아라 차트여 ! 주식의 왕~',
+  koreanRealEstate:
+    '산중에 산은 부동산!\n\n당신이 사는 땅이 곧 미래의 강남~?\n이 시대의 풍수지리사!\n\n은퇴 비용은 걱정없다.\n\n올라 갈 땅만 딱딱! 부동산의 신',
+  koreanBusiness:
+    '번쩍 번쩍 빛나는 아이디어!\n\n다양한 시도, 아이디어가 샘솟는다.\n대한민국을 빛낼 당신\n\n은퇴 비용은 걱정없다.\n\n사업에 성공하여 EXIT 하였습니다.',
   koreanVirtualCurrency: '가상화폐왕',
   koreanMinimum:
     '극강의 효율을 자랑하는 물곰은\n생명체가 살수없는 우주에서도,\n생존할 수 있다고 합니다!\n\n최소한의 지출로 최고의 효율을 자랑하는\n물곰형의 최소 은퇴 자금은!',
-  koreanProper: '물고기형',
-  koreanluxury: '백공작형',
+  koreanProper:
+    '짙은 푸른 색, 은백 색의 앤쵸비는\n무리를 지어,\n바닷속을 헤엄친다고 합니다!\n\n유행을 따라, 흘러 가며 살아 가는\n앤쵸비형의 최소 은퇴 자금은!',
+  koreanluxury:
+    '화려한 꼬리를 자랑하는 공작은\n자신을 뽐내기 위해, 생존에 불리한\n꽁지깃을 경쟁하듯 진화시켰다 합니다!\n\n한번사는 인생을 화려하게 살아가는\n공작형의 최소 은퇴 자금은!',
 });
 
 const ARCORNS_IMAGE_SOURCE = Object.freeze({
@@ -221,13 +226,13 @@ const SERVICE_STRING = Object.freeze({
   realEstate: 'ESTATE',
   business: 'BUSINESS',
   virtualCurrency: 'VIRTUAL',
-  koreanStock: '주식왕',
-  koreanRealEstate: '부동산왕',
-  koreanBusiness: '사업왕',
+  koreanStock: '솟아라! 주식의 왕',
+  koreanRealEstate: '산중에 산은 부동산',
+  koreanBusiness: '반짝이는 사업 왕',
   koreanVirtualCurrency: '가상화폐왕',
   koreanMinimum: '극강의 효율 물곰형',
-  koreanProper: '물고기형',
-  koreanluxury: '백공작형',
+  koreanProper: '무리 짓는 앤쵸비형',
+  koreanluxury: '반짝반짝 공작형',
 });
 
 const SERVICE_NUMBER = Object.freeze({

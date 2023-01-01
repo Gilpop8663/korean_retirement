@@ -47,7 +47,7 @@ export default function test() {
   const [richCount, setRichCount] = useState(0);
   const [isResult, setIsResult] = useState(false);
   const [result, setResult] = useState<RetirementResultProps | null>(null);
-  const [arcornKind, setArcornKind] = useState<KindProps>('NORMAL');
+  const [categoryKind, setCategoryKind] = useState<KindProps>('NORMAL');
 
   const onStartClick = () => {
     setIsStart((prev) => !prev);
@@ -96,7 +96,8 @@ export default function test() {
     setIsQuetstion(false);
     setIsResult(false);
 
-    setArcornKind('NORMAL');
+    setCategoryKind('NORMAL');
+    setCurHeight(0);
 
     setResult(null);
     setTarget('');
@@ -115,7 +116,7 @@ export default function test() {
 
       const retirement = new Retirement(target, age, score, richCount);
       setResult(retirement.getRetirementResult());
-      setArcornKind(retirement.getCategory());
+      setCategoryKind(retirement.getCategory());
       const category = retirement.getCategory();
       router.replace('/', `/?target=${target}&age=${age}&category=${category}`);
 
@@ -126,7 +127,7 @@ export default function test() {
   useEffect(() => {
     const height = document.documentElement.scrollHeight;
     setCurHeight(height);
-  }, [arcornKind]);
+  }, [categoryKind]);
 
   const KAKAO_KEY = '7fdda327ceac4a3a6a961e4192d57fab';
 
@@ -140,8 +141,7 @@ export default function test() {
     <div className="mx-auto h-full max-w-xl ">
       <ArcornBackground
         curHeight={curHeight}
-        kind={arcornKind}
-        bgColor={arcornKind}
+        kind={categoryKind}
       ></ArcornBackground>
       {isStart && <SplashScreen onStartClick={onStartClick} />}
       {isAskCouple && <AskCouple onAskCoupleClick={onAskCoupleClick} />}
@@ -168,7 +168,7 @@ export default function test() {
         )}
       {isResult && result && (
         <Result
-          curHeight={curHeight}
+          kind={categoryKind}
           result={result}
           onResetClick={onResetClick}
           onCopyAndShareClick={onCopyAndShareClick}
