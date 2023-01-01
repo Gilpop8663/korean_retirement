@@ -9,6 +9,7 @@ interface ArcornBackgroundProps {
 }
 
 export type KindProps =
+  | any
   | 'NORMAL'
   | 'MINIMUM'
   | 'PROPER'

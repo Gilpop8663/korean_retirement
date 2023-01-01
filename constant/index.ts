@@ -150,6 +150,25 @@ const ARCORNS_IMAGE_SOURCE = Object.freeze({
   VIRTUAL: '',
 });
 
+const getArcornsImageSrc = (kind: string) => {
+  if (kind === SERVICE_STRING.normal) {
+    return ARCORNS_IMAGE_SOURCE.NORMAL;
+  }
+  if (kind === SERVICE_STRING.minimum) {
+    return ARCORNS_IMAGE_SOURCE.MINIMUM;
+  }
+  if (kind === SERVICE_STRING.proper) {
+    return ARCORNS_IMAGE_SOURCE.PROPER;
+  }
+  if (kind === SERVICE_STRING.luxury) {
+    return ARCORNS_IMAGE_SOURCE.LUXURY;
+  }
+  if (kind === SERVICE_STRING.stock) {
+    return ARCORNS_IMAGE_SOURCE.STOCK;
+  }
+  return ARCORNS_IMAGE_SOURCE.ESTATE;
+};
+
 const SHARE_DATA = Object.freeze({
   kakaoSrc:
     'https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png',
@@ -290,7 +309,6 @@ const COUPLE_COST = Object.freeze({
 });
 
 export {
-  ARCORNS_IMAGE_SOURCE,
   ALONE_COST,
   CATEGORY_MESSAGE,
   CATEGORY_IMAGE,
@@ -301,4 +319,5 @@ export {
   SERVICE_NUMBER,
   SHARE_DATA,
   QUESTION_DATA,
+  getArcornsImageSrc,
 };
