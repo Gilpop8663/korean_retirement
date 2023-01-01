@@ -178,13 +178,17 @@ const CATEGORY_IMAGE = Object.freeze({
   },
   luxury: {
     background: '',
-    character: '',
-    rectangle: '',
+    character:
+      'https://user-images.githubusercontent.com/80146176/210162020-e3cd2a57-7afc-4ec9-a2fb-9ed9272bd68e.png',
+    rectangle:
+      'https://user-images.githubusercontent.com/80146176/210162019-fc6b60d1-1827-4cab-94ae-d2c49be04764.png',
   },
   stock: {
     background: '',
-    character: '',
-    rectangle: '',
+    character:
+      'https://user-images.githubusercontent.com/80146176/210162044-7ff4d391-8584-423f-8d1c-cb2a79cb36c9.png',
+    rectangle:
+      'https://user-images.githubusercontent.com/80146176/210162043-76b35244-df94-4451-917e-be378550afa0.png',
   },
   realEstate: {
     background: '',
