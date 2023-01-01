@@ -28,12 +28,16 @@ export default function ArcornBackground({
   const makeArcornImage = () => {
     const result = [];
 
-    for (let j = 0; j < 5; j++) {
-      for (let i = 0; i < 5; i++) {
+    const screenWidth = 1920;
+    const repeatNumber = 5;
+
+    for (let j = 0; j < repeatNumber; j++) {
+      for (let i = 0; i < repeatNumber; i++) {
         const randomLeft =
-          (document.documentElement.scrollWidth / 5) * i +
-          (j % 2 === 0 ? document.documentElement.scrollWidth / 10 : 0);
-        const randomTop = (document.documentElement.scrollHeight / 5) * j;
+          (screenWidth / repeatNumber) * i +
+          (j % 2 === 0 ? screenWidth / (repeatNumber * 2) : 0);
+        const randomTop =
+          (document.documentElement.scrollHeight / repeatNumber) * j;
         const randomDeg = Math.random() * 360;
         result.push({ randomLeft, randomTop, randomDeg });
       }
@@ -43,18 +47,15 @@ export default function ArcornBackground({
   };
 
   useEffect(() => {
-    // console.log(makeArcornImage());
     setRandomArray(makeArcornImage());
   }, []);
-
-  useEffect(() => {}, []);
 
   return (
     <div
       className={cls(
         bgColor === SERVICE_STRING.normal ? 'bg-bgColor' : '',
         bgColor === SERVICE_STRING.minimum ? 'bg-waterBearBackground' : '',
-        'absolute left-0 top-0 -z-20   w-screen overflow-hidden'
+        'absolute left-0 top-0 -z-20 w-full overflow-hidden'
       )}
       style={{
         height: `${curHeight}px`,

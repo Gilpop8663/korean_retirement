@@ -1,6 +1,5 @@
 import React from 'react';
 import Image from 'next/image';
-import Arcorns from '../public/images/Acorns.png';
 import { ARCORNS_IMAGE_SOURCE } from 'constant';
 import { KindProps } from './ArcornBackground';
 

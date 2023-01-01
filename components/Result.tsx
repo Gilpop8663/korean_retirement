@@ -20,7 +20,7 @@ export default function Result({
 }: ResultProps) {
   return (
     <div className="relative flex max-w-lg justify-center">
-      <div className="flex h-full  flex-col items-center  pt-7 font-bareunHipi ">
+      <div className="flex h-full  max-w-lg flex-col items-center  pt-7 font-bareunHipi ">
         <div className="relative h-96 w-96 ">
           <Image
             className="object-contain"
