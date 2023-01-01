@@ -37,11 +37,8 @@ module.exports = {
         stockBg: '#21252E',
       },
       fontFamily: {
-        blackHan: ["'Black Han Sans'", 'sans-serif'],
-        blackOps: ["'Black Ops One'", "'cursive'"],
-        nanumPen: ["'Nanum Pen Script'", "'cursive'"],
-        bareunHipi: ["'NanumBaReunHiPi'", "'cursive'"],
-        jua: ["'Jua'", "'sans-serif'"],
+        bareunHipi: ['NanumBaReunHiPi', 'cursive'],
+        jua: ['Jua', 'sans-serif'],
       },
       screens: {
         small: { min: '360px', max: '400px' },

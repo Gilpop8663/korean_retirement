@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import RegionalResult from './RegionalResult';
-import kakao from '@public/images/kakao.png';
 import { RetirementResultProps } from 'pages';
 import KaKaoShareButton from './KaKaoShareButton';
 import { KindProps } from './ArcornBackground';
