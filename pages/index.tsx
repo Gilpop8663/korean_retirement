@@ -116,8 +116,8 @@ export default function test() {
 
       const retirement = new Retirement(target, age, score, richCount);
       setResult(retirement.getRetirementResult());
-      setCategoryKind(retirement.getCategory());
       const category = retirement.getCategory();
+      setCategoryKind(category);
       router.replace('/', `/?target=${target}&age=${age}&category=${category}`);
 
       setIsResult((prev) => !prev);
