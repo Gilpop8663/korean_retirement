@@ -1,3 +1,4 @@
+import { KindProps } from '@components/ArcornBackground';
 import {
   ALONE_COST,
   CATEGORY_IMAGE,
@@ -32,6 +33,10 @@ class Retirement {
     });
     this.#isRich = richCount === SERVICE_NUMBER.richCount ? true : false;
     this.#category = this.calculateCategory(score);
+  }
+
+  setCategory(category: KindProps) {
+    this.#category = category;
   }
 
   getCategory() {

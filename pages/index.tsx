@@ -1,14 +1,14 @@
-import ArcornBackground, { KindProps } from "@components/ArcornBackground";
-import AskAge from "@components/AskAge";
-import AskCouple from "@components/AskCouple";
-import Question from "@components/Question";
-import ResultScreen from "@components/ResultScreen";
-import SplashScreen from "@components/SplashScreen";
-import Retirement from "@libs/Retirement";
-import { QUESTION_DATA, SERVICE_MESSAGE, SERVICE_NUMBER } from "constant";
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import ArcornBackground, { KindProps } from '@components/ArcornBackground';
+import AskAge from '@components/AskAge';
+import AskCouple from '@components/AskCouple';
+import Question from '@components/Question';
+import ResultScreen from '@components/ResultScreen';
+import SplashScreen from '@components/SplashScreen';
+import Retirement from '@libs/Retirement';
+import { QUESTION_DATA, SERVICE_MESSAGE, SERVICE_NUMBER } from 'constant';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 export interface FormProps {
   age: number;
@@ -39,7 +39,7 @@ export default function Index() {
   const [isStart, setIsStart] = useState(true);
   const [isAskCouple, setIsAskCouple] = useState(false);
   const [isAskAge, setIsAskAge] = useState(false);
-  const [target, setTarget] = useState<string>("");
+  const [target, setTarget] = useState<string>('');
   const [age, setAge] = useState<number>(1);
   const [isQuestion, setIsQuetstion] = useState(false);
   const [curIndex, setCurIndex] = useState(0);
@@ -47,34 +47,34 @@ export default function Index() {
   const [richCount, setRichCount] = useState(0);
   const [isResult, setIsResult] = useState(false);
   const [result, setResult] = useState<RetirementResultProps | null>(null);
-  const [categoryKind, setCategoryKind] = useState<KindProps>("NORMAL");
+  const [categoryKind, setCategoryKind] = useState<KindProps>('NORMAL');
 
   const onStartClick = () => {
-    setIsStart((prev) => !prev);
-    setIsAskCouple((prev) => !prev);
+    setIsStart(prev => !prev);
+    setIsAskCouple(prev => !prev);
   };
 
   const onAskCoupleClick = (answer: string) => {
     setTarget(answer);
-    setIsAskAge((prev) => !prev);
-    setIsAskCouple((prev) => !prev);
+    setIsAskAge(prev => !prev);
+    setIsAskCouple(prev => !prev);
   };
 
   const onAgeValid = (value: FormProps) => {
     setAge(value.age);
-    setIsAskAge((prev) => !prev);
-    setIsQuetstion((prev) => !prev);
+    setIsAskAge(prev => !prev);
+    setIsQuetstion(prev => !prev);
   };
 
   const onCalculateScore = (answerScore: number, isRich: boolean) => {
     if (isRich) {
-      setRichCount((prev) => {
+      setRichCount(prev => {
         const number = prev + 1;
         return number;
       });
     }
-    setScore((prev) => prev + answerScore);
-    setCurIndex((prev) => prev + 1);
+    setScore(prev => prev + answerScore);
+    setCurIndex(prev => prev + 1);
   };
 
   const onCopyAndShareClick = () => {
@@ -99,31 +99,31 @@ export default function Index() {
     setIsQuetstion(false);
     setIsResult(false);
 
-    setCategoryKind("NORMAL");
+    setCategoryKind('NORMAL');
     setCurHeight(0);
 
     setResult(null);
-    setTarget("");
+    setTarget('');
     setAge(0);
     setRichCount(0);
     setScore(0);
     setCurIndex(0);
 
-    router.replace("/");
+    router.replace('/');
     reset();
   };
 
   useEffect(() => {
     if (curIndex === SERVICE_NUMBER.maxIndex) {
-      setIsQuetstion((prev) => !prev);
+      setIsQuetstion(prev => !prev);
 
       const retirement = new Retirement(target, age, score, richCount);
       setResult(retirement.getRetirementResult());
       const category = retirement.getCategory();
       setCategoryKind(category);
-      router.replace("/", `/?target=${target}&age=${age}&category=${category}`);
+      router.replace('/', `/?target=${target}&age=${age}&category=${category}`);
 
-      setIsResult((prev) => !prev);
+      setIsResult(prev => !prev);
     }
   }, [curIndex]);
 
@@ -132,13 +132,38 @@ export default function Index() {
     setCurHeight(height);
   }, [categoryKind]);
 
-  const KAKAO_KEY = "7fdda327ceac4a3a6a961e4192d57fab";
+  const KAKAO_KEY = '7fdda327ceac4a3a6a961e4192d57fab';
 
   useEffect(() => {
     if (!window.Kakao.isInitialized()) {
       window.Kakao.init(KAKAO_KEY);
     }
   }, []);
+
+  // 결과 공유
+  useEffect(() => {
+    if (!router.query || !router.query.target || !router.query.age) {
+      return;
+    }
+    const { target: targetValue, age: ageValue, category } = router.query;
+    const retirement = new Retirement(
+      targetValue.toString(),
+      Number(ageValue.toString()),
+      0,
+      0
+    );
+
+    retirement.setCategory(category);
+    setResult(retirement.getRetirementResult());
+    const categoryName = retirement.getCategory();
+    setCategoryKind(categoryName);
+
+    setIsStart(false);
+    setIsAskCouple(false);
+    setIsAskAge(false);
+    setIsQuetstion(false);
+    setIsResult(prev => !prev);
+  }, [router]);
 
   return (
     <div className="mx-auto h-full max-w-xl ">
