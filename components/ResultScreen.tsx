@@ -55,6 +55,12 @@ export default function ResultScreen({
                 kind === SERVICE_STRING.stock
                   ? 'stroke-stockText text-stockText'
                   : '',
+                kind === SERVICE_STRING.realEstate
+                  ? 'stroke-estateText text-estateText'
+                  : '',
+                kind === SERVICE_STRING.business
+                  ? 'stroke-businessText text-businessText'
+                  : '',
                 'absolute top-3 text-[40px] font-extralight'
               )}
               style={{ WebkitTextStroke: `2px` }}>
@@ -92,6 +98,8 @@ export default function ResultScreen({
               kind === SERVICE_STRING.proper ? 'bg-properSoft' : '',
               kind === SERVICE_STRING.luxury ? 'bg-luxuryRetry' : '',
               kind === SERVICE_STRING.stock ? 'bg-stockRetry' : '',
+              kind === SERVICE_STRING.realEstate ? 'bg-estateRetry' : '',
+              kind === SERVICE_STRING.business ? 'bg-businessRetry' : '',
               'bg-retry my-7 w-96 cursor-pointer rounded-3xl p-3  text-center  font-jua text-2xl text-white'
             )}>
             다시하기
@@ -107,6 +115,8 @@ export default function ResultScreen({
                   kind === SERVICE_STRING.proper ? 'bg-properText' : '',
                   kind === SERVICE_STRING.luxury ? 'bg-luxuryText' : '',
                   kind === SERVICE_STRING.stock ? 'bg-stockText' : '',
+                  kind === SERVICE_STRING.realEstate ? 'bg-estateText' : '',
+                  kind === SERVICE_STRING.business ? 'bg-businessText' : '',
                   'flex h-14 w-14 cursor-pointer items-center justify-center rounded-full text-white'
                 )}>
                 <svg

@@ -182,7 +182,7 @@ export default function Index() {
       categoryKind === SERVICE_STRING.business ||
       categoryKind === SERVICE_STRING.realEstate
     ) {
-      setIsRich(prev => !prev);
+      setIsRich(true);
     }
   }, [categoryKind]);
 

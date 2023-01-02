@@ -58,6 +58,8 @@ export default function ArcornBackground({
         kind === SERVICE_STRING.proper ? 'bg-properBg' : '',
         kind === SERVICE_STRING.luxury ? 'bg-luxuryBg' : '',
         kind === SERVICE_STRING.stock ? 'bg-stockBg' : '',
+        kind === SERVICE_STRING.realEstate ? 'bg-estateBg' : '',
+        kind === SERVICE_STRING.business ? 'bg-businessBg' : '',
         'absolute left-0 -z-20 w-full overflow-hidden'
       )}
       style={{
