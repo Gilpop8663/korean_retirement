@@ -17,6 +17,10 @@ export default function Document() {
           name="naver-site-verification"
           content="0bd61b8e71d8f623cbd952c54997c1dc7077f83c"
         />
+        <meta
+          name="google-site-verification"
+          content="bn2vsRbCicbyvCfYW0yjaW1maH6b4awLLq1pFlt2c1Y"
+        />
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2859963355226699"
