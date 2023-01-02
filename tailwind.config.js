@@ -20,6 +20,7 @@ module.exports = {
         properText: '#144561',
         luxuryText: '#42204E',
         stockText: '#1D1D1D',
+        stockText: '#1D1D1D',
 
         minimumSoft: '#9FAECB',
         properSoft: '#78B3D4',

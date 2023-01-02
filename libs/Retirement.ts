@@ -17,7 +17,7 @@ class Retirement {
 
   #fommatter;
 
-  #category;
+  #category: KindProps;
 
   #isRich;
 
@@ -37,6 +37,13 @@ class Retirement {
 
   setCategory(category: KindProps) {
     this.#category = category;
+    if (
+      this.#category === SERVICE_STRING.stock ||
+      this.#category === SERVICE_STRING.business ||
+      this.#category === SERVICE_STRING.realEstate
+    ) {
+      this.#isRich = true;
+    }
   }
 
   getCategory() {
@@ -90,10 +97,7 @@ class Retirement {
     if (this.#category === SERVICE_STRING.business) {
       return CATEGORY_IMAGE.business;
     }
-    if (this.#category === SERVICE_STRING.realEstate) {
-      return CATEGORY_IMAGE.realEstate;
-    }
-    return CATEGORY_IMAGE.virtualCurrency;
+    return CATEGORY_IMAGE.realEstate;
   }
 
   getKoreanRichDescription() {
@@ -103,10 +107,7 @@ class Retirement {
     if (this.#category === SERVICE_STRING.business) {
       return CATEGORY_MESSAGE.koreanBusiness;
     }
-    if (this.#category === SERVICE_STRING.realEstate) {
-      return CATEGORY_MESSAGE.koreanRealEstate;
-    }
-    return CATEGORY_MESSAGE.koreanVirtualCurrency;
+    return CATEGORY_MESSAGE.koreanRealEstate;
   }
 
   getKoreanDescription() {
@@ -129,10 +130,7 @@ class Retirement {
     if (this.#category === SERVICE_STRING.business) {
       return SERVICE_STRING.koreanBusiness;
     }
-    if (this.#category === SERVICE_STRING.realEstate) {
-      return SERVICE_STRING.koreanRealEstate;
-    }
-    return SERVICE_STRING.koreanVirtualCurrency;
+    return SERVICE_STRING.koreanRealEstate;
   }
 
   getKoreanCategory() {
@@ -149,15 +147,12 @@ class Retirement {
   }
 
   getRichCategory() {
-    const randomNumber = Math.random() * 4;
+    const randomNumber = Math.random() * 3;
     if (randomNumber < 1) {
       return SERVICE_STRING.stock;
     }
     if (randomNumber < 2) {
       return SERVICE_STRING.realEstate;
-    }
-    if (randomNumber < 3) {
-      return SERVICE_STRING.virtualCurrency;
     }
     return SERVICE_STRING.business;
   }

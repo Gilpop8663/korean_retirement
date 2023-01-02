@@ -9,15 +9,14 @@ interface ArcornBackgroundProps {
 }
 
 export type KindProps =
-  | any
+  | string
   | 'NORMAL'
   | 'MINIMUM'
   | 'PROPER'
   | 'LUXURY'
   | 'STOCK'
   | 'ESTATE'
-  | 'BUSINESS'
-  | 'VIRTUAL';
+  | 'BUSINESS';
 
 export default function ArcornBackground({
   curHeight,
@@ -63,16 +62,14 @@ export default function ArcornBackground({
       )}
       style={{
         height: `${curHeight}px`,
-      }}
-    >
+      }}>
       {randomArray?.map((element, index) => (
         <Arcorn
           key={index}
           kind={kind}
           randomTop={element.randomTop}
           randomLeft={element.randomLeft}
-          randomDeg={element.randomDeg}
-        ></Arcorn>
+          randomDeg={element.randomDeg}></Arcorn>
       ))}
     </div>
   );

@@ -5,7 +5,12 @@ import Question from '@components/Question';
 import ResultScreen from '@components/ResultScreen';
 import SplashScreen from '@components/SplashScreen';
 import Retirement from '@libs/Retirement';
-import { QUESTION_DATA, SERVICE_MESSAGE, SERVICE_NUMBER } from 'constant';
+import {
+  QUESTION_DATA,
+  SERVICE_MESSAGE,
+  SERVICE_NUMBER,
+  SERVICE_STRING,
+} from 'constant';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -48,6 +53,7 @@ export default function Index() {
   const [isResult, setIsResult] = useState(false);
   const [result, setResult] = useState<RetirementResultProps | null>(null);
   const [categoryKind, setCategoryKind] = useState<KindProps>('NORMAL');
+  const [isRich, setIsRich] = useState(false);
 
   const onStartClick = () => {
     setIsStart(prev => !prev);
@@ -142,7 +148,12 @@ export default function Index() {
 
   // 결과 공유
   useEffect(() => {
-    if (!router.query || !router.query.target || !router.query.age) {
+    if (
+      !router.query ||
+      !router.query.target ||
+      !router.query.age ||
+      !router.query.category
+    ) {
       return;
     }
     const { target: targetValue, age: ageValue, category } = router.query;
@@ -153,10 +164,10 @@ export default function Index() {
       0
     );
 
-    retirement.setCategory(category);
-    setResult(retirement.getRetirementResult());
+    retirement.setCategory(category.toString());
     const categoryName = retirement.getCategory();
     setCategoryKind(categoryName);
+    setResult(retirement.getRetirementResult());
 
     setIsStart(false);
     setIsAskCouple(false);
@@ -164,6 +175,16 @@ export default function Index() {
     setIsQuetstion(false);
     setIsResult(prev => !prev);
   }, [router]);
+
+  useEffect(() => {
+    if (
+      categoryKind === SERVICE_STRING.stock ||
+      categoryKind === SERVICE_STRING.business ||
+      categoryKind === SERVICE_STRING.realEstate
+    ) {
+      setIsRich(prev => !prev);
+    }
+  }, [categoryKind]);
 
   return (
     <div className="mx-auto h-full max-w-xl ">
@@ -195,6 +216,7 @@ export default function Index() {
         <ResultScreen
           kind={categoryKind}
           result={result}
+          isRich={isRich}
           onResetClick={onResetClick}
           onCopyAndShareClick={onCopyAndShareClick}
         />

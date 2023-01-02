@@ -12,11 +12,13 @@ interface ResultProps {
   kind: KindProps;
   onCopyAndShareClick: () => void;
   onResetClick: () => void;
+  isRich: boolean;
 }
 
 export default function ResultScreen({
   result,
   kind,
+  isRich,
   onCopyAndShareClick,
   onResetClick,
 }: ResultProps) {
@@ -28,8 +30,7 @@ export default function ResultScreen({
             className="object-contain"
             src={result.imageSrc.character}
             alt="character"
-            layout="fill"
-          ></Image>
+            layout="fill"></Image>
         </div>
         <div className="relative">
           <div className="relative  flex w-full items-center justify-center">
@@ -38,8 +39,7 @@ export default function ResultScreen({
                 src={result.imageSrc.rectangle}
                 alt="rectangle"
                 layout="fill"
-                className="object-contain"
-              ></Image>
+                className="object-contain"></Image>
             </div>
             <span
               className={cls(
@@ -57,8 +57,7 @@ export default function ResultScreen({
                   : '',
                 'absolute top-3 text-[40px] font-extralight'
               )}
-              style={{ WebkitTextStroke: `2px` }}
-            >
+              style={{ WebkitTextStroke: `2px` }}>
               {result.koreanCategory}
             </span>
           </div>
@@ -66,21 +65,25 @@ export default function ResultScreen({
             <span className="whitespace-pre-wrap text-center text-2xl text-describtionText">
               {result.koreanDescription}
             </span>
-            <RegionalResult
-              kind={kind}
-              location="서울"
-              retirement={result.seoulCost}
-            />
-            <RegionalResult
-              kind={kind}
-              location="광역시"
-              retirement={result.metropolitanCost}
-            />
-            <RegionalResult
-              kind={kind}
-              location="도"
-              retirement={result.doCost}
-            />
+            {!isRich && (
+              <>
+                <RegionalResult
+                  kind={kind}
+                  location="서울"
+                  retirement={result.seoulCost}
+                />
+                <RegionalResult
+                  kind={kind}
+                  location="광역시"
+                  retirement={result.metropolitanCost}
+                />
+                <RegionalResult
+                  kind={kind}
+                  location="도"
+                  retirement={result.doCost}
+                />
+              </>
+            )}
           </div>
           <div
             onClick={() => onResetClick()}
@@ -90,8 +93,7 @@ export default function ResultScreen({
               kind === SERVICE_STRING.luxury ? 'bg-luxuryRetry' : '',
               kind === SERVICE_STRING.stock ? 'bg-stockRetry' : '',
               'bg-retry my-7 w-96 cursor-pointer rounded-3xl p-3  text-center  font-jua text-2xl text-white'
-            )}
-          >
+            )}>
             다시하기
           </div>
           <div className="mb-24 flex flex-col items-center">
@@ -106,16 +108,14 @@ export default function ResultScreen({
                   kind === SERVICE_STRING.luxury ? 'bg-luxuryText' : '',
                   kind === SERVICE_STRING.stock ? 'bg-stockText' : '',
                   'flex h-14 w-14 cursor-pointer items-center justify-center rounded-full text-white'
-                )}
-              >
+                )}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={2}
                   stroke="currentColor"
-                  className="h-6 w-6"
-                >
+                  className="h-6 w-6">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
