@@ -187,7 +187,7 @@ export default function Index() {
   }, [categoryKind]);
 
   return (
-    <div className="mx-auto h-full max-w-xl ">
+    <div className="mx-auto h-full max-w-xl">
       <ArcornBackground curHeight={curHeight} kind={categoryKind} />
       {isStart && <SplashScreen onStartClick={onStartClick} />}
       {isAskCouple && <AskCouple onAskCoupleClick={onAskCoupleClick} />}
@@ -220,6 +220,14 @@ export default function Index() {
           onResetClick={onResetClick}
           onCopyAndShareClick={onCopyAndShareClick}
         />
+      )}
+      {!isResult && !result && (
+        <>
+          <div className="absolute right-0 left-0 bottom-24 z-50 mx-auto h-48 w-96 bg-slate-400"></div>
+          <div className="absolute bottom-3 left-0 right-0 z-50 mx-auto whitespace-pre-wrap text-center font-bareunHipi text-sm">
+            {SERVICE_MESSAGE.copyright}
+          </div>
+        </>
       )}
     </div>
   );

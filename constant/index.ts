@@ -237,6 +237,8 @@ const SERVICE_MESSAGE = Object.freeze({
   aloneOrCouple: '은퇴 후,\n당신의 노년엔 함께하는 이가 있나요?',
   retireAge: '은퇴는 몇살에 하는게 좋을까?',
   inputAge: '나이를 입력해 주세요',
+  copyright:
+    'Copyright 2023. Gilpop&Dayaya. All rights reserved.\n\ndesigned by Dayaya',
 });
 
 const SERVICE_STRING = Object.freeze({

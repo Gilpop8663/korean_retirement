@@ -4,7 +4,7 @@ import { RetirementResultProps } from 'pages';
 import KaKaoShareButton from './KaKaoShareButton';
 import { KindProps } from './ArcornBackground';
 import { cls } from '@libs/utils';
-import { SERVICE_STRING } from 'constant';
+import { SERVICE_MESSAGE, SERVICE_STRING } from 'constant';
 import RegionalResult from './RegionalResult';
 
 interface ResultProps {
@@ -134,8 +134,12 @@ export default function ResultScreen({
                 </svg>
               </div>
             </div>
+            <div className="mt-7 h-96 w-full bg-slate-500"></div>
           </div>
         </div>
+      </div>
+      <div className="absolute bottom-3 left-0 right-0 z-50 mx-auto whitespace-pre-wrap text-center font-bareunHipi text-sm">
+        {SERVICE_MESSAGE.copyright}
       </div>
     </div>
   );
