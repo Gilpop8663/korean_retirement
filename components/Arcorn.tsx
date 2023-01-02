@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { ARCORNS_IMAGE_SOURCE } from 'constant';
+import { getArcornsImageSrc } from 'constant';
 import { KindProps } from './ArcornBackground';
 
 export interface ArcornProps {
@@ -32,7 +32,7 @@ export default function Arcorn({
       }}
     >
       <Image
-        src={ARCORNS_IMAGE_SOURCE[kind]}
+        src={getArcornsImageSrc(kind)}
         alt="arcorn Image"
         className="object-contain"
         layout="fill"

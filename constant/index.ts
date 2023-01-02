@@ -125,7 +125,6 @@ const CATEGORY_MESSAGE = Object.freeze({
     '산중에 산은 부동산!\n\n당신이 사는 땅이 곧 미래의 강남~?\n이 시대의 풍수지리사!\n\n은퇴 비용은 걱정없다.\n\n올라 갈 땅만 딱딱! 부동산의 신',
   koreanBusiness:
     '번쩍 번쩍 빛나는 아이디어!\n\n다양한 시도, 아이디어가 샘솟는다.\n대한민국을 빛낼 당신\n\n은퇴 비용은 걱정없다.\n\n사업에 성공하여 EXIT 하였습니다.',
-  koreanVirtualCurrency: '가상화폐왕',
   koreanMinimum:
     '극강의 효율을 자랑하는 물곰은\n생명체가 살수없는 우주에서도,\n생존할 수 있다고 합니다!\n\n최소한의 지출로 최고의 효율을 자랑하는\n물곰형의 최소 은퇴 자금은!',
   koreanProper:
@@ -145,10 +144,30 @@ const ARCORNS_IMAGE_SOURCE = Object.freeze({
     'https://user-images.githubusercontent.com/80146176/210154445-1089abce-76ce-4ba7-816e-842826bf3155.png',
   STOCK:
     'https://user-images.githubusercontent.com/80146176/210154441-e21ba262-14cd-40ca-ae7a-7bac1d794377.png',
-  ESTATE: '',
-  BUSINESS: '',
-  VIRTUAL: '',
+  ESTATE:
+    'https://user-images.githubusercontent.com/80146176/210154441-e21ba262-14cd-40ca-ae7a-7bac1d794377.png',
+  BUSINESS:
+    'https://user-images.githubusercontent.com/80146176/210154441-e21ba262-14cd-40ca-ae7a-7bac1d794377.png',
 });
+
+const getArcornsImageSrc = (kind: string) => {
+  if (kind === SERVICE_STRING.normal) {
+    return ARCORNS_IMAGE_SOURCE.NORMAL;
+  }
+  if (kind === SERVICE_STRING.minimum) {
+    return ARCORNS_IMAGE_SOURCE.MINIMUM;
+  }
+  if (kind === SERVICE_STRING.proper) {
+    return ARCORNS_IMAGE_SOURCE.PROPER;
+  }
+  if (kind === SERVICE_STRING.luxury) {
+    return ARCORNS_IMAGE_SOURCE.LUXURY;
+  }
+  if (kind === SERVICE_STRING.stock) {
+    return ARCORNS_IMAGE_SOURCE.STOCK;
+  }
+  return ARCORNS_IMAGE_SOURCE.ESTATE;
+};
 
 const SHARE_DATA = Object.freeze({
   kakaoSrc:
@@ -190,20 +209,21 @@ const CATEGORY_IMAGE = Object.freeze({
     rectangle:
       'https://user-images.githubusercontent.com/80146176/210162043-76b35244-df94-4451-917e-be378550afa0.png',
   },
+
+  //여기서부터 아직 안함
   realEstate: {
     background: '',
-    character: '',
-    rectangle: '',
+    character:
+      'https://user-images.githubusercontent.com/80146176/210162044-7ff4d391-8584-423f-8d1c-cb2a79cb36c9.png',
+    rectangle:
+      'https://user-images.githubusercontent.com/80146176/210162043-76b35244-df94-4451-917e-be378550afa0.png',
   },
   business: {
     background: '',
-    character: '',
-    rectangle: '',
-  },
-  virtualCurrency: {
-    background: '',
-    character: '',
-    rectangle: '',
+    character:
+      'https://user-images.githubusercontent.com/80146176/210162044-7ff4d391-8584-423f-8d1c-cb2a79cb36c9.png',
+    rectangle:
+      'https://user-images.githubusercontent.com/80146176/210162043-76b35244-df94-4451-917e-be378550afa0.png',
   },
 });
 
@@ -217,6 +237,8 @@ const SERVICE_MESSAGE = Object.freeze({
   aloneOrCouple: '은퇴 후,\n당신의 노년엔 함께하는 이가 있나요?',
   retireAge: '은퇴는 몇살에 하는게 좋을까?',
   inputAge: '나이를 입력해 주세요',
+  copyright:
+    'Copyright 2023. Gilpop&Dayaya. All rights reserved.\n\ndesigned by Dayaya',
 });
 
 const SERVICE_STRING = Object.freeze({
@@ -229,11 +251,9 @@ const SERVICE_STRING = Object.freeze({
   stock: 'STOCK',
   realEstate: 'ESTATE',
   business: 'BUSINESS',
-  virtualCurrency: 'VIRTUAL',
   koreanStock: '솟아라! 주식의 왕',
   koreanRealEstate: '산중에 산은 부동산',
   koreanBusiness: '반짝이는 사업 왕',
-  koreanVirtualCurrency: '가상화폐왕',
   koreanMinimum: '극강의 효율 물곰형',
   koreanProper: '무리 짓는 앤쵸비형',
   koreanluxury: '반짝반짝 공작형',
@@ -290,7 +310,6 @@ const COUPLE_COST = Object.freeze({
 });
 
 export {
-  ARCORNS_IMAGE_SOURCE,
   ALONE_COST,
   CATEGORY_MESSAGE,
   CATEGORY_IMAGE,
@@ -301,4 +320,5 @@ export {
   SERVICE_NUMBER,
   SHARE_DATA,
   QUESTION_DATA,
+  getArcornsImageSrc,
 };

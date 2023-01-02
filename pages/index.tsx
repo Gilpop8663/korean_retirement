@@ -2,10 +2,15 @@ import ArcornBackground, { KindProps } from '@components/ArcornBackground';
 import AskAge from '@components/AskAge';
 import AskCouple from '@components/AskCouple';
 import Question from '@components/Question';
-import Result from '@components/Result';
+import ResultScreen from '@components/ResultScreen';
 import SplashScreen from '@components/SplashScreen';
 import Retirement from '@libs/Retirement';
-import { QUESTION_DATA, SERVICE_MESSAGE, SERVICE_NUMBER } from 'constant';
+import {
+  QUESTION_DATA,
+  SERVICE_MESSAGE,
+  SERVICE_NUMBER,
+  SERVICE_STRING,
+} from 'constant';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -27,7 +32,7 @@ export interface RetirementResultProps {
   };
 }
 
-export default function test() {
+export default function Index() {
   const router = useRouter();
   const {
     register,
@@ -48,30 +53,34 @@ export default function test() {
   const [isResult, setIsResult] = useState(false);
   const [result, setResult] = useState<RetirementResultProps | null>(null);
   const [categoryKind, setCategoryKind] = useState<KindProps>('NORMAL');
+  const [isRich, setIsRich] = useState(false);
 
   const onStartClick = () => {
-    setIsStart((prev) => !prev);
-    setIsAskCouple((prev) => !prev);
+    setIsStart(prev => !prev);
+    setIsAskCouple(prev => !prev);
   };
 
   const onAskCoupleClick = (answer: string) => {
     setTarget(answer);
-    setIsAskAge((prev) => !prev);
-    setIsAskCouple((prev) => !prev);
+    setIsAskAge(prev => !prev);
+    setIsAskCouple(prev => !prev);
   };
 
   const onAgeValid = (value: FormProps) => {
     setAge(value.age);
-    setIsAskAge((prev) => !prev);
-    setIsQuetstion((prev) => !prev);
+    setIsAskAge(prev => !prev);
+    setIsQuetstion(prev => !prev);
   };
 
   const onCalculateScore = (answerScore: number, isRich: boolean) => {
     if (isRich) {
-      setRichCount((prev) => (prev += 1));
+      setRichCount(prev => {
+        const number = prev + 1;
+        return number;
+      });
     }
-    setScore((prev) => prev + answerScore);
-    setCurIndex((prev) => prev + 1);
+    setScore(prev => prev + answerScore);
+    setCurIndex(prev => prev + 1);
   };
 
   const onCopyAndShareClick = () => {
@@ -112,7 +121,7 @@ export default function test() {
 
   useEffect(() => {
     if (curIndex === SERVICE_NUMBER.maxIndex) {
-      setIsQuetstion((prev) => !prev);
+      setIsQuetstion(prev => !prev);
 
       const retirement = new Retirement(target, age, score, richCount);
       setResult(retirement.getRetirementResult());
@@ -120,7 +129,7 @@ export default function test() {
       setCategoryKind(category);
       router.replace('/', `/?target=${target}&age=${age}&category=${category}`);
 
-      setIsResult((prev) => !prev);
+      setIsResult(prev => !prev);
     }
   }, [curIndex]);
 
@@ -137,12 +146,49 @@ export default function test() {
     }
   }, []);
 
+  // 결과 공유
+  useEffect(() => {
+    if (
+      !router.query ||
+      !router.query.target ||
+      !router.query.age ||
+      !router.query.category
+    ) {
+      return;
+    }
+    const { target: targetValue, age: ageValue, category } = router.query;
+    const retirement = new Retirement(
+      targetValue.toString(),
+      Number(ageValue.toString()),
+      0,
+      0
+    );
+
+    retirement.setCategory(category.toString());
+    const categoryName = retirement.getCategory();
+    setCategoryKind(categoryName);
+    setResult(retirement.getRetirementResult());
+
+    setIsStart(false);
+    setIsAskCouple(false);
+    setIsAskAge(false);
+    setIsQuetstion(false);
+    setIsResult(prev => !prev);
+  }, [router]);
+
+  useEffect(() => {
+    if (
+      categoryKind === SERVICE_STRING.stock ||
+      categoryKind === SERVICE_STRING.business ||
+      categoryKind === SERVICE_STRING.realEstate
+    ) {
+      setIsRich(true);
+    }
+  }, [categoryKind]);
+
   return (
-    <div className="mx-auto h-full max-w-xl ">
-      <ArcornBackground
-        curHeight={curHeight}
-        kind={categoryKind}
-      ></ArcornBackground>
+    <div className="mx-auto h-full max-w-xl">
+      <ArcornBackground curHeight={curHeight} kind={categoryKind} />
       {isStart && <SplashScreen onStartClick={onStartClick} />}
       {isAskCouple && <AskCouple onAskCoupleClick={onAskCoupleClick} />}
       {isAskAge && (
@@ -158,21 +204,30 @@ export default function test() {
           (element, index) =>
             index === curIndex && (
               <Question
-                key={index}
+                key={element.question}
                 answers={element.answers}
                 question={element.question}
                 page={index}
                 onCalculateScore={onCalculateScore}
-              ></Question>
+              />
             )
         )}
       {isResult && result && (
-        <Result
+        <ResultScreen
           kind={categoryKind}
           result={result}
+          isRich={isRich}
           onResetClick={onResetClick}
           onCopyAndShareClick={onCopyAndShareClick}
-        ></Result>
+        />
+      )}
+      {!isResult && !result && (
+        <>
+          <div className="absolute right-0 left-0 bottom-24 z-50 mx-auto h-48 w-96 bg-slate-400"></div>
+          <div className="absolute bottom-3 left-0 right-0 z-50 mx-auto whitespace-pre-wrap text-center font-bareunHipi text-sm">
+            {SERVICE_MESSAGE.copyright}
+          </div>
+        </>
       )}
     </div>
   );

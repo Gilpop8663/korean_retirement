@@ -1,23 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import RegionalResult from './RegionalResult';
-import kakao from '@public/images/kakao.png';
 import { RetirementResultProps } from 'pages';
 import KaKaoShareButton from './KaKaoShareButton';
 import { KindProps } from './ArcornBackground';
 import { cls } from '@libs/utils';
-import { SERVICE_STRING } from 'constant';
+import { SERVICE_MESSAGE, SERVICE_STRING } from 'constant';
+import RegionalResult from './RegionalResult';
 
 interface ResultProps {
   result: RetirementResultProps;
   kind: KindProps;
   onCopyAndShareClick: () => void;
   onResetClick: () => void;
+  isRich: boolean;
 }
 
-export default function Result({
+export default function ResultScreen({
   result,
   kind,
+  isRich,
   onCopyAndShareClick,
   onResetClick,
 }: ResultProps) {
@@ -29,8 +30,7 @@ export default function Result({
             className="object-contain"
             src={result.imageSrc.character}
             alt="character"
-            layout="fill"
-          ></Image>
+            layout="fill"></Image>
         </div>
         <div className="relative">
           <div className="relative  flex w-full items-center justify-center">
@@ -39,8 +39,7 @@ export default function Result({
                 src={result.imageSrc.rectangle}
                 alt="rectangle"
                 layout="fill"
-                className="object-contain"
-              ></Image>
+                className="object-contain"></Image>
             </div>
             <span
               className={cls(
@@ -56,10 +55,15 @@ export default function Result({
                 kind === SERVICE_STRING.stock
                   ? 'stroke-stockText text-stockText'
                   : '',
+                kind === SERVICE_STRING.realEstate
+                  ? 'stroke-estateText text-estateText'
+                  : '',
+                kind === SERVICE_STRING.business
+                  ? 'stroke-businessText text-businessText'
+                  : '',
                 'absolute top-3 text-[40px] font-extralight'
               )}
-              style={{ WebkitTextStroke: `2px` }}
-            >
+              style={{ WebkitTextStroke: `2px` }}>
               {result.koreanCategory}
             </span>
           </div>
@@ -67,21 +71,25 @@ export default function Result({
             <span className="whitespace-pre-wrap text-center text-2xl text-describtionText">
               {result.koreanDescription}
             </span>
-            <RegionalResult
-              kind={kind}
-              location="서울"
-              retirement={result.seoulCost}
-            />
-            <RegionalResult
-              kind={kind}
-              location="광역시"
-              retirement={result.metropolitanCost}
-            />
-            <RegionalResult
-              kind={kind}
-              location="도"
-              retirement={result.doCost}
-            />
+            {!isRich && (
+              <>
+                <RegionalResult
+                  kind={kind}
+                  location="서울"
+                  retirement={result.seoulCost}
+                />
+                <RegionalResult
+                  kind={kind}
+                  location="광역시"
+                  retirement={result.metropolitanCost}
+                />
+                <RegionalResult
+                  kind={kind}
+                  location="도"
+                  retirement={result.doCost}
+                />
+              </>
+            )}
           </div>
           <div
             onClick={() => onResetClick()}
@@ -90,9 +98,10 @@ export default function Result({
               kind === SERVICE_STRING.proper ? 'bg-properSoft' : '',
               kind === SERVICE_STRING.luxury ? 'bg-luxuryRetry' : '',
               kind === SERVICE_STRING.stock ? 'bg-stockRetry' : '',
+              kind === SERVICE_STRING.realEstate ? 'bg-estateRetry' : '',
+              kind === SERVICE_STRING.business ? 'bg-businessRetry' : '',
               'bg-retry my-7 w-96 cursor-pointer rounded-3xl p-3  text-center  font-jua text-2xl text-white'
-            )}
-          >
+            )}>
             다시하기
           </div>
           <div className="mb-24 flex flex-col items-center">
@@ -106,17 +115,17 @@ export default function Result({
                   kind === SERVICE_STRING.proper ? 'bg-properText' : '',
                   kind === SERVICE_STRING.luxury ? 'bg-luxuryText' : '',
                   kind === SERVICE_STRING.stock ? 'bg-stockText' : '',
+                  kind === SERVICE_STRING.realEstate ? 'bg-estateText' : '',
+                  kind === SERVICE_STRING.business ? 'bg-businessText' : '',
                   'flex h-14 w-14 cursor-pointer items-center justify-center rounded-full text-white'
-                )}
-              >
+                )}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={2}
                   stroke="currentColor"
-                  className="h-6 w-6"
-                >
+                  className="h-6 w-6">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -125,8 +134,12 @@ export default function Result({
                 </svg>
               </div>
             </div>
+            <div className="mt-7 h-96 w-full bg-slate-500"></div>
           </div>
         </div>
+      </div>
+      <div className="absolute bottom-3 left-0 right-0 z-50 mx-auto whitespace-pre-wrap text-center font-bareunHipi text-sm">
+        {SERVICE_MESSAGE.copyright}
       </div>
     </div>
   );

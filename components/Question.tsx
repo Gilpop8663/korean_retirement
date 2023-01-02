@@ -1,11 +1,9 @@
-import Image from 'next/image';
 import React from 'react';
 
 interface QuestionProps {
   question: string;
   answers: AnswerProps[];
   page: number;
-  // onCalculateScore?: any;
   onCalculateScore: (score: number, isRich: boolean) => void;
 }
 

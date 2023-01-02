@@ -9,8 +9,8 @@ interface SplashScreenProps {
 
 export default function SplashScreen({ onStartClick }: SplashScreenProps) {
   return (
-    <div className="justify-cente  flex h-screen max-w-lg flex-col items-center">
-      <div className="absolute top-72  z-20 flex w-full max-w-lg flex-col items-center justify-center">
+    <div className="flex  h-screen max-w-lg flex-col items-center justify-center">
+      <div className="absolute top-72  left-0 right-0 z-20 mx-auto flex w-full max-w-lg flex-col items-center justify-center">
         <div className="relative flex w-full items-center justify-center">
           <span className="absolute -top-9 left-32 font-bareunHipi text-base text-textColor">
             은퇴 이후, 얼마가 필요할까?
@@ -20,16 +20,14 @@ export default function SplashScreen({ onStartClick }: SplashScreenProps) {
               className="z-0"
               src={OutlineRectangle}
               alt="rectangle"
-              layout="fill"
-            ></Image>
+              layout="fill"></Image>
           </div>
           <div className="absolute -top-16 right-32 z-0 h-[84px] w-[84px]">
             <Image
               className="z-0"
               src={Squirrel}
               alt="Squirrel"
-              layout="fill"
-            ></Image>
+              layout="fill"></Image>
           </div>
           <span className="z-30 flex h-20 text-center font-bareunHipi text-[40px] font-semibold text-textColor">
             은퇴 자금 테스트
@@ -40,8 +38,7 @@ export default function SplashScreen({ onStartClick }: SplashScreenProps) {
         </div>
         <div
           onClick={() => onStartClick()}
-          className="mt-24 cursor-pointer rounded-3xl p-3 font-jua text-3xl text-textColor transition-colors hover:bg-ageColor hover:text-white"
-        >
+          className="mt-24 cursor-pointer rounded-3xl p-3 font-jua text-3xl text-textColor transition-colors hover:bg-ageColor hover:text-white">
           시작하기
         </div>
       </div>
