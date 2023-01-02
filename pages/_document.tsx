@@ -12,12 +12,18 @@ export default function Document() {
         />
         <link
           href="https://hangeul.pstatic.net/hangeul_static/css/NanumBaReunHiPi.css"
-          rel="stylesheet"
-        ></link>
+          rel="stylesheet"></link>
+        <meta
+          name="naver-site-verification"
+          content="0bd61b8e71d8f623cbd952c54997c1dc7077f83c"
+        />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2859963355226699"
+          crossOrigin="anonymous"></script>
         <script
           defer
-          src="https://developers.kakao.com/sdk/js/kakao.min.js"
-        ></script>
+          src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
       </Head>
       <body>
         <Main />
