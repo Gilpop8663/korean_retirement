@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app';
 declare global {
   interface Window {
     Kakao: any;
+    adsbygoogle: any;
   }
 }
 

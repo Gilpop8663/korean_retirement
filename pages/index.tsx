@@ -54,6 +54,7 @@ export default function Index() {
   const [result, setResult] = useState<RetirementResultProps | null>(null);
   const [categoryKind, setCategoryKind] = useState<KindProps>('NORMAL');
   const [isRich, setIsRich] = useState(false);
+  const [isInit, setIsInit] = useState(false);
 
   const onStartClick = () => {
     setIsStart(prev => !prev);
@@ -144,6 +145,7 @@ export default function Index() {
     if (!window.Kakao.isInitialized()) {
       window.Kakao.init(KAKAO_KEY);
     }
+    setIsInit(true);
   }, []);
 
   // 결과 공유
@@ -223,7 +225,15 @@ export default function Index() {
       )}
       {!isResult && !result && (
         <>
-          <div className="absolute right-0 left-0 bottom-24 z-50 mx-auto h-48 w-96 bg-slate-400"></div>
+          {isInit && (
+            <ins
+              className="adsbygoogle absolute right-0 left-0 bottom-24 z-50 mx-auto h-48 w-96"
+              style={{ display: 'block' }}
+              data-ad-client="ca-pub-2859963355226699"
+              data-ad-slot="2860300775"
+              data-ad-format="auto"
+              data-full-width-responsive="true"></ins>
+          )}
           <div className="absolute bottom-3 left-0 right-0 z-50 mx-auto whitespace-pre-wrap text-center font-bareunHipi text-sm">
             {SERVICE_MESSAGE.copyright}
           </div>
