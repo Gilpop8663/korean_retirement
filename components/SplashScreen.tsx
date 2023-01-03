@@ -2,12 +2,17 @@ import React from 'react';
 import OutlineRectangle from '@public/images/outlineRectangle.png';
 import Squirrel from '@public/images/squirrel.png';
 import Image from 'next/image';
+import GoogleAdsense from './GoogleAdsense';
 
 interface SplashScreenProps {
   onStartClick: () => void;
+  isInit: boolean;
 }
 
-export default function SplashScreen({ onStartClick }: SplashScreenProps) {
+export default function SplashScreen({
+  onStartClick,
+  isInit,
+}: SplashScreenProps) {
   return (
     <div className="flex h-screen max-w-lg flex-col items-center justify-center">
       <div className="absolute left-0 right-0 z-20 mx-auto flex w-full max-w-lg flex-col items-center justify-center small:top-32">
@@ -38,9 +43,10 @@ export default function SplashScreen({ onStartClick }: SplashScreenProps) {
         </div>
         <div
           onClick={() => onStartClick()}
-          className="mt-24 cursor-pointer rounded-3xl p-3 font-jua text-3xl text-textColor transition-colors hover:bg-ageColor hover:text-white">
+          className="mt-24 cursor-pointer rounded-3xl p-3 font-jua text-3xl text-textColor transition-colors hover:bg-ageColor hover:text-white tall:mb-24 long:mb-24">
           시작하기
         </div>
+        {isInit && <GoogleAdsense />}
       </div>
     </div>
   );

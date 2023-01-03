@@ -52,6 +52,7 @@ module.exports = {
       screens: {
         small: { min: '360px', max: '400px' },
         tall: { min: '401px', max: '639px' },
+        long: { raw: '(min-height: 800px)' },
       },
     },
   },

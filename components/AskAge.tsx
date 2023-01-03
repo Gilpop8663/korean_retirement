@@ -8,6 +8,7 @@ import {
 } from 'react-hook-form';
 import { ERROR_MESSAGE, SERVICE_NUMBER } from 'constant';
 import { FormProps } from 'pages';
+import GoogleAdsense from './GoogleAdsense';
 
 interface AskAgeProps {
   errors: Partial<
@@ -66,9 +67,10 @@ export default function AskAge({
       <div className="my-5 text-center  text-lg text-red-500">
         {errors.age && `${errors.age.message}`}
       </div>
-      <button className="mx-auto mt-24 w-fit cursor-pointer rounded-3xl p-3 text-center font-jua text-3xl text-textColor transition-colors hover:bg-ageColor hover:text-white small:mt-0">
+      <button className="mx-auto mb-16 mt-24 w-fit cursor-pointer rounded-3xl p-3 text-center font-jua text-3xl text-textColor transition-colors hover:bg-ageColor hover:text-white small:mt-0 long:mb-16">
         제출하기
       </button>
+      <GoogleAdsense />
     </form>
   );
 }

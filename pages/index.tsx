@@ -2,6 +2,7 @@ import ArcornBackground, { KindProps } from '@components/ArcornBackground';
 import AskAge from '@components/AskAge';
 import AskCouple from '@components/AskCouple';
 import Copyright from '@components/Copyright';
+import GoogleAdsense from '@components/GoogleAdsense';
 import Question from '@components/Question';
 import ResultScreen from '@components/ResultScreen';
 import SplashScreen from '@components/SplashScreen';
@@ -195,7 +196,7 @@ export default function Index() {
   return (
     <div className="mx-auto h-full max-w-xl">
       <ArcornBackground curHeight={curHeight} kind={categoryKind} />
-      {isStart && <SplashScreen onStartClick={onStartClick} />}
+      {isStart && <SplashScreen isInit={isInit} onStartClick={onStartClick} />}
       {isAskCouple && <AskCouple onAskCoupleClick={onAskCoupleClick} />}
       {isAskAge && (
         <AskAge
@@ -229,15 +230,6 @@ export default function Index() {
       )}
       {!isResult && !result && (
         <>
-          {isInit && (
-            <ins
-              className="adsbygoogle absolute right-0 left-0 bottom-24 z-50 mx-auto h-48  max-w-lg bg-slate-300 small:h-36"
-              style={{ display: 'block' }}
-              data-ad-client="ca-pub-2859963355226699"
-              data-ad-slot="2860300775"
-              data-ad-format="auto"
-              data-full-width-responsive="true"></ins>
-          )}
           <Copyright textColor="black" />
         </>
       )}
