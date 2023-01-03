@@ -86,6 +86,15 @@ export default function Index() {
     setCurIndex(prev => prev + 1);
   };
 
+  const getDummyTextarea = () => {
+    const textarea = document.createElement('textarea') as HTMLTextAreaElement;
+    textarea.style.top = '0';
+    textarea.style.left = '0';
+    textarea.style.display = 'fixed';
+
+    return textarea;
+  };
+
   const onCopyAndShareClick = () => {
     if (navigator.clipboard) {
       navigator.clipboard
@@ -99,24 +108,17 @@ export default function Index() {
       return;
     }
 
-    const tmpTextarea = document.createElement('textarea');
+    const rootElement = document.body;
+    const textarea = getDummyTextarea();
+    textarea.value = window.location.href;
 
-    // 2. 해당 element에 복사하고자 하는 value 저장
-    tmpTextarea.value = window.location.href;
+    rootElement.appendChild(textarea);
 
-    // 3. 해당 element를 화면에 안보이는 곳에 위치
-    tmpTextarea.setAttribute('readonly', '');
-    tmpTextarea.style.position = 'absolute';
-    tmpTextarea.style.left = '-9999px';
-    document.body.appendChild(tmpTextarea);
+    textarea.focus();
+    textarea.select();
 
-    // 4. 해당 element의 value를 시스템 함수를 호출하여 복사
-    tmpTextarea.select();
-    tmpTextarea.setSelectionRange(0, 9999); // 셀렉트 범위 설정
     const successChk = document.execCommand('copy');
-
-    // 5. 해당 element 삭제
-    document.body.removeChild(tmpTextarea);
+    rootElement.removeChild(textarea);
 
     if (!successChk) {
       alert(SERVICE_MESSAGE.notAbleCopy);
