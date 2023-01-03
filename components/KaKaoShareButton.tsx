@@ -18,8 +18,8 @@ export default function KaKaoShareButton() {
         imageUrl: SHARE_DATA.imageUrl,
         link: {
           // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
-          mobileWebUrl: 'https://developers.kakao.com',
-          webUrl: 'https://developers.kakao.com',
+          mobileWebUrl: 'https://korean-retirement.vercel.app/',
+          webUrl: 'https://korean-retirement.vercel.app/',
         },
       },
       commerce: {
@@ -32,8 +32,8 @@ export default function KaKaoShareButton() {
         {
           title: '하러가기',
           link: {
-            mobileWebUrl: 'https://developers.kakao.com',
-            webUrl: 'https://developers.kakao.com',
+            mobileWebUrl: 'https://korean-retirement.vercel.app/',
+            webUrl: 'https://korean-retirement.vercel.app/',
           },
         },
         {
@@ -50,8 +50,7 @@ export default function KaKaoShareButton() {
     <div
       id="kakaotalk-sharing-btn"
       className="relative h-14 w-14 cursor-pointer"
-      onClick={() => onShareClick()}
-    >
+      onClick={() => onShareClick()}>
       <Image
         src={SHARE_DATA.kakaoSrc}
         alt="kakaoShared"

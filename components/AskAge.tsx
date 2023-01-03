@@ -8,6 +8,7 @@ import {
 } from 'react-hook-form';
 import { ERROR_MESSAGE, SERVICE_NUMBER } from 'constant';
 import { FormProps } from 'pages';
+import GoogleAdsense from './GoogleAdsense';
 
 interface AskAgeProps {
   errors: Partial<
@@ -30,11 +31,11 @@ export default function AskAge({
     <form
       onSubmit={handleSubmit(onAgeValid)}
       className=" relative z-20  flex h-screen w-full  flex-col px-5 font-bareunHipi text-textColor">
-      <div className="z-10 mt-28 flex w-full items-center justify-center whitespace-pre-wrap rounded-full bg-white p-2 py-6 text-center text-2xl small:mt-12">
+      <div className="z-10 mt-28 flex w-full items-center justify-center whitespace-pre-wrap rounded-full bg-white p-2 py-6 text-center text-2xl small:mt-12 tall:mt-24 long:mt-28">
         {`은퇴는 몇 살에 하는게 좋을까?`}
       </div>
 
-      <div className="relative mt-20 flex h-24 items-center justify-center small:mt-10">
+      <div className="relative mt-20 flex h-24 items-center justify-center small:mt-10 tall:mt-20 long:mt-20">
         <div className="absolute h-24 w-full px-4">
           <Image
             src={inputAge}
@@ -66,9 +67,10 @@ export default function AskAge({
       <div className="my-5 text-center  text-lg text-red-500">
         {errors.age && `${errors.age.message}`}
       </div>
-      <button className="mx-auto mt-24 w-fit cursor-pointer rounded-3xl p-3 text-center font-jua text-3xl text-textColor transition-colors hover:bg-ageColor hover:text-white small:mt-0">
+      <button className="mx-auto mb-16 mt-24 w-fit cursor-pointer rounded-3xl p-3 text-center font-jua text-3xl text-textColor transition-colors hover:bg-ageColor hover:text-white small:mt-0 tall:mt-0 tall:mb-16 long:mb-16 long:mt-24">
         제출하기
       </button>
+      <GoogleAdsense />
     </form>
   );
 }

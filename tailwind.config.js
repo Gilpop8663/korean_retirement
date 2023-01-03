@@ -50,8 +50,9 @@ module.exports = {
         jua: ['Jua', 'sans-serif'],
       },
       screens: {
-        small: { min: '360px', max: '400px' },
-        tall: { min: '401px', max: '639px' },
+        small: { min: '360px', max: '400px', raw: '(min-height: 600px)' },
+        tall: { min: '360px', max: '639px', raw: '(min-height: 700px)' },
+        long: { min: '401px', max: '639px', raw: '(min-height: 900px)' },
       },
     },
   },
