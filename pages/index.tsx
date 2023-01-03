@@ -86,6 +86,15 @@ export default function Index() {
     setCurIndex(prev => prev + 1);
   };
 
+  const getDummyTextarea = () => {
+    const textarea = document.createElement('textarea') as HTMLTextAreaElement;
+    textarea.style.top = '0';
+    textarea.style.left = '0';
+    textarea.style.display = 'fixed';
+
+    return textarea;
+  };
+
   const onCopyAndShareClick = () => {
     if (navigator.clipboard) {
       navigator.clipboard
@@ -98,7 +107,24 @@ export default function Index() {
         });
       return;
     }
-    alert(SERVICE_MESSAGE.notAbleCopy);
+
+    const rootElement = document.body;
+    const textarea = getDummyTextarea();
+    textarea.value = window.location.href;
+
+    rootElement.appendChild(textarea);
+
+    textarea.focus();
+    textarea.select();
+
+    const successChk = document.execCommand('copy');
+    rootElement.removeChild(textarea);
+
+    if (!successChk) {
+      alert(SERVICE_MESSAGE.notAbleCopy);
+    } else {
+      alert(SERVICE_MESSAGE.successCopy);
+    }
   };
 
   const onResetClick = () => {

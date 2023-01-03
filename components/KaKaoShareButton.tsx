@@ -1,15 +1,10 @@
 import { SHARE_DATA } from 'constant';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export default function KaKaoShareButton() {
   const onShareClick = () => {
     const { Kakao, location } = window;
-    // console.log(Kakao);
-    // Kakao.Link.sendScrap({
-    //   requestUrl: location.href,
-    // });
-
     Kakao.Share.createDefaultButton({
       container: '#kakaotalk-sharing-btn',
       objectType: 'commerce',
@@ -39,18 +34,19 @@ export default function KaKaoShareButton() {
         {
           title: '결과보기',
           link: {
-            mobileWebUrl: 'https://developers.kakao.com',
-            webUrl: 'https://developers.kakao.com',
+            mobileWebUrl: location.href,
+            webUrl: location.href,
           },
         },
       ],
     });
   };
+
   return (
     <div
       id="kakaotalk-sharing-btn"
       className="relative h-14 w-14 cursor-pointer"
-      onClick={() => onShareClick()}>
+      onClick={onShareClick}>
       <Image
         src={SHARE_DATA.kakaoSrc}
         alt="kakaoShared"
