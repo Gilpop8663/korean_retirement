@@ -9,10 +9,10 @@ interface SplashScreenProps {
 
 export default function SplashScreen({ onStartClick }: SplashScreenProps) {
   return (
-    <div className="flex  h-screen max-w-lg flex-col items-center justify-center">
-      <div className="absolute top-72  left-0 right-0 z-20 mx-auto flex w-full max-w-lg flex-col items-center justify-center">
+    <div className="flex h-screen max-w-lg flex-col items-center justify-center">
+      <div className="absolute left-0 right-0 z-20 mx-auto flex w-full max-w-lg flex-col items-center justify-center small:top-32">
         <div className="relative flex w-full items-center justify-center">
-          <span className="absolute -top-9 left-32 font-bareunHipi text-base text-textColor">
+          <span className="absolute -top-9 left-32 font-bareunHipi text-base text-textColor small:left-12 tall:left-20">
             은퇴 이후, 얼마가 필요할까?
           </span>
           <div className="absolute z-0 h-[93px] w-[281px] ">
@@ -22,7 +22,7 @@ export default function SplashScreen({ onStartClick }: SplashScreenProps) {
               alt="rectangle"
               layout="fill"></Image>
           </div>
-          <div className="absolute -top-16 right-32 z-0 h-[84px] w-[84px]">
+          <div className="absolute -top-16 right-32 z-0 h-[84px] w-[84px] small:right-12 tall:right-20">
             <Image
               className="z-0"
               src={Squirrel}

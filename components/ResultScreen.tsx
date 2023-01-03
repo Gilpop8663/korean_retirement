@@ -25,7 +25,7 @@ export default function ResultScreen({
   return (
     <div className="relative flex max-w-lg justify-center">
       <div className="flex h-full  max-w-lg flex-col items-center  pt-7 font-bareunHipi ">
-        <div className="relative h-96 w-96 ">
+        <div className="relative mx-auto h-96 w-96 small:w-80">
           <Image
             className="object-contain"
             src={result.imageSrc.character}
@@ -67,7 +67,7 @@ export default function ResultScreen({
               {result.koreanCategory}
             </span>
           </div>
-          <div className="mt-6 flex w-96  flex-col rounded-3xl bg-white p-4">
+          <div className="mx-auto mt-6 flex  w-96 flex-col rounded-3xl bg-white p-4 small:w-80">
             <span className="whitespace-pre-wrap text-center text-2xl text-describtionText">
               {result.koreanDescription}
             </span>
@@ -100,7 +100,7 @@ export default function ResultScreen({
               kind === SERVICE_STRING.stock ? 'bg-stockRetry' : '',
               kind === SERVICE_STRING.realEstate ? 'bg-estateRetry' : '',
               kind === SERVICE_STRING.business ? 'bg-businessRetry' : '',
-              'bg-retry my-7 w-96 cursor-pointer rounded-3xl p-3  text-center  font-jua text-2xl text-white'
+              'bg-retry my-7 w-96 cursor-pointer rounded-3xl p-3  text-center  font-jua text-2xl text-white small:w-80'
             )}>
             다시하기
           </div>
@@ -134,13 +134,19 @@ export default function ResultScreen({
                 </svg>
               </div>
             </div>
-            <ins
-              className="adsbygoogle mt-7 h-96 w-full"
+            <div
+              className=" mt-7 h-96 w-full bg-slate-300"
+              data-ad-client="ca-pub-2859963355226699"
+              data-ad-slot="8186432034"
+              data-ad-format="auto"
+              data-full-width-responsive="true"></div>
+            {/* <ins
+              className="adsbygoogle mt-7 h-96 w-full bg-slate-300"
               style={{ display: 'block' }}
               data-ad-client="ca-pub-2859963355226699"
               data-ad-slot="8186432034"
               data-ad-format="auto"
-              data-full-width-responsive="true"></ins>
+              data-full-width-responsive="true"></ins> */}
           </div>
         </div>
       </div>

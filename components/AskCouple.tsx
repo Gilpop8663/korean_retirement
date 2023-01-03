@@ -13,21 +13,19 @@ export default function AskCouple({ onAskCoupleClick }: AskCoupleProps) {
       <div className="z-10 mt-28 flex w-full items-center justify-center whitespace-pre-wrap rounded-full bg-white p-2 text-center text-2xl">
         {`은퇴 후,\n당신의 노년엔 함께하는 이가 있나요?`}
       </div>
-      <div className="mt-32 flex justify-between px-16">
+      <div className="mt-32 flex justify-between px-16 small:mt-16 small:px-4 tall:px-8">
         <div
           onClick={() => onAskCoupleClick(SERVICE_STRING.couple)}
-          className="relative flex h-28 w-28 cursor-pointer items-center justify-center transition-colors hover:text-ageColor"
-        >
+          className="relative flex h-28 w-28 cursor-pointer items-center justify-center transition-colors hover:text-ageColor">
           <div className="relative h-28 w-28">
             <Image src={OX} className="z-10" alt="ox" layout="fill"></Image>
           </div>
           <span className="absolute z-20 text-[50px] font-bold ">O</span>
         </div>
-        <div className="relative flex h-28 w-28 cursor-pointer items-center justify-center transition-colors hover:text-ageColor">
-          <div
-            onClick={() => onAskCoupleClick(SERVICE_STRING.alone)}
-            className="relative h-28 w-28 "
-          >
+        <div
+          onClick={() => onAskCoupleClick(SERVICE_STRING.alone)}
+          className="relative flex h-28 w-28 cursor-pointer items-center justify-center transition-colors hover:text-ageColor">
+          <div className="relative h-28 w-28 ">
             <Image src={OX} className="z-10" alt="ox" layout="fill"></Image>
           </div>
           <span className="absolute z-20 text-[50px] font-bold  ">X</span>
