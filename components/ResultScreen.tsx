@@ -148,6 +148,7 @@ export default function ResultScreen({
             </div>
             <ins
               className=" adsbygoogle  relative mt-7  h-96 w-full "
+              style={{ display: 'block' }}
               data-ad-client="ca-pub-2859963355226699"
               data-ad-slot="8186432034"
               data-ad-format="auto"
