@@ -1,6 +1,7 @@
 import ArcornBackground, { KindProps } from '@components/ArcornBackground';
 import AskAge from '@components/AskAge';
 import AskCouple from '@components/AskCouple';
+import Copyright from '@components/Copyright';
 import Question from '@components/Question';
 import ResultScreen from '@components/ResultScreen';
 import SplashScreen from '@components/SplashScreen';
@@ -236,9 +237,10 @@ export default function Index() {
                 data-full-width-responsive="true"></ins>
             </div>
           )}
-          <div className="absolute bottom-3 left-0 right-0 z-50 mx-auto whitespace-pre-wrap text-center font-bareunHipi text-sm">
+          {/* <div className="absolute bottom-3 left-0 right-0 z-50 mx-auto whitespace-pre-wrap text-center font-bareunHipi text-sm">
             {SERVICE_MESSAGE.copyright}
-          </div>
+          </div> */}
+          <Copyright />
         </>
       )}
     </div>

@@ -6,6 +6,7 @@ import { KindProps } from './ArcornBackground';
 import { cls } from '@libs/utils';
 import { SERVICE_MESSAGE, SERVICE_STRING } from 'constant';
 import RegionalResult from './RegionalResult';
+import Copyright from './Copyright';
 
 interface ResultProps {
   result: RetirementResultProps;
@@ -150,9 +151,7 @@ export default function ResultScreen({
           </div>
         </div>
       </div>
-      <div className="absolute bottom-3 left-0 right-0 z-50 mx-auto whitespace-pre-wrap text-center font-bareunHipi text-sm">
-        {SERVICE_MESSAGE.copyright}
-      </div>
+      <Copyright />
     </div>
   );
 }
