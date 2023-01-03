@@ -4,6 +4,7 @@ export default function Document() {
   return (
     <Html lang="ko">
       <Head>
+        <title>은퇴 자금 테스트!</title>
         <meta
           property="og:url"
           content="https://korean-retirement.vercel.app/"
