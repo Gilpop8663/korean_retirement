@@ -40,6 +40,10 @@ export default function Document() {
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2859963355226699"
           crossOrigin="anonymous"></script>
         <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2859963355226699"
+          crossOrigin="anonymous"></script>
+        <script
           defer
           src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
         <script
