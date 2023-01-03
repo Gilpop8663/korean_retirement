@@ -12,7 +12,7 @@ export default function SplashScreen({ onStartClick }: SplashScreenProps) {
     <div className="flex h-screen max-w-lg flex-col items-center justify-center">
       <div className="absolute left-0 right-0 z-20 mx-auto flex w-full max-w-lg flex-col items-center justify-center small:top-32">
         <div className="relative flex w-full items-center justify-center">
-          <span className="absolute -top-9 left-32 font-bareunHipi text-base text-textColor small:left-12 tall:left-20">
+          <span className="absolute -top-9 left-32 rounded-md bg-white px-1 font-bareunHipi text-base text-textColor small:left-12 tall:left-20">
             은퇴 이후, 얼마가 필요할까?
           </span>
           <div className="absolute z-0 h-[93px] w-[281px] ">

@@ -7,15 +7,17 @@ interface RegionalResultProps {
   location: '서울' | '광역시' | '도';
   retirement: string;
   kind: KindProps;
+  isRich: boolean;
 }
 
 export default function RegionalResult({
   kind,
   location,
   retirement,
+  isRich,
 }: RegionalResultProps) {
   return (
-    <div className="relative">
+    <div className={cls(isRich ? 'hidden' : 'visible', 'relative')}>
       <div
         className={cls(
           kind === SERVICE_STRING.minimum

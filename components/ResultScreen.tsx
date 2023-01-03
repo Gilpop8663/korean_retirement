@@ -78,16 +78,19 @@ export default function ResultScreen({
                   kind={kind}
                   location="서울"
                   retirement={result.seoulCost}
+                  isRich={isRich}
                 />
                 <RegionalResult
                   kind={kind}
                   location="광역시"
                   retirement={result.metropolitanCost}
+                  isRich={isRich}
                 />
                 <RegionalResult
                   kind={kind}
                   location="도"
                   retirement={result.doCost}
+                  isRich={isRich}
                 />
               </>
             )}
@@ -106,7 +109,15 @@ export default function ResultScreen({
             다시하기
           </div>
           <div className="mb-24 flex flex-col items-center">
-            <span className="mb-7 text-lg">결과 공유하기</span>
+            <span
+              className={cls(
+                kind === SERVICE_STRING.stock ? 'text-white' : '',
+                kind === SERVICE_STRING.realEstate ? 'text-white' : '',
+                kind === SERVICE_STRING.business ? 'text-white' : '',
+                'mb-7 text-lg'
+              )}>
+              결과 공유하기
+            </span>
             <div className="flex w-48 justify-between">
               <KaKaoShareButton />
               <div
@@ -135,23 +146,17 @@ export default function ResultScreen({
                 </svg>
               </div>
             </div>
-            <div
-              className=" mt-7 h-96 w-full bg-slate-300"
-              data-ad-client="ca-pub-2859963355226699"
-              data-ad-slot="8186432034"
-              data-ad-format="auto"
-              data-full-width-responsive="true"></div>
-            {/* <ins
-              className="adsbygoogle mt-7 h-96 w-full bg-slate-300"
+            <ins
+              className="adsbygoogle mt-7 h-96 w-full "
               style={{ display: 'block' }}
               data-ad-client="ca-pub-2859963355226699"
               data-ad-slot="8186432034"
               data-ad-format="auto"
-              data-full-width-responsive="true"></ins> */}
+              data-full-width-responsive="true"></ins>
           </div>
         </div>
       </div>
-      <Copyright />
+      <Copyright textColor={isRich ? 'white' : 'black'} />
     </div>
   );
 }

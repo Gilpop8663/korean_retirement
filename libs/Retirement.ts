@@ -35,6 +35,10 @@ class Retirement {
     this.#category = this.calculateCategory(score);
   }
 
+  getIsRich() {
+    return this.#isRich;
+  }
+
   setCategory(category: KindProps) {
     this.#category = category;
     if (
