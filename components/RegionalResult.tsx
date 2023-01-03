@@ -51,7 +51,7 @@ export default function RegionalResult({
           )}>
           <span className="relative bottom-[2px] right-[2px]">{location}</span>
         </span>
-        <span className="text-black">{retirement}원</span>
+        <span className="text-black">{retirement.slice(1)}원</span>
       </div>
     </div>
   );

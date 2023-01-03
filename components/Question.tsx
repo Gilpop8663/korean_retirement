@@ -22,14 +22,14 @@ export default function Question({
 }: QuestionProps) {
   return (
     <div className=" relative z-20  flex h-screen flex-col  px-5 font-bareunHipi text-textColor">
-      <div className="z-10 mt-28 flex w-full items-center justify-center whitespace-pre-wrap rounded-full bg-white p-2 text-center text-2xl small:mt-12 long:mt-24">
+      <div className="z-10 mt-28 flex w-full items-center justify-center whitespace-pre-wrap rounded-full bg-white p-2 text-center text-2xl small:mt-12 tall:mt-12 long:mt-24 ">
         {question}
       </div>
-      <div className="mb-8 mt-20 flex flex-col items-center space-y-6 small:mt-8 long:mb-14 long:mt-16">
+      <div className="mb-8 mt-20 flex flex-col items-center space-y-6 small:mt-8 tall:mb-16 tall:mt-16 long:mb-28 long:mt-20 ">
         {answers.map((answer, index) => (
           <span
             onClick={() => onCalculateScore(answer.score, answer.rich)}
-            className="w-full cursor-pointer rounded-2xl bg-white p-2 px-2 text-center text-2xl text-textColor outline-dashed outline-4 outline-ageColor small:text-lg long:text-2xl"
+            className="w-full cursor-pointer rounded-2xl bg-white p-2 px-2 text-center text-2xl text-textColor outline-dashed outline-4 outline-ageColor small:text-lg tall:text-xl long:text-2xl"
             key={index}>
             {answer.message}
           </span>
