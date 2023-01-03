@@ -1,6 +1,7 @@
 import ArcornBackground, { KindProps } from '@components/ArcornBackground';
 import AskAge from '@components/AskAge';
 import AskCouple from '@components/AskCouple';
+import Copyright from '@components/Copyright';
 import Question from '@components/Question';
 import ResultScreen from '@components/ResultScreen';
 import SplashScreen from '@components/SplashScreen';
@@ -115,6 +116,7 @@ export default function Index() {
     setRichCount(0);
     setScore(0);
     setCurIndex(0);
+    setIsRich(false);
 
     router.replace('/');
     reset();
@@ -128,6 +130,7 @@ export default function Index() {
       setResult(retirement.getRetirementResult());
       const category = retirement.getCategory();
       setCategoryKind(category);
+      setIsRich(retirement.getIsRich());
       router.replace('/', `/?target=${target}&age=${age}&category=${category}`);
 
       setIsResult(prev => !prev);
@@ -170,6 +173,7 @@ export default function Index() {
     const categoryName = retirement.getCategory();
     setCategoryKind(categoryName);
     setResult(retirement.getRetirementResult());
+    setIsRich(retirement.getIsRich());
 
     setIsStart(false);
     setIsAskCouple(false);
@@ -227,16 +231,14 @@ export default function Index() {
         <>
           {isInit && (
             <ins
-              className="adsbygoogle absolute right-0 left-0 bottom-24 z-50 mx-auto h-48 w-96"
+              className="adsbygoogle absolute right-0 left-0 bottom-24 z-50 mx-auto h-48  max-w-lg bg-slate-300 small:h-36"
               style={{ display: 'block' }}
               data-ad-client="ca-pub-2859963355226699"
               data-ad-slot="2860300775"
               data-ad-format="auto"
               data-full-width-responsive="true"></ins>
           )}
-          <div className="absolute bottom-3 left-0 right-0 z-50 mx-auto whitespace-pre-wrap text-center font-bareunHipi text-sm">
-            {SERVICE_MESSAGE.copyright}
-          </div>
+          <Copyright textColor="black" />
         </>
       )}
     </div>

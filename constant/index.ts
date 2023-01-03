@@ -214,14 +214,14 @@ const CATEGORY_IMAGE = Object.freeze({
   realEstate: {
     background: '',
     character:
-      'https://user-images.githubusercontent.com/80146176/210162044-7ff4d391-8584-423f-8d1c-cb2a79cb36c9.png',
+      'https://user-images.githubusercontent.com/80146176/210391311-d70835b6-67cb-45a7-99c9-21a8cb850b70.png',
     rectangle:
       'https://user-images.githubusercontent.com/80146176/210162043-76b35244-df94-4451-917e-be378550afa0.png',
   },
   business: {
     background: '',
     character:
-      'https://user-images.githubusercontent.com/80146176/210162044-7ff4d391-8584-423f-8d1c-cb2a79cb36c9.png',
+      'https://user-images.githubusercontent.com/80146176/210391303-a4b9f8dd-7515-43a2-a0d2-3265523684a1.png',
     rectangle:
       'https://user-images.githubusercontent.com/80146176/210162043-76b35244-df94-4451-917e-be378550afa0.png',
   },

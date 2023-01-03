@@ -19,37 +19,31 @@ module.exports = {
         minimumText: '#344C7A',
         properText: '#144561',
         luxuryText: '#42204E',
-
-        //미구현
-        estateText: '#1D1D1D',
-        businessText: '#1D1D1D',
+        stockText: '#595959',
+        estateText: '#595959',
+        businessText: '#595959',
 
         minimumSoft: '#9FAECB',
         properSoft: '#78B3D4',
         luxurySoft: '#B48BCD',
-
-        //미구현
-        estateSoft: '#1D1D1D',
-        businessSoft: '#1D1D1D',
+        stockSoft: '#595959',
+        estateSoft: '#595959',
+        businessSoft: '#595959',
 
         minimumRetry: '#3F4274',
         properRetry: '#144561',
         luxuryRetry: '#42204E',
         stockRetry: '#595959',
-
-        //미구현
-        estateRetry: '#1D1D1D',
-        businessRetry: '#1D1D1D',
+        estateRetry: '#595959',
+        businessRetry: '#595959',
 
         normalBg: '#FDE9D1',
         minimumBg: '#6279A7',
         properBg: '#3C82AA',
         luxuryBg: '#6A539B',
         stockBg: '#21252E',
-
-        //미구현
-        estateBg: '#1D1D1D',
-        businessBg: '#1D1D1D',
+        estateBg: '#21252E',
+        businessBg: '#21252E',
       },
       fontFamily: {
         bareunHipi: ['NanumBaReunHiPi', 'cursive'],
