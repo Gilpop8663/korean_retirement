@@ -22,15 +22,14 @@ export default function Document() {
           name="google-site-verification"
           content="bn2vsRbCicbyvCfYW0yjaW1maH6b4awLLq1pFlt2c1Y"
         />
-        <Script
-          strategy="beforeInteractive"
+        <script
+          async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2859963355226699"
-          crossOrigin="anonymous"></Script>
+          crossOrigin="anonymous"></script>
+        <script
+          defer
+          src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
         <Script
-          strategy="beforeInteractive"
-          src="https://developers.kakao.com/sdk/js/kakao.min.js"></Script>
-        <Script
-          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `(adsbygoogle = window.adsbygoogle || []).push({});`,
           }}></Script>
