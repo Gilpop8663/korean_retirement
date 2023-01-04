@@ -146,13 +146,15 @@ export default function ResultScreen({
                 </svg>
               </div>
             </div>
-            <ins
-              className=" adsbygoogle  relative mt-7  h-96 w-full "
-              style={{ display: 'block' }}
-              data-ad-client="ca-pub-2859963355226699"
-              data-ad-slot="8186432034"
-              data-ad-format="auto"
-              data-full-width-responsive="true"></ins>
+            <div className="relative mt-7  h-96 w-full ">
+              <ins
+                className=" adsbygoogle"
+                style={{ display: 'block' }}
+                data-ad-client="ca-pub-2859963355226699"
+                data-ad-slot="8186432034"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            </div>
           </div>
         </div>
       </div>
