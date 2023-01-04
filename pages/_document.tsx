@@ -1,24 +1,10 @@
 import { Html, Head, Main, NextScript } from 'next/document';
+import Script from 'next/script';
 
 export default function Document() {
   return (
     <Html lang="ko">
       <Head>
-        <title>은퇴 자금 테스트!</title>
-        <meta
-          property="og:url"
-          content="https://korean-retirement.vercel.app/"
-        />
-        <meta property="og:title" content="은퇴 자금 테스트!" />
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:image"
-          content="https://user-images.githubusercontent.com/80146176/210153300-4123582a-84bc-4833-8e27-581fe697df89.png"
-        />
-        <meta
-          property="og:description"
-          content="은퇴 이후, 얼마가 필요할까? 은퇴 자금 테스트 !"
-        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
@@ -36,17 +22,31 @@ export default function Document() {
           name="google-site-verification"
           content="bn2vsRbCicbyvCfYW0yjaW1maH6b4awLLq1pFlt2c1Y"
         />
-        <script
-          async
+        <Script
+          strategy="beforeInteractive"
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2859963355226699"
-          crossOrigin="anonymous"></script>
-        <script
-          defer
-          src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-        <script
+          crossOrigin="anonymous"></Script>
+        <Script
+          strategy="beforeInteractive"
+          src="https://developers.kakao.com/sdk/js/kakao.min.js"></Script>
+        <Script
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `(adsbygoogle = window.adsbygoogle || []).push({});`,
-          }}></script>
+          }}></Script>
+        <Script
+          strategy="beforeInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}></Script>
+        <Script
+          id="gtag-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `  window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+          
+            gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');`,
+          }}></Script>
       </Head>
       <body>
         <Main />

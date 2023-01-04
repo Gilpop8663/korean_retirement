@@ -169,7 +169,7 @@ export default function Index() {
     setCurHeight(height);
   }, [categoryKind]);
 
-  const KAKAO_KEY = '7fdda327ceac4a3a6a961e4192d57fab';
+  const KAKAO_KEY = process.env.NEXT_PUBLIC_KAKAO_KEY as string;
 
   useEffect(() => {
     if (!window.Kakao.isInitialized()) {
