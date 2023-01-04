@@ -178,11 +178,6 @@ export default function Index() {
     setIsInit(true);
   }, []);
 
-  useEffect(() => {
-    window.adsbygoogle = window.adsbygoogle || [];
-    window.adsbygoogle.push({});
-  }, []);
-
   // 결과 공유
   useEffect(() => {
     if (
@@ -261,6 +256,7 @@ export default function Index() {
       )}
       {!isResult && !result && (
         <>
+          {isInit && <GoogleAdsense />}
           <Copyright textColor="black" />
         </>
       )}

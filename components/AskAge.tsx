@@ -70,7 +70,7 @@ export default function AskAge({
       <button className="mx-auto mb-16 mt-24 w-fit cursor-pointer rounded-3xl p-3 text-center font-jua text-3xl text-textColor transition-colors hover:bg-ageColor hover:text-white small:mt-0 tall:mt-0 tall:mb-16 long:mb-16 long:mt-24">
         제출하기
       </button>
-      <GoogleAdsense />
+      {/* <GoogleAdsense /> */}
     </form>
   );
 }
