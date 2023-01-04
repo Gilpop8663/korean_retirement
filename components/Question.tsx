@@ -35,7 +35,7 @@ export default function Question({
           </span>
         ))}
       </div>
-      <GoogleAdsense />
+      {/* <GoogleAdsense /> */}
     </div>
   );
 }

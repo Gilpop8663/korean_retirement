@@ -43,10 +43,10 @@ export default function Document() {
         <script
           defer
           src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-        {/* <script
+        <script
           dangerouslySetInnerHTML={{
             __html: `(adsbygoogle = window.adsbygoogle || []).push({});`,
-          }}></script> */}
+          }}></script>
       </Head>
       <body>
         <Main />

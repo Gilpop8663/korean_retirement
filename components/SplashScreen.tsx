@@ -46,7 +46,7 @@ export default function SplashScreen({
           className="mt-24 cursor-pointer rounded-3xl p-3 font-jua text-3xl text-textColor transition-colors hover:bg-ageColor hover:text-white tall:mb-12 long:mb-24">
           시작하기
         </div>
-        {isInit && <GoogleAdsense />}
+        {/* {isInit && <GoogleAdsense />} */}
       </div>
     </div>
   );

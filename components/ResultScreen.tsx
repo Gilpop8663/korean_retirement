@@ -24,7 +24,7 @@ export default function ResultScreen({
   onResetClick,
 }: ResultProps) {
   return (
-    <div className="relative flex max-w-lg justify-center">
+    <div className="relative mx-auto flex max-w-lg justify-center">
       <div className="flex h-full  max-w-lg flex-col items-center  pt-7 font-bareunHipi ">
         <div className="relative mx-auto h-96 w-96 small:w-80 tall:w-80 long:w-96">
           <Image
@@ -146,7 +146,7 @@ export default function ResultScreen({
                 </svg>
               </div>
             </div>
-            <div className="relative mt-7  h-96 w-full ">
+            {/* <div className="relative mt-7  h-96 w-full ">
               <ins
                 className=" adsbygoogle"
                 style={{ display: 'block' }}
@@ -154,7 +154,7 @@ export default function ResultScreen({
                 data-ad-slot="8186432034"
                 data-ad-format="auto"
                 data-full-width-responsive="true"></ins>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

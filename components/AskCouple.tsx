@@ -10,7 +10,7 @@ interface AskCoupleProps {
 
 export default function AskCouple({ onAskCoupleClick }: AskCoupleProps) {
   return (
-    <div className=" relative z-20  flex  max-w-lg  flex-col items-center px-5 font-bareunHipi text-textColor">
+    <div className=" relative z-20  mx-auto  flex  max-w-lg flex-col items-center px-5 font-bareunHipi text-textColor">
       <div className="z-10 mt-28 flex w-full items-center justify-center whitespace-pre-wrap rounded-full bg-white p-2 text-center text-2xl">
         {`은퇴 후,\n당신의 노년엔 함께하는 이가 있나요?`}
       </div>
@@ -32,7 +32,7 @@ export default function AskCouple({ onAskCoupleClick }: AskCoupleProps) {
           <span className="absolute z-20 text-[50px] font-bold  ">X</span>
         </div>
       </div>
-      <GoogleAdsense />
+      {/* <GoogleAdsense /> */}
     </div>
   );
 }
