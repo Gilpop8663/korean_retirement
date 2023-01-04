@@ -178,6 +178,11 @@ export default function Index() {
     setIsInit(true);
   }, []);
 
+  useEffect(() => {
+    window.adsbygoogle = window.adsbygoogle || [];
+    window.adsbygoogle.push({});
+  }, []);
+
   // 결과 공유
   useEffect(() => {
     if (
@@ -256,7 +261,7 @@ export default function Index() {
       )}
       {!isResult && !result && (
         <>
-          <div className="relative right-0 left-0  z-50 mx-auto h-48  max-w-lg  small:h-36 tall:h-36 long:h-48">
+          {isInit && (
             <ins
               className="adsbygoogle"
               style={{ display: 'block' }}
@@ -264,7 +269,7 @@ export default function Index() {
               data-ad-slot="2860300775"
               data-ad-format="auto"
               data-full-width-responsive="true"></ins>
-          </div>
+          )}
           <Copyright textColor="black" />
         </>
       )}
