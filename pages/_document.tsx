@@ -23,11 +23,11 @@ export default function Document() {
           content="bn2vsRbCicbyvCfYW0yjaW1maH6b4awLLq1pFlt2c1Y"
         />
         <Script
-          strategy="afterInteractive"
+          strategy="beforeInteractive"
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2859963355226699"
           crossOrigin="anonymous"></Script>
         <Script
-          strategy="afterInteractive"
+          strategy="beforeInteractive"
           src="https://developers.kakao.com/sdk/js/kakao.min.js"></Script>
         <Script
           strategy="lazyOnload"
@@ -35,7 +35,7 @@ export default function Document() {
             __html: `(adsbygoogle = window.adsbygoogle || []).push({});`,
           }}></Script>
         <Script
-          strategy="afterInteractive"
+          strategy="beforeInteractive"
           src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}></Script>
         <Script
           id="gtag-init"
