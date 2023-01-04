@@ -261,15 +261,6 @@ export default function Index() {
       )}
       {!isResult && !result && (
         <>
-          {isInit && (
-            <ins
-              className="adsbygoogle"
-              style={{ display: 'block' }}
-              data-ad-client="ca-pub-2859963355226699"
-              data-ad-slot="2860300775"
-              data-ad-format="auto"
-              data-full-width-responsive="true"></ins>
-          )}
           <Copyright textColor="black" />
         </>
       )}
