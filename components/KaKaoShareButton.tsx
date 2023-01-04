@@ -1,6 +1,6 @@
 import { SHARE_DATA } from 'constant';
 import Image from 'next/image';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 export default function KaKaoShareButton() {
   const onShareClick = () => {
