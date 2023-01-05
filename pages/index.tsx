@@ -256,7 +256,7 @@ export default function Index() {
       )}
       {!isResult && !result && (
         <>
-          {isInit && <GoogleAdsense />}
+          {/* {isInit && <GoogleAdsense />} */}
           <Copyright textColor="black" />
         </>
       )}
