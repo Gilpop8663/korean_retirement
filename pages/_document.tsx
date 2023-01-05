@@ -29,10 +29,10 @@ export default function Document() {
         <script
           defer
           src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-        <Script
+        {/* <Script
           dangerouslySetInnerHTML={{
             __html: `(adsbygoogle = window.adsbygoogle || []).push({});`,
-          }}></Script>
+          }}></Script> */}
         <Script
           strategy="beforeInteractive"
           src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}></Script>
